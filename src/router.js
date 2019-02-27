@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import StyleGuide from './views/StyleGuide.vue'
+import Pages from './views/Pages.vue'
+import Login from './views/Login.vue'
 
 Vue.use(Router)
 
@@ -10,6 +13,16 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/pages',
+      name: 'pages',
+      component: Pages
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     },
     {
       path: '/about',
@@ -22,7 +35,7 @@ export default new Router({
     {
       path: '/style-guide',
       name: 'style-guide',
-      component: () => import('./views/StyleGuide.vue')
+      component: StyleGuide
     }
   ]
 })
