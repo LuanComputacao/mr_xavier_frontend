@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import StyleGuide from './views/StyleGuide.vue'
 import Pages from './views/Pages.vue'
 import Login from './views/Login.vue'
+import Questions from './views/Questions.vue'
 
 Vue.use(Router)
 
@@ -15,14 +16,24 @@ export default new Router({
       component: Home
     },
     {
-      path: '/pages',
+      path: '/pages/',
       name: 'pages',
       component: Pages
     },
     {
-      path: '/login',
+      path: '/login/',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/questions/',
+      name: 'questions',
+      component: Questions
+    },
+    {
+      path: '/tests/',
+      name: 'tests',
+      component: Questions
     },
     {
       path: '/about',

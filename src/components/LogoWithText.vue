@@ -1,15 +1,19 @@
 <template>
-    <div class="logo-with-text">
-        <h1>
-            Mr. Xavier
-        </h1>
-        <div>
-            Professor
-        </div>
-    </div>
+  <div class="logo-with-text">
+    <img alt="Vue logo" src="../assets/logo.png">
+    <h1>Mr. Xavier</h1>
+    <div>{{text}}</div>
+  </div>
 </template>
 <script>
 export default {
-  name: 'LogoWithText'
+  name: 'LogoWithText',
+
+  props: {
+    text: {
+      type: String,
+      required: true
+    }
+  }
 }
 </script>

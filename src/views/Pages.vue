@@ -1,8 +1,8 @@
 <template>
     <div>
-        <a class="route-link" :href="route.path" v-for="(route, index) in routes" :key="index">
+        <router-link class="route-link" :to="route.path" v-for="(route, index) in routes" :key="index">
             {{route.name}}
-        </a>
+        </router-link>
     </div>
 </template>
 <script>
