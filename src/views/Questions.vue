@@ -1,19 +1,24 @@
 <template>
   <div class="questions">
     <nav>
-        <router-link to='/'>Home</router-link>
+      <router-link to="/">Home</router-link>
     </nav>
     <h1>Questoes</h1>
     <form>
-      <label for="subjects">Matéria:</label>
-      <select name="subjects" id="js-subjects" v-model="curSubject">
-        <option value>Selecione uma matéria</option>
-        <option v-for="(subject, i) in subjects" :key="i" :value="subject.code">{{subject.name}}</option>
-      </select>
+      <div>
+        <label for="subjects">Matéria:</label>
+        <select name="subjects" id="js-subjects" v-model="curSubject">
+          <option value>Selecione uma matéria</option>
+          <option v-for="(subject, i) in subjects" :key="i" :value="subject.code">{{subject.name}}</option>
+        </select>
+      </div>
 
-      <select multiple name="knowledge" id="js-knowledge">
-        <option v-for="(knowledge, i) in availableKnowledges" :key="i" value>{{knowledge.name}}</option>
-      </select>
+      <div>
+        <label for="knowledges">Conhecimentos necessários:</label>
+        <select multiple name="knowledges" id="knowledges">
+          <option v-for="(knowledge, i) in availableKnowledges" :key="i" value>{{knowledge.name}}</option>
+        </select>
+      </div>
     </form>
   </div>
 </template>
