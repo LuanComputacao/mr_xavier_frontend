@@ -2,19 +2,19 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
     <logo-with-text></logo-with-text>
-    <login-form></login-form>
+    <form-login></form-login>
   </div>
 </template>
 
 <script>
 import LogoWithText from '@/components/LogoWithText.vue'
-import LoginForm from '@/components/forms/LoginForm.vue'
+import FormLogin from '@/components/forms/FormLogin.vue'
 
 export default {
   name: 'home',
   components: {
     LogoWithText,
-    LoginForm
+    FormLogin
   }
 }
 </script>

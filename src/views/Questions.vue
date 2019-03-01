@@ -4,31 +4,37 @@
       <router-link to="/">Home</router-link>
     </nav>
     <h1>Questoes</h1>
-    <form>
-      <div>
-        <label for="subjects">Matéria:</label>
-        <select name="subjects" id="js-subjects" v-model="curSubject">
-          <option value>Selecione uma matéria</option>
-          <option v-for="(subject, i) in subjects" :key="i" :value="subject.code">{{subject.name}}</option>
-        </select>
-      </div>
+    <form-knowledge-filter :subjects="subjects" @filterKnowledge="updateCurrentSubject"></form-knowledge-filter>
 
-      <div>
-        <label for="knowledges">Conhecimentos necessários:</label>
-        <select multiple name="knowledges" id="knowledges">
-          <option v-for="(knowledge, i) in availableKnowledges" :key="i" value>{{knowledge.name}}</option>
-        </select>
-      </div>
-    </form>
+    <table-question :questions="filteredQuestions" ></table-question>
   </div>
 </template>
 <script>
+import FormKnowledgeFilter from '@/components/forms/FormKnowledgeFilter.vue'
+import TableQuestion from '@/components/tables/TableQuestion.vue'
+
 export default {
   name: 'Questions',
 
+  components: {
+    FormKnowledgeFilter,
+    TableQuestion
+  },
+
+  computed: {
+    filteredQuestions () {
+      let subjectQuestions = this.questions.filter(x => x.subject === this.curSubject.code)
+      // let knowledgesQuestions = subjectQuestions.filter(x => this.curSubject.knowledges.indexOf(x))
+      return subjectQuestions
+    }
+  },
+
   data () {
     return {
-      curSubject: '',
+      curSubject: {
+        code: '',
+        knowledges: []
+      },
       subjects: [
         {
           code: 'port',
@@ -60,18 +66,36 @@ export default {
             }
           ]
         }
+      ],
+      questions: [
+        {
+          id: 1,
+          subject: 'mat',
+          knowledges: ['sum'],
+          type: true,
+          wording: 'Esta é a primeira questão?',
+          grade: 8,
+          level: 10
+        },
+        {
+          id: 2,
+          subject: 'port',
+          knowledges: ['predicate'],
+          type: false,
+          wording: 'Esta é a segunda questão?',
+          grade: 9,
+          level: 5
+        }
       ]
     }
   },
-  computed: {
-    availableKnowledges () {
-      let subject = this.subjects.filter(x => x.code === this.curSubject)
-      if (subject.length > 0) {
-        let knowledges = subject[0].knowledge
-        return knowledges
-      }
-      return null
+
+  methods: {
+    updateCurrentSubject (code, knowledges) {
+      this.curSubject.code = code
+      this.curSubject.knowledges = knowledges
     }
   }
+
 }
 </script>

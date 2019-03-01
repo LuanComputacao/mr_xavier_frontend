@@ -15,6 +15,6 @@
 </template>
 <script>
 export default {
-  name: 'LoginForm'
+  name: 'FormLogin'
 }
 </script>
