@@ -6,7 +6,7 @@
     <h1>Questoes</h1>
     <form-knowledge-filter :subjects="subjects" @filterKnowledge="updateCurrentSubject"></form-knowledge-filter>
 
-    <table-question :questions="filteredQuestions" ></table-question>
+    <table-question :questions="filteredQuestions"></table-question>
   </div>
 </template>
 <script>
@@ -23,9 +23,22 @@ export default {
 
   computed: {
     filteredQuestions () {
-      let subjectQuestions = this.questions.filter(x => x.subject === this.curSubject.code)
-      // let knowledgesQuestions = subjectQuestions.filter(x => this.curSubject.knowledges.indexOf(x))
-      return subjectQuestions
+      let that = this
+      let subjectQuestions = this.questions.filter(
+        x => x.subject === this.curSubject.code
+      )
+
+      let filteredQuestions = subjectQuestions.filter(x => {
+        let filteredKnowledge = x.knowledges.filter(
+          x => that.curSubject.knowledges.indexOf(x) > -1
+        )
+
+        return that.curSubject.knowledges.length === filteredKnowledge.length
+      })
+
+      console.log(that.curSubject.knowledges.length)
+      console.log(filteredQuestions)
+      return filteredQuestions
     }
   },
 
@@ -43,6 +56,18 @@ export default {
             {
               code: 'predicate',
               name: 'Predicado'
+            },
+            {
+              code: 'subject',
+              name: 'Sujeito'
+            },
+            {
+              code: 'verb',
+              name: 'Verbo'
+            },
+            {
+              code: 'past',
+              name: 'Preterito'
             }
           ]
         },
@@ -85,6 +110,24 @@ export default {
           wording: 'Esta é a segunda questão?',
           grade: 9,
           level: 5
+        },
+        {
+          id: 3,
+          subject: 'port',
+          knowledges: ['predicate', 'subject', 'verb'],
+          type: false,
+          wording: 'Esta é a terceira questão?',
+          grade: 9,
+          level: 5
+        },
+        {
+          id: 4,
+          subject: 'port',
+          knowledges: ['predicate', 'past'],
+          type: false,
+          wording: 'Esta é a terceira questão?',
+          grade: 9,
+          level: 5
         }
       ]
     }
@@ -96,6 +139,5 @@ export default {
       this.curSubject.knowledges = knowledges
     }
   }
-
 }
 </script>
