@@ -24,6 +24,11 @@ export default {
   computed: {
     filteredQuestions () {
       let that = this
+
+      if (this.curSubject) {
+        return this.questions
+      }
+
       let subjectQuestions = this.questions.filter(
         x => x.subject === this.curSubject.code
       )
@@ -36,8 +41,6 @@ export default {
         return that.curSubject.knowledges.length === filteredKnowledge.length
       })
 
-      console.log(that.curSubject.knowledges.length)
-      console.log(filteredQuestions)
       return filteredQuestions
     }
   },
