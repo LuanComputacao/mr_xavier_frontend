@@ -8,24 +8,24 @@
       </select>
     </div>
 
-    <div>
-      <label for="knowledges">Conhecimentos necessários:</label>
-      <select multiple name="knowledges" id="knowledges" v-model="knowledges">
-        <option
-          v-for="(knowledge, i) in availableKnowledges"
-          :key="i"
-          :value="knowledge.code"
-        >{{knowledge.name}}</option>
-      </select>
-    </div>
+    <input-select-knowledge
+      :availableKnowledges="this.availableKnowledges"
+      @select="updateKnowledges"
+    ></input-select-knowledge>
 
     <button @click.prevent="raiseFilter">Filtrar</button>
   </form>
 </template>
 
 <script>
+import InputSelectKnowledge from '@/components/forms/inputs/InputSelectKnowledge'
+
 export default {
   name: 'FormKnowledgeFilter',
+
+  components: {
+    InputSelectKnowledge
+  },
 
   props: {
     subjects: {
@@ -48,13 +48,17 @@ export default {
         let knowledges = subject[0].knowledge
         return knowledges
       }
-      return null
+      return []
     }
   },
 
   methods: {
     raiseFilter () {
       this.$emit('filterKnowledge', this.curSubject, this.knowledges)
+    },
+
+    updateKnowledges (knowledges) {
+      this.knowledges = knowledges
     }
   }
 }

@@ -4,6 +4,9 @@
       <router-link to="/">Home</router-link>
     </nav>
     <h1>Questoes</h1>
+
+    <router-link to="/question/">Criar Questão</router-link>
+
     <form-knowledge-filter :subjects="subjects" @filterKnowledge="updateCurrentSubject"></form-knowledge-filter>
 
     <table-question :questions="filteredQuestions"></table-question>
@@ -25,7 +28,7 @@ export default {
     filteredQuestions () {
       let that = this
 
-      if (this.curSubject) {
+      if (this.curSubject.code.length < 1) {
         return this.questions
       }
 

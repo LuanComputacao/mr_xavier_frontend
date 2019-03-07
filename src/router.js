@@ -5,6 +5,7 @@ import StyleGuide from './views/StyleGuide.vue'
 import Pages from './views/Pages.vue'
 import Login from './views/Login.vue'
 import Questions from './views/Questions.vue'
+import Question from './views/Question.vue'
 
 Vue.use(Router)
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/login/',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/question/',
+      name: 'question',
+      component: Question
     },
     {
       path: '/questions/',
