@@ -45,8 +45,8 @@
 
       <div v-if="Number.parseInt(type)===1">
         <div v-for="(i, j) in 5" :key="j">
-          <input type="radio" :name="'option-radio-' + i">
-          <input type="text" :name="'option-text-' + i">
+          <input type="checkbox" :name="'option-checkbox[' + i + ']'" @change="updateCorrectAnswers">
+          <input type="text" :name="'option-text[' + i + ']'" @change="updateCorrectAnswers">
         </div>
       </div>
 
@@ -125,6 +125,17 @@ export default {
   methods: {
     updateKnowledges (knowledges) {
       this.knowledges = knowledges
+    },
+
+    updateCorrectAnswers () {
+      let answers = document.querySelectorAll("[name*='option-radio']")
+      console.log(answers)
+    },
+    updateAnswersOptions () {
+      let answers = document.querySelectorAll("[name*='option-text']")
+      answers.forEach(element => {
+        console.log(element)
+      })
     }
   }
 }
