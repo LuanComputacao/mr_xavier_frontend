@@ -4,10 +4,10 @@
       <div>
         Tipo:
         <label for="type">
-          <input type="radio" name="type" value="1" v-model="type">Objetiva
+          <input type="radio" name="type" value="1" v-model.number="type">Objetiva
         </label>
         <label for="type">
-          <input type="radio" name="type" value="2" v-model="type">Discursiva
+          <input type="radio" name="type" value="2" v-model.number="type">Discursiva
         </label>
       </div>
 
@@ -39,44 +39,49 @@
       </div>
 
       <div>
-        <label for="wording">Enunciado</label>
-        <textarea name="wording" id="wording" cols="200" rows="5" v-model="wording"></textarea>
+        <label for="wording">Enunciado:</label>
+        <textarea name="wording" id="wording" cols="50" rows="5" v-model="wording"></textarea>
       </div>
 
       <div v-if="Number.parseInt(type)===1">
         <div v-for="(i, j) in 5" :key="j">
-          <input type="checkbox" :name="'option-checkbox[' + i + ']'" @change="updateCorrectAnswers">
+          <input
+            type="checkbox"
+            :name="'option-checkbox[' + i + ']'"
+            @change="updateCorrectAnswers"
+          >
           <input type="text" :name="'option-text[' + i + ']'" @change="updateCorrectAnswers">
         </div>
       </div>
-
-      <div>
-        Pre-visualização:
-        <br>
-        Matéria: {{subject}}
-        <br>
-        Conhecimentos: {{knowledges.join(' ; ')}}
-        <br>
-        Fase de Ensino: {{degree}}
-        <br>
-        Nível: {{level}}
-        <br>
-        Enunciado:
-        {{wording}}
-        <br>
-        <br>
+      <div v-else-if="Number.parseInt(type)===2">
+        <label for="lines">Lines:</label>
+        <input id="lines" name="lines" type="number" min="0" max="50">
       </div>
+
+      <question-preview
+        :subject="subject"
+        :knowledges="knowledges"
+        :degree="degree"
+        :level="level"
+        :wording="wording"
+        :type="type"
+      ></question-preview>
+
+      <input type="button" value="Salvar Rascunho">
+      <input type="button" value="Publicar">
     </form>
   </div>
 </template>
 <script>
 import InputSelectKnowledge from '@/components/forms/inputs/InputSelectKnowledge'
+import QuestionPreview from '@/components/QuestionPreview'
 
 export default {
   name: 'FormQuestion',
 
   components: {
-    InputSelectKnowledge
+    InputSelectKnowledge,
+    QuestionPreview
   },
 
   props: {
