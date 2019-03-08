@@ -2,9 +2,11 @@
   <div class="home">
     <logo-with-text :text="professorIdentification"></logo-with-text>
 
-    <router-link to="/questions">Questões</router-link>
-    <router-link v-if="isModerator" to="/propostas-de-invalidacoes">Propostas De Invalidações</router-link>
-    <router-link to="tests">Testes</router-link>
+    <nav>
+      <router-link :to="{name: 'questions'}">Questões</router-link>
+      <router-link v-if="isModerator" to="/propostas-de-invalidacoes">Propostas De Invalidações</router-link>
+      <router-link :to="{name: 'tests'}">Testes</router-link>
+    </nav>
   </div>
 </template>
 

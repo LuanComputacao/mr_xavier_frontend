@@ -55,7 +55,7 @@
       </div>
       <div v-else-if="Number.parseInt(type)===2">
         <label for="lines">Lines:</label>
-        <input id="lines" name="lines" type="number" min="0" max="50">
+        <input id="lines" name="lines" type="number" min="0" max="50" v-model="lines">
       </div>
 
       <question-preview
@@ -65,6 +65,7 @@
         :level="level"
         :wording="wording"
         :type="type"
+        :lines="lines"
       ></question-preview>
 
       <input type="button" value="Salvar Rascunho">
@@ -114,9 +115,10 @@ export default {
       knowledges: [],
       level: null,
       wording: '',
-      degree: '',
+      degree: 0,
       type: 1,
-      options: {}
+      options: {},
+      lines: 0
     }
   },
 

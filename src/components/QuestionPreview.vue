@@ -12,12 +12,14 @@
     Enunciado:
     {{wording}}
     <br>
-    <div v-if="type === 1">
-      Linhas:
-      <hr v-for="(i, j) in Number.parseInt(lines)" :key="j">
+    <div v-if="type === 1">Opções:
+      <ul>
+        <li v-for="(option, i) in options" :key="i">
+          (<span v-if="option.isTrue">X</span><span v-else>&nbsp;&nbsp;</span>) - {{option.text}}
+        </li>
+      </ul>
     </div>
-    <div v-else-if="type === 2">
-      Linhas:
+    <div v-else-if="type === 2">Linhas:
       <hr v-for="(i, j) in Number.parseInt(lines)" :key="j">
     </div>
     <div v-else>
@@ -46,14 +48,14 @@ export default {
       default: () => []
     },
     degree: {
-      type: String,
+      type: Number,
       required: true,
-      default: ''
+      default: 0
     },
     level: {
       type: Number,
       required: true,
-      default: () => {}
+      default: 0
     },
     wording: {
       type: String,
@@ -61,14 +63,14 @@ export default {
       default: ''
     },
     lines: {
-      type: String,
+      type: Number,
       required: false,
-      default: '0'
+      default: 0
     },
     options: {
-      type: Object,
+      type: Array,
       required: false,
-      default: () => {}
+      default: () => []
     }
   }
 }
