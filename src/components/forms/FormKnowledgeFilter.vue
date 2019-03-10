@@ -1,19 +1,49 @@
 <template>
-  <form>
-    <div>
-      <label for="subjects">Matéria:</label>
-      <select name="subjects" id="js-subjects" v-model="curSubject">
-        <option value>Selecione uma matéria</option>
-        <option v-for="(subject, i) in subjects" :key="i" :value="subject.code">{{subject.name}}</option>
-      </select>
+  <form class="knowledge-filter">
+    <div class="knowledge-filter__subject">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <label
+            class="input-group-text"
+            for="subjects"
+          >Matéria:</label>
+        </div>
+
+        <select
+          id="js-subjects"
+          class="custom-select"
+          name="subjects"
+          v-model="curSubject"
+        >
+          <option value>
+            Selecione uma matéria
+          </option>
+          <option
+            v-for="(subject, i) in subjects"
+            :key="i"
+            :value="subject.code"
+          >
+            {{ subject.name }}
+          </option>
+        </select>
+      </div>
     </div>
 
-    <input-select-knowledge
-      :availableKnowledges="this.availableKnowledges"
-      @select="updateKnowledges"
-    ></input-select-knowledge>
+    <div class="knowledge-filter__knowledges">
+      <input-select-knowledge
+        :available-knowledges="this.availableKnowledges"
+        @select="updateKnowledges"
+      />
+    </div>
 
-    <button @click.prevent="raiseFilter">Filtrar</button>
+    <div class="knowledge-filter__confirm">
+      <button
+        class="knowledge-filter__button"
+        @click.prevent="raiseFilter"
+      >
+        Filtrar
+      </button>
+    </div>
   </form>
 </template>
 
@@ -63,3 +93,25 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.knowledge-filter {
+  @extend .row;
+
+  &__confirm{
+    @extend .col-12, .text-center;
+  }
+
+  &__button {
+    @extend .btn, .btn-primary;
+  }
+
+  &__knowledges {
+    @extend .col-12;
+  }
+
+  &__subject {
+    @extend .col-12;
+  }
+}
+</style>

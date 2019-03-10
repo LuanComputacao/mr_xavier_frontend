@@ -1,61 +1,121 @@
 <template>
   <div>
-    <form action method="POST">
+    <form
+      action
+      method="POST"
+    >
       <div>
         Tipo:
         <label for="type">
-          <input type="radio" name="type" value="1" v-model.number="type">Objetiva
+          <input
+            type="radio"
+            name="type"
+            value="1"
+            v-model.number="type"
+          >Objetiva
         </label>
         <label for="type">
-          <input type="radio" name="type" value="2" v-model.number="type">Discursiva
+          <input
+            type="radio"
+            name="type"
+            value="2"
+            v-model.number="type"
+          >Discursiva
         </label>
       </div>
 
       <div>
         <label for="subject">Selecione uma matéria</label>
-        <select name="subject" id="subject">
-          <option value>Selectione uma matéria</option>
-          <option v-for="(subject, i) in subjects" :key="i" value="subject.code">{{subject.name}}</option>
+        <select
+          name="subject"
+          id="subject"
+        >
+          <option value>
+            Selectione uma matéria
+          </option>
+          <option
+            v-for="(availableSubject, i) in availableSubjects"
+            :key="i"
+            value="availableSubject.code"
+          >
+            {{ availableSubject.name }}
+          </option>
         </select>
       </div>
 
       <input-select-knowledge
-        :availableKnowledges="this.availableKnowledges"
+        :available-knowledges="this.availableKnowledges"
         @select="updateKnowledges"
-      ></input-select-knowledge>
+      />
 
       <div>
         <label for="degree">Fase de ensino</label>
-        <select name="degree" id="degree">
-          <option value>Selecione uma fase de ensino</option>
-          <option v-for="(degree, i) in degrees" :key="i" value="degree.code">{{degree.name}}</option>
+        <select
+          name="degree"
+          id="degree"
+        >
+          <option value>
+            Selecione uma fase de ensino
+          </option>
+          <option
+            v-for="(availableDegree, i) in availableDegrees"
+            :key="i"
+            value="availableDegree.code"
+          >
+            {{ availableDegree.name }}
+          </option>
         </select>
       </div>
 
       <div>
         <label for="level">Nível:</label>
-        <input type="range" min="0" max="levelRange" v-model="level">
-        {{level}}
+        <input
+          type="range"
+          min="0"
+          max="levelRange"
+          v-model="level"
+        >
+        {{ level }}
       </div>
 
       <div>
         <label for="wording">Enunciado:</label>
-        <textarea name="wording" id="wording" cols="50" rows="5" v-model="wording"></textarea>
+        <textarea
+          name="wording"
+          id="wording"
+          cols="50"
+          rows="5"
+          v-model="wording"
+        />
       </div>
 
       <div v-if="Number.parseInt(type)===1">
-        <div v-for="(i, j) in 5" :key="j">
+        <div
+          v-for="(i, j) in 5"
+          :key="j"
+        >
           <input
             type="checkbox"
             :name="'option-checkbox[' + i + ']'"
             @change="updateCorrectAnswers"
           >
-          <input type="text" :name="'option-text[' + i + ']'" @change="updateCorrectAnswers">
+          <input
+            type="text"
+            :name="'option-text[' + i + ']'"
+            @change="updateCorrectAnswers"
+          >
         </div>
       </div>
       <div v-else-if="Number.parseInt(type)===2">
         <label for="lines">Lines:</label>
-        <input id="lines" name="lines" type="number" min="0" max="50" v-model="lines">
+        <input
+          id="lines"
+          name="lines"
+          type="number"
+          min="0"
+          max="50"
+          v-model="lines"
+        >
       </div>
 
       <question-preview
@@ -66,10 +126,22 @@
         :wording="wording"
         :type="type"
         :lines="lines"
-      ></question-preview>
+      />
 
-      <input type="button" value="Salvar Rascunho">
-      <input type="button" value="Publicar">
+      <question-card
+        :wording="wording"
+        :type="type"
+        :lines="lines"
+      />
+
+      <input
+        type="button"
+        value="Salvar Rascunho"
+      >
+      <input
+        type="button"
+        value="Publicar"
+      >
     </form>
   </div>
 </template>

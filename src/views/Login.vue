@@ -1,8 +1,11 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <logo-with-text></logo-with-text>
-    <form-login></form-login>
+    <img
+      alt="Vue logo"
+      src="../assets/logo.png"
+    >
+    <logo-with-text />
+    <form-login />
   </div>
 </template>
 
@@ -11,7 +14,7 @@ import LogoWithText from '@/components/LogoWithText.vue'
 import FormLogin from '@/components/forms/FormLogin.vue'
 
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
     LogoWithText,
     FormLogin

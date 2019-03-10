@@ -1,35 +1,60 @@
 <template>
-  <div>
-    <h2>Pre-visualização:</h2>
-    Matéria: {{subject}}
-    <br>
-    Conhecimentos: {{knowledges.join(' ; ')}}
-    <br>
-    Fase de Ensino: {{degree}}
-    <br>
-    Nível: {{level}}
-    <br>
-    Enunciado:
-    {{wording}}
-    <br>
-    <div v-if="type === 1">Opções:
-      <ul>
-        <li v-for="(option, i) in options" :key="i">
-          (<span v-if="option.isTrue">X</span><span v-else>&nbsp;&nbsp;</span>) - {{option.text}}
-        </li>
-      </ul>
-    </div>
-    <div v-else-if="type === 2">Linhas:
-      <hr v-for="(i, j) in Number.parseInt(lines)" :key="j">
-    </div>
-    <div v-else>
-      <span>A questão não possui um tipo selecionado</span>
+  <div class="question-preview">
+    <h2 class="text-center">
+      Pre-visualização de Questão
+    </h2>
+    <hr>
+    <div class="question-preview__details">
+      <div class="row">
+        <div class="col-2">
+          <span class="font-weight-bold">Matéria:</span>
+          {{ subject }}
+        </div>
+        <div class="col-2">
+          <span class="font-weight-bold">Fase de Ensino:</span>
+          {{ degree }}
+        </div>
+        <div class="col-2">
+          <span class="font-weight-bold">Nível:</span>
+          {{ level }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2 font-weight-bold">
+          Conhecimentos:
+        </div>
+        <div class="col">
+          <span
+            v-for="(knowledge, i) in knowledges"
+            :key="i"
+            class="badge badge-pill badge-info mr-1"
+          >{{ knowledge }}</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <question-card
+            :type="type"
+            :wording="wording"
+            :options="options"
+            :lines="lines"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import QuestionCard from '@/components/QuestionCard'
+
 export default {
   name: 'QuestionPreview',
+
+  components: {
+    QuestionCard
+  },
 
   props: {
     type: {
@@ -75,3 +100,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.question-preview {
+  @extend .border, .shadow, .rounded, .col, .pt-3, .pb-3;
+}
+</style>

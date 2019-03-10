@@ -1,8 +1,11 @@
 <template>
   <div class="logo-with-text">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <img
+      alt="Vue logo"
+      src="../assets/logo.png"
+    >
     <h1>Mr. Xavier</h1>
-    <div>{{text}}</div>
+    <p>{{ text }}</p>
   </div>
 </template>
 <script>
@@ -17,3 +20,8 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.logo-with-text{
+  @extend .text-center;
+}
+</style>

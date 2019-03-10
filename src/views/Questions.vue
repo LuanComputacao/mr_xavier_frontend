@@ -1,15 +1,24 @@
 <template>
   <div class="questions">
     <nav>
-      <router-link to="/">Home</router-link>
+      <router-link to="/">
+        Home
+      </router-link>
+      <router-link to="/question/">
+        Criar Questão
+      </router-link>
     </nav>
-    <h1>Questoes</h1>
 
-    <router-link to="/question/">Criar Questão</router-link>
+    <h1 class="text-center">
+      Questões
+    </h1>
 
-    <form-knowledge-filter :subjects="subjects" @filterKnowledge="updateCurrentSubject"></form-knowledge-filter>
+    <form-knowledge-filter
+      :subjects="subjects"
+      @filterKnowledge="updateCurrentSubject"
+    />
 
-    <table-question :questions="filteredQuestions"></table-question>
+    <table-question :questions="filteredQuestions" />
   </div>
 </template>
 <script>
@@ -147,3 +156,8 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.questions{
+  @extend .container;
+}
+</style>

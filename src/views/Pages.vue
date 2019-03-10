@@ -1,9 +1,14 @@
 <template>
-    <div>
-        <router-link class="route-link" :to="route.path" v-for="(route, index) in routes" :key="index">
-            {{route.name}}
-        </router-link>
-    </div>
+  <div>
+    <router-link
+      class="route-link"
+      :to="route.path"
+      v-for="(route, index) in routes"
+      :key="index"
+    >
+      {{ route.name }}
+    </router-link>
+  </div>
 </template>
 <script>
 export default {

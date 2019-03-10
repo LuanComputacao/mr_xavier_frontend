@@ -11,15 +11,22 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(question, i) in questions" :key="i">
-        <td v-if="question.type">discursiva</td>
-        <td v-else>objetiva</td>
+      <tr
+        v-for="(question, i) in questions"
+        :key="i"
+      >
+        <td v-if="question.type">
+          discursiva
+        </td>
+        <td v-else>
+          objetiva
+        </td>
 
-        <td>{{question.wording}}</td>
-        <td>{{question.grade}}</td>
-        <td>{{question.level}}</td>
-        <td>{{question.id}}</td>
-        <td>{{question.id}}</td>
+        <td>{{ question.wording }}</td>
+        <td>{{ question.grade }}</td>
+        <td>{{ question.level }}</td>
+        <td>{{ question.id }}</td>
+        <td>{{ question.id }}</td>
       </tr>
     </tbody>
   </table>

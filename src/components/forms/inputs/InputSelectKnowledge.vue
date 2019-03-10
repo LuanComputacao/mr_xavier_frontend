@@ -1,13 +1,24 @@
 <template>
   <div>
-    <label for="knowledges">Conhecimentos necessários:</label>
-    <select multiple name="knowledges" id="knowledges" @change="doSelection" v-model="knowledges">
-      <option
-        v-for="(knowledge, i) in availableKnowledges"
-        :key="i"
-        :value="knowledge.code"
-      >{{knowledge.name}}</option>
-    </select>
+    <div class="form-group">
+      <label for="knowledges">Conhecimentos necessários:</label>
+      <select
+        class="form-control"
+        multiple
+        name="knowledges"
+        id="knowledges"
+        @change="doSelection"
+        v-model="knowledges"
+      >
+        <option
+          v-for="(knowledge, i) in availableKnowledges"
+          :key="i"
+          :value="knowledge.code"
+        >
+          {{ knowledge.name }}
+        </option>
+      </select>
+    </div>
   </div>
 </template>
 
@@ -36,3 +47,6 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+
+</style>

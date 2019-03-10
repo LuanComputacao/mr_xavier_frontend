@@ -1,11 +1,29 @@
 <template>
   <div class="home">
-    <logo-with-text :text="professorIdentification"></logo-with-text>
+    <logo-with-text :text="professorIdentification" />
 
-    <nav>
-      <router-link :to="{name: 'questions'}">Questões</router-link>
-      <router-link v-if="isModerator" to="/propostas-de-invalidacoes">Propostas De Invalidações</router-link>
-      <router-link :to="{name: 'tests'}">Testes</router-link>
+    <nav class="home__menu">
+      <div class="home__buttons">
+        <router-link
+          :to="{name: 'questions'}"
+          class="btn btn-primary"
+        >
+          Questões
+        </router-link>
+        <router-link
+          v-if="isModerator"
+          to="/propostas-de-invalidacoes"
+          class="btn btn-primary"
+        >
+          Propostas De Invalidações
+        </router-link>
+        <router-link
+          :to="{name: 'tests'}"
+          class="btn btn-primary"
+        >
+          Testes
+        </router-link>
+      </div>
     </nav>
   </div>
 </template>
@@ -14,7 +32,7 @@
 import LogoWithText from '@/components/LogoWithText.vue'
 
 export default {
-  name: 'home',
+  name: 'Home',
 
   components: {
     LogoWithText
@@ -33,3 +51,14 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.home{
+  &__menu{
+    @extend .text-center, .row, .justify-content-center;
+  }
+
+  &__buttons{
+    @extend .btn-group;
+  }
+}
+</style>
