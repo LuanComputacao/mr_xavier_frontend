@@ -1,3 +1,5 @@
 {
+  "all__create-question": "Create Question",
+  "all__subject": "Subject",
   "message": "hello i18n !!"
 }

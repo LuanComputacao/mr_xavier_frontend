@@ -1,17 +1,13 @@
 <template>
   <form class="knowledge-filter">
     <div class="knowledge-filter__subject">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <label
-            class="input-group-text"
-            for="subjects"
-          >Matéria:</label>
-        </div>
-
+      <div class="form-group">
+        <label
+          for="js-subjects"
+        ><span v-t="'all__subject'" />:</label>
         <select
+          class="form-control"
           id="js-subjects"
-          class="custom-select"
           name="subjects"
           v-model="curSubject"
         >

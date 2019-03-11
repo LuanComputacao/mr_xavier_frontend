@@ -6,25 +6,25 @@
     <hr>
     <div class="question-preview__details">
       <div class="row">
-        <div class="col-2">
+        <div class="col-12">
           <span class="font-weight-bold">Matéria:</span>
           {{ subject }}
         </div>
-        <div class="col-2">
+        <div class="col-12">
           <span class="font-weight-bold">Fase de Ensino:</span>
           {{ degree }}
         </div>
-        <div class="col-2">
+        <div class="col-12">
           <span class="font-weight-bold">Nível:</span>
           {{ level }}
         </div>
       </div>
 
       <div class="row">
-        <div class="col-2 font-weight-bold">
+        <div class="col-12 font-weight-bold">
           Conhecimentos:
         </div>
-        <div class="col">
+        <div class="col-12">
           <span
             v-for="(knowledge, i) in knowledges"
             :key="i"

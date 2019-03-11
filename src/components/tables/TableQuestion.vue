@@ -1,5 +1,5 @@
 <template>
-  <table>
+  <table class="questions-table">
     <thead>
       <tr>
         <th>Tipo</th>
@@ -25,8 +25,19 @@
         <td>{{ question.wording }}</td>
         <td>{{ question.grade }}</td>
         <td>{{ question.level }}</td>
-        <td>{{ question.id }}</td>
-        <td>{{ question.id }}</td>
+        <td>
+          <router-link :to="{name:'edit-question', params: {id: question.id}}">
+            <font-awesome-icon
+              icon="edit"
+            />
+          </router-link>
+        </td>
+        <td>
+          <font-awesome-icon
+            icon="trash"
+            @click="deleteQuestion(question.id)"
+          />
+        </td>
       </tr>
     </tbody>
   </table>
@@ -40,6 +51,17 @@ export default {
       type: Array,
       required: true
     }
+  },
+
+  methods: {
+    deleteQuestion (questionId) {
+      confirm('Do you want to delete the question ' + questionId + '?')
+    }
   }
 }
 </script>
+<style lang="scss" scoped>
+.questions-table{
+  @extend .table;
+}
+</style>

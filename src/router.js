@@ -32,6 +32,11 @@ export default new Router({
       component: Question
     },
     {
+      path: '/question/:id',
+      name: 'edit-question',
+      component: Question
+    },
+    {
       path: '/questions/',
       name: 'questions',
       component: Questions

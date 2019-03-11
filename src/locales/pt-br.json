@@ -1,3 +1,5 @@
 {
-  "message": "hello i18n !!"
+  "all__create-question": "Criar Questão",
+  "all__subject": "Matéria",
+  "message": "Olá i18n !!"
 }

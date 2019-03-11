@@ -4,9 +4,10 @@
       <router-link to="/">
         Home
       </router-link>
-      <router-link to="/question/">
-        Criar Questão
-      </router-link>
+      <router-link
+        to="/question/"
+        v-t="'all__create-question'"
+      />
     </nav>
 
     <h1 class="text-center">
