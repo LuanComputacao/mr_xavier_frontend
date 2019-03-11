@@ -8,12 +8,14 @@
         Questions
       </router-link>
     </nav>
-    <form-question
-      :subjects="availableSubjects"
-      :degrees="[]"
-      :level-range="100"
-      :level-value="4"
-    />
+    <div class="container">
+      <form-question
+        :subjects="availableSubjects"
+        :degrees="[]"
+        :level-range="100"
+        :level-value="4"
+      />
+    </div>
   </div>
 </template>
 <script>

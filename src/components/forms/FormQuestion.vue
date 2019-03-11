@@ -24,9 +24,10 @@
         </label>
       </div>
 
-      <div>
+      <div class="form-group">
         <label for="subject">Selecione uma matéria</label>
         <select
+          class="form-control"
           name="subject"
           id="subject"
         >
@@ -48,9 +49,10 @@
         @select="updateKnowledges"
       />
 
-      <div>
+      <div class="form-group">
         <label for="degree">Fase de ensino</label>
         <select
+          class="form-control"
           name="degree"
           id="degree"
         >
@@ -70,26 +72,28 @@
       <div>
         <label for="level">Nível:</label>
         <input
+          class="custom-range"
           type="range"
           min="0"
-          max="levelRange"
+          :max="levelRange"
           v-model="level"
         >
         {{ level }}
       </div>
 
-      <div>
+      <div class="form-group">
         <label for="wording">Enunciado:</label>
         <textarea
+          class="form-control"
           name="wording"
           id="wording"
-          cols="50"
           rows="5"
           v-model="wording"
         />
       </div>
 
       <div v-if="Number.parseInt(type)===1">
+        <span>Opções:</span>
         <div
           v-for="(i, j) in 5"
           :key="j"
@@ -118,43 +122,34 @@
         >
       </div>
 
-      <question-preview
-        :subject="subject"
-        :knowledges="knowledges"
-        :degree="degree"
-        :level="level"
-        :wording="wording"
-        :type="type"
-        :lines="lines"
-      />
-
-      <question-card
-        :wording="wording"
-        :type="type"
-        :lines="lines"
-      />
-
-      <input
-        type="button"
-        value="Salvar Rascunho"
-      >
-      <input
-        type="button"
-        value="Publicar"
-      >
+      <div class="row justify-content-end">
+        <div class="btn-group">
+          <button class="btn btn-primary">
+            Preview
+          </button>
+          <input
+            class="btn btn-primary"
+            type="button"
+            value="Salvar Rascunho"
+          >
+          <input
+            class="btn btn-primary"
+            type="button"
+            value="Publicar"
+          >
+        </div>
+      </div>
     </form>
   </div>
 </template>
 <script>
 import InputSelectKnowledge from '@/components/forms/inputs/InputSelectKnowledge'
-import QuestionPreview from '@/components/QuestionPreview'
 
 export default {
   name: 'FormQuestion',
 
   components: {
-    InputSelectKnowledge,
-    QuestionPreview
+    InputSelectKnowledge
   },
 
   props: {
@@ -219,3 +214,5 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+</style>

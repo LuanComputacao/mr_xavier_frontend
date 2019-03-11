@@ -16,6 +16,7 @@
 
     <form-knowledge-filter
       :subjects="subjects"
+      :level-range="50"
       @filterKnowledge="updateCurrentSubject"
     />
 
