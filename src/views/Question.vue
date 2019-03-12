@@ -1,21 +1,25 @@
 <template>
-  <div>
-    <nav>
-      <router-link to="/">
+  <div class="question-editor">
+    <nav class="btn-group btn-group-sm">
+      <router-link
+        class="btn btn-primary"
+        to="/"
+      >
         Home
       </router-link>
-      <router-link to="/questions">
+      <router-link
+        class="btn btn-primary"
+        to="/questions"
+      >
         Questions
       </router-link>
     </nav>
-    <div class="container">
-      <form-question
-        :subjects="availableSubjects"
-        :degrees="[]"
-        :level-range="100"
-        :level-value="4"
-      />
-    </div>
+    <form-question
+      :subjects="availableSubjects"
+      :degrees="[]"
+      :level-range="100"
+      :level-value="4"
+    />
   </div>
 </template>
 <script>
@@ -35,3 +39,8 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.question-editor{
+  @extend .mb-1, .container;
+}
+</style>

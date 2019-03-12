@@ -16,10 +16,10 @@
         :key="i"
       >
         <td v-if="question.type">
-          discursiva
+          <font-awesome-icon icon="file-alt" />
         </td>
         <td v-else>
-          objetiva
+          <font-awesome-icon icon="check-square" />
         </td>
 
         <td>{{ question.wording }}</td>

@@ -53,8 +53,13 @@ export default {
 </script>
 <style lang="scss" scoped>
 .home{
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  flex-direction: column;
+
   &__menu{
-    @extend .text-center, .row, .justify-content-center;
+    @extend .text-center, .justify-content-center;
   }
 
   &__buttons{

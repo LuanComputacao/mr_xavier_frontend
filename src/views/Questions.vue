@@ -1,10 +1,14 @@
 <template>
   <div class="questions">
-    <nav>
-      <router-link to="/">
+    <nav class="btn-group btn-group-sm">
+      <router-link
+        class="btn btn-primary"
+        to="/"
+      >
         Home
       </router-link>
       <router-link
+        class="btn btn-primary"
         to="/question/"
         v-t="'all__create-question'"
       />

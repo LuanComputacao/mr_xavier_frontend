@@ -98,16 +98,23 @@
           v-for="(i, j) in 5"
           :key="j"
         >
-          <input
-            type="checkbox"
-            :name="'option-checkbox[' + i + ']'"
-            @change="updateCorrectAnswers"
-          >
-          <input
-            type="text"
-            :name="'option-text[' + i + ']'"
-            @change="updateCorrectAnswers"
-          >
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <input
+                  type="checkbox"
+                  :name="'option-checkbox[' + i + ']'"
+                  @change="updateCorrectAnswers"
+                >
+              </div>
+            </div>
+            <input
+              class="form-control"
+              type="text"
+              :name="'option-text[' + i + ']'"
+              @change="updateCorrectAnswers"
+            >
+          </div>
         </div>
       </div>
       <div v-else-if="Number.parseInt(type)===2">
@@ -122,18 +129,18 @@
         >
       </div>
 
-      <div class="row justify-content-end">
-        <div class="btn-group">
-          <button class="btn btn-primary">
+      <div class="form-question__buttons">
+        <div class="form-question__buttons-group">
+          <button class="form-question__button">
             Preview
           </button>
           <input
-            class="btn btn-primary"
+            class="form-question__button"
             type="button"
             value="Salvar Rascunho"
           >
           <input
-            class="btn btn-primary"
+            class="form-question__button"
             type="button"
             value="Publicar"
           >
@@ -172,6 +179,16 @@ export default {
       type: Number,
       required: false,
       default: null
+    },
+    availableSubjects: {
+      type: Array,
+      required: false,
+      default: () => []
+    },
+    availableDegrees: {
+      type: Array,
+      required: false,
+      default: () => []
     }
   },
 
@@ -215,4 +232,17 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.form-question{
+  &__buttons{
+    @extend .row;
+  }
+  &__buttons-group{
+    @extend .col, .justify-content-center;
+  }
+  &__button{
+    align-self: center;
+    @extend .btn, .btn-primary, .mt-1, .ml-1, .mr-1;
+  }
+}
+
 </style>
