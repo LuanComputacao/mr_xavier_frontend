@@ -234,10 +234,10 @@ export default {
 <style lang="scss" scoped>
 .form-question{
   &__buttons{
-    @extend .row;
+    @extend .row, .pb-3, .pt-3, .justify-content-end;
   }
   &__buttons-group{
-    @extend .col, .justify-content-center;
+    @extend .col-auto;
   }
   &__button{
     align-self: center;

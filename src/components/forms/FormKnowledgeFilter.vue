@@ -92,7 +92,8 @@ export default {
 
 <style lang="scss" scoped>
 .knowledge-filter {
-  @extend .row;
+
+  @extend .row, .pb-3;
 
   &__confirm{
     @extend .col-12, .text-center;

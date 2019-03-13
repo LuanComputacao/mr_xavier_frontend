@@ -6,6 +6,8 @@ import Pages from './views/Pages.vue'
 import Login from './views/Login.vue'
 import Questions from './views/Questions.vue'
 import Question from './views/Question.vue'
+import TestsSearch from './views/TestsSearch.vue'
+import Test from './views/Test.vue'
 
 Vue.use(Router)
 
@@ -44,7 +46,17 @@ export default new Router({
     {
       path: '/tests/',
       name: 'tests',
-      component: Questions
+      component: TestsSearch
+    },
+    {
+      path: '/test/:id',
+      name: 'edit-test',
+      component: Test
+    },
+    {
+      path: '/test/',
+      name: 'test',
+      component: Test
     },
     {
       path: '/about',
