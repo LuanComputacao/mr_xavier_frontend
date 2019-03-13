@@ -1,8 +1,7 @@
 <template>
   <div class="tests-page">
     <h1>Testes</h1>
-
-    <table-tests />
+    <table-tests :tests="tests" />
   </div>
 </template>
 <script>

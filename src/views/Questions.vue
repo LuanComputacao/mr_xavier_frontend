@@ -28,6 +28,7 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import FormKnowledgeFilter from '@/components/forms/FormKnowledgeFilter.vue'
 import TableQuestion from '@/components/tables/TableQuestion.vue'
 
@@ -40,6 +41,9 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      questions: state => state.questions.all
+    }),
     filteredQuestions () {
       let that = this
 
@@ -112,48 +116,12 @@ export default {
             }
           ]
         }
-      ],
-      questions: [
-        {
-          id: 1,
-          subject: 'mat',
-          knowledges: ['sum'],
-          type: true,
-          wording: 'Esta é a primeira questão?',
-          grade: 8,
-          level: 10
-        },
-        {
-          id: 2,
-          subject: 'port',
-          knowledges: ['predicate'],
-          type: false,
-          wording: 'Esta é a segunda questão?',
-          grade: 9,
-          level: 5
-        },
-        {
-          id: 3,
-          subject: 'port',
-          knowledges: ['predicate', 'subject', 'verb'],
-          type: false,
-          wording: 'Esta é a terceira questão?',
-          grade: 9,
-          level: 5
-        },
-        {
-          id: 4,
-          subject: 'port',
-          knowledges: ['predicate', 'past'],
-          type: false,
-          wording: 'Esta é a terceira questão?',
-          grade: 9,
-          level: 5
-        }
       ]
     }
   },
-
+  created () {
+    this.$store.dispatch('questions/getAllQuestions')
+  },
   methods: {
     updateCurrentSubject (code, knowledges) {
       this.curSubject.code = code

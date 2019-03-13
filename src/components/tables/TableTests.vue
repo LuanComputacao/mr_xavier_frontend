@@ -3,7 +3,7 @@
     <table class="tests-table">
       <thead>
         <tr>
-          <th>Tipo</th>
+          <th>Applied times</th>
           <th>Enunciado</th>
           <th>Fase de Ensino</th>
           <th>Nível</th>
@@ -16,14 +16,8 @@
           v-for="(test, i) in tests"
           :key="i"
         >
-          <td v-if="test.type">
-            <font-awesome-icon icon="file-alt" />
-          </td>
-          <td v-else>
-            <font-awesome-icon icon="check-square" />
-          </td>
-
-          <td>{{ test.wording }}</td>
+          <td>{{ test.applied }}</td>
+          <td>{{ test.description }}</td>
           <td>{{ test.grade }}</td>
           <td>{{ test.level }}</td>
           <td>
