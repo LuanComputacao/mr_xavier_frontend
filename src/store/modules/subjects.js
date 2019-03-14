@@ -10,22 +10,22 @@ const getters = {}
 
 // Actions
 const actions = {
-  getAllQuestions ({ commit }) {
-    henry.getQuestions(questions => {
-      commit('setQuestions', questions)
+  getAllSubjects ({ commit }) {
+    henry.getSubjects(subjects => {
+      commit('setSubjects', subjects)
     })
   }
 }
 
 // Mutations
 const mutations = {
-  setQuestions (state, questions) {
-    state.all = questions
+  setSubjects (state, subjects) {
+    state.all = subjects
   }
 }
 
 export default {
-  namespaced: true,
+  namespace: true,
   state,
   getters,
   actions,

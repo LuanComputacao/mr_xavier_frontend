@@ -40,8 +40,56 @@ const _questions = [
   }
 ]
 
+const _subjects = [
+  {
+    code: 'port',
+    name: 'Português',
+    knowledge: [
+      {
+        code: 'predicate',
+        name: 'Predicado'
+      },
+      {
+        code: 'subject',
+        name: 'Sujeito'
+      },
+      {
+        code: 'verb',
+        name: 'Verbo'
+      },
+      {
+        code: 'past',
+        name: 'Preterito'
+      }
+    ]
+  },
+  {
+    code: 'mat',
+    name: 'Matemática',
+    knowledge: [
+      {
+        code: 'sum',
+        name: 'Soma'
+      }
+    ]
+  },
+  {
+    code: 'hist',
+    name: 'História',
+    knowledge: [
+      {
+        code: 'br_general',
+        name: 'História Geral do Brasil'
+      }
+    ]
+  }
+]
+
 export default {
   getQuestions (cb) {
     setTimeout(() => cb(_questions), 100)
+  },
+  getSubjects (cb) {
+    setTimeout(() => cb(_subjects), 100)
   }
 }

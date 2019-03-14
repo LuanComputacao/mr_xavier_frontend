@@ -42,7 +42,8 @@ export default {
 
   computed: {
     ...mapState({
-      questions: state => state.questions.all
+      questions: state => state.questions.all,
+      subjects: state => state.subjects.all
     }),
     filteredQuestions () {
       let that = this
@@ -72,55 +73,12 @@ export default {
       curSubject: {
         code: '',
         knowledges: []
-      },
-      subjects: [
-        {
-          code: 'port',
-          name: 'Português',
-          knowledge: [
-            {
-              code: 'predicate',
-              name: 'Predicado'
-            },
-            {
-              code: 'subject',
-              name: 'Sujeito'
-            },
-            {
-              code: 'verb',
-              name: 'Verbo'
-            },
-            {
-              code: 'past',
-              name: 'Preterito'
-            }
-          ]
-        },
-        {
-          code: 'mat',
-          name: 'Matemática',
-          knowledge: [
-            {
-              code: 'sum',
-              name: 'Soma'
-            }
-          ]
-        },
-        {
-          code: 'hist',
-          name: 'História',
-          knowledge: [
-            {
-              code: 'br_general',
-              name: 'História Geral do Brasil'
-            }
-          ]
-        }
-      ]
+      }
     }
   },
   created () {
     this.$store.dispatch('questions/getAllQuestions')
+    this.$store.dispatch('subjects/getAllSubjects')
   },
   methods: {
     updateCurrentSubject (code, knowledges) {
