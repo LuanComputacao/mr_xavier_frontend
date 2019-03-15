@@ -42,6 +42,7 @@ const _questions = [
 
 const _subjects = [
   {
+    id: 0,
     code: 'port',
     name: 'Português',
     knowledge: [
@@ -64,6 +65,7 @@ const _subjects = [
     ]
   },
   {
+    id: 2,
     code: 'mat',
     name: 'Matemática',
     knowledge: [
@@ -74,6 +76,7 @@ const _subjects = [
     ]
   },
   {
+    id: 3,
     code: 'hist',
     name: 'História',
     knowledge: [
@@ -85,11 +88,32 @@ const _subjects = [
   }
 ]
 
+const _tests = [
+  {
+    id: 1,
+    subject: 1,
+    appliedTimes: 2,
+    author: 'Luan Roger',
+    description: 'Avaliar a Identificação dos componentes das orações',
+    grade: 9,
+    level: 5,
+    questions: {
+      1: 3,
+      2: 4,
+      3: 2
+    }
+  }
+
+]
+
 export default {
   getQuestions (cb) {
     setTimeout(() => cb(_questions), 100)
   },
   getSubjects (cb) {
     setTimeout(() => cb(_subjects), 100)
+  },
+  getTests (cb) {
+    setTimeout(() => cb(_tests), 100)
   }
 }

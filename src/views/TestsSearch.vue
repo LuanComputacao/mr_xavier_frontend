@@ -5,7 +5,9 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import TableTests from '@/components/tables/TableTests'
+
 export default {
   name: 'TestsPage',
 
@@ -15,8 +17,17 @@ export default {
 
   data () {
     return {
-      tests: []
     }
+  },
+
+  computed: {
+    ...mapState({
+      tests: state => state.tests.all
+    })
+  },
+
+  created () {
+    this.$store.dispatch('tests/getAllTests')
   }
 
 }

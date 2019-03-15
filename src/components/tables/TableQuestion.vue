@@ -62,6 +62,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .questions-table{
-  @extend .table;
+  @extend .table, .table-striped, .mb-3;
 }
 </style>
