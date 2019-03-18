@@ -15,11 +15,17 @@
         v-for="(question, i) in questions"
         :key="i"
       >
-        <td v-if="question.type">
-          <font-awesome-icon icon="file-alt" />
-        </td>
-        <td v-else>
-          <font-awesome-icon icon="check-square" />
+        <td>
+          <font-awesome-icon
+            v-if="question.type"
+            icon="file-alt"
+            class="questions-table__type questions-table__type--open"
+          />
+          <font-awesome-icon
+            v-else
+            icon="check-square"
+            class="questions-table__type questions-table__type--close"
+          />
         </td>
 
         <td>{{ question.wording }}</td>
@@ -34,6 +40,7 @@
         </td>
         <td>
           <font-awesome-icon
+            class="text-danger"
             icon="trash"
             @click="deleteQuestion(question.id)"
           />
@@ -63,5 +70,17 @@ export default {
 <style lang="scss" scoped>
 .questions-table{
   @extend .table, .table-striped, .mb-3;
+
+  &__type{
+    text-align: center;
+
+    &--open{
+      color: $blue-light;
+    }
+
+    &--close{
+      color: $blue-dark;
+    }
+  }
 }
 </style>

@@ -47,7 +47,7 @@ $font-size: 1.5em;
 
   &__stick {
     height: $font-size/3;
-    border-left: solid $border-width $green;
+    border-left: solid $border-width $blue-light;
   }
 }
 </style>

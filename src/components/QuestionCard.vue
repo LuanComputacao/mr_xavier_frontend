@@ -15,10 +15,12 @@
           class="question__option"
         >
           <font-awesome-icon
+            class="question__option-circle--true"
             v-if="option.isTrue"
             icon="check-circle"
           />
           <font-awesome-icon
+            class="question__option-circle--false"
             v-else
             icon="circle"
           />
@@ -91,6 +93,15 @@ export default {
   &__option {
     list-style: none;
     padding-left: 0em;
+  }
+
+  &__option-circle{
+    &--true{
+      color: $green-dark;
+    }
+    &--false{
+      color: $grey;
+    }
   }
 
   &__line{

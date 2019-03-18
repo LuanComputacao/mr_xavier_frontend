@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$border-width: 3px;
+$border-width: 5px;
 $font-size: 1.8em;
 
 .title-h2 {
@@ -46,8 +46,8 @@ $font-size: 1.8em;
   }
 
   &__stick {
-    height: $font-size/2;
-    border-left: solid $border-width $green;
+    height: $font-size/1.5;
+    border-left: solid $border-width $blue-light;
   }
 }
 </style>

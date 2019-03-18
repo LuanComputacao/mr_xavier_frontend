@@ -1,1 +1,19 @@
 $green: #42b983;
+$green-light: #78ecb3;
+$green-dark: #008856;
+$blue: #4283b9;
+$blue-light: #77b2ec;
+$blue-dark: #005789;
+$red: #db3442;
+$red-light: #ff6b6d;
+$red-dark: #a2001b;
+$grey: #b0b9b0;
+$grey-light: #e2ebe2;
+$grey-dark: #818981;
+
+$theme-colors: (
+  "info": $blue-light,
+  "danger": $red,
+  "primary": $green,
+  "secondary": $blue,
+);
