@@ -4,7 +4,7 @@
       <div class="form-group">
         <label
           for="js-subjects"
-        ><span v-t="'all__subject'" />:</label>
+        ><span v-t="'all--subject'" />:</label>
         <select
           class="form-control"
           id="js-subjects"

@@ -1,18 +1,20 @@
 <template>
   <div class="tests-page">
-    <h1>Testes</h1>
+    <title-h1 :texti18n="'all--tests'" />
     <table-tests :tests="tests" />
   </div>
 </template>
 <script>
 import { mapState } from 'vuex'
 import TableTests from '@/components/tables/TableTests'
+import TitleH1 from '@/components/TitleH1'
 
 export default {
   name: 'TestsPage',
 
   components: {
-    TableTests
+    TableTests,
+    TitleH1
   },
 
   data () {

@@ -1,10 +1,16 @@
 <template>
   <div>
-    Criar Teste
+    <title-h1 :texti18n="'creating_test--title'" />
   </div>
 </template>
 <script>
+import TitleH1 from '@/components/TitleH1'
+
 export default {
-  name: 'Test'
+  name: 'Test',
+
+  components: {
+    TitleH1
+  }
 }
 </script>

@@ -1,5 +1,17 @@
 {
-  "all__create-question": "Criar Questão",
-  "all__subject": "Matéria",
-  "message": "Olá i18n !!"
+  "all--create_question": "Criar Questão",
+  "all--subject": "Matéria",
+  "all--home": "Inicio",
+  "all--questions": "Questões",
+  "all--tests": "Testes",
+  "all--requested_knowledges": "Conhecimentos necessários",
+  "all--closed": "Objetiva",
+  "all--closed-question": "Questão objetiva",
+  "all--open": "Aberta",
+  "all--open-question": "Aberta question",
+  "all--type": "Tipo",
+  "all--invalidation_proposals": "Invalidation proposals",
+  "all--style_guide": "Guia de estilos",
+  "creating_question--title": "Criação de Questão",
+  "lorem-ipsum": "Lorem ipsum sit amet"
 }

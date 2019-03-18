@@ -4,24 +4,34 @@
       action
       method="POST"
     >
-      <div>
-        Tipo:
-        <label for="type">
-          <input
-            type="radio"
-            name="type"
-            value="1"
-            v-model.number="type"
-          >Objetiva
-        </label>
-        <label for="type">
-          <input
-            type="radio"
-            name="type"
-            value="2"
-            v-model.number="type"
-          >Discursiva
-        </label>
+      <div class="row">
+        <div
+          class="col-auto"
+          v-t="'all--type'"
+        >
+          :
+        </div>
+        <div class="col">
+          <label for="type">
+            <input
+              type="radio"
+              name="type"
+              value="1"
+              v-model.number="type"
+            >
+            {{ $t('all--closed') }}
+          </label>
+          <label for="type">
+            <input
+              type="radio"
+              name="type"
+              value="2"
+              v-model.number="type"
+              v-t="'all--open'"
+            >
+            {{ $t('all--open') }}
+          </label>
+        </div>
       </div>
 
       <div class="form-group">

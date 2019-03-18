@@ -1,5 +1,17 @@
 {
-  "all__create-question": "Create Question",
-  "all__subject": "Subject",
-  "message": "hello i18n !!"
+  "all--create_question": "Create Question",
+  "all--subject": "Subject",
+  "all--home": "Home",
+  "all--questions": "Questions",
+  "all--tests": "Tests",
+  "all--requested_knowledges": "Requested knowledges",
+  "all--closed": "Closed",
+  "all--closed-question": "Closed question",
+  "all--open": "Open",
+  "all--open-question": "Open question",
+  "all--type": "Tipo",
+  "all--invalidation_proposals": "Propostas de invalidação",
+  "all--style_guide": "Style Guide",
+  "creating_question--title": "Creating question",
+  "lorem-ipsum": "Lorem ipsum sit amet"
 }

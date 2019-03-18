@@ -7,24 +7,27 @@
         <router-link
           :to="{name: 'questions'}"
           class="btn btn-primary"
-        >
-          Questões
-        </router-link>
+          v-t="'all--questions'"
+        />
         <router-link
           v-if="isModerator"
           to="/propostas-de-invalidacoes"
           class="btn btn-primary"
-        >
-          Propostas De Invalidações
-        </router-link>
+          v-t="'all--invalidation_proposals'"
+        />
         <router-link
           :to="{name: 'tests'}"
           class="btn btn-primary"
-        >
-          Testes
-        </router-link>
+          v-t="'all--tests'"
+        />
       </div>
     </nav>
+    <div class="text-center">
+      <router-link
+        :to="{name: 'style-guide'}"
+        v-t="'all--style_guide'"
+      />
+    </div>
   </div>
 </template>
 

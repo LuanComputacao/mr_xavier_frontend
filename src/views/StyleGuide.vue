@@ -1,11 +1,6 @@
 <template>
-  <div>
-    <nav>
-      <router-link :to="{name: 'home'}">
-        Home
-      </router-link>
-    </nav>
-    <h1>Components</h1>
+  <div class="style-guide">
+    <title-h1>Components</title-h1>
     <hr>
     <div class="container">
       <div>
@@ -65,6 +60,15 @@
           </div>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col">
+          <h3>Title H1</h3>
+          <box-default>
+            <title-h1 :texti18n="'lorem-ipsum'" />
+          </box-default>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -72,13 +76,18 @@
 import LogoWithText from '@/components/LogoWithText.vue'
 import QuestionPreview from '@/components/QuestionPreview'
 import QuestionCard from '@/components/QuestionCard'
+import TitleH1 from '@/components/TitleH1'
+import BoxDefault from '@/components/BoxDefault'
 
 export default {
   name: 'StyleGruide',
+
   components: {
     LogoWithText,
     QuestionPreview,
-    QuestionCard
+    TitleH1,
+    QuestionCard,
+    BoxDefault
   },
 
   data () {
@@ -114,3 +123,8 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.style-guide{
+  margin-bottom: $grid-gutter-width*3;
+}
+</style>

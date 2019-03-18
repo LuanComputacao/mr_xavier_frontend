@@ -1,22 +1,13 @@
 <template>
   <div class="questions">
-    <nav class="btn-group btn-group-sm">
+    <title-h1 :texti18n="'all--questions'" />
+    <div class="text-right">
       <router-link
-        class="btn btn-primary"
-        to="/"
-      >
-        Home
-      </router-link>
-      <router-link
-        class="btn btn-primary"
-        to="/question/"
-        v-t="'all__create-question'"
+        class="btn btn-secondary"
+        :to="{name: 'question'}"
+        v-t="'all--create_question'"
       />
-    </nav>
-
-    <h1 class="text-center">
-      Questões
-    </h1>
+    </div>
 
     <form-knowledge-filter
       :subjects="subjects"
@@ -31,13 +22,15 @@
 import { mapState } from 'vuex'
 import FormKnowledgeFilter from '@/components/forms/FormKnowledgeFilter.vue'
 import TableQuestion from '@/components/tables/TableQuestion.vue'
+import TitleH1 from '@/components/TitleH1'
 
 export default {
   name: 'Questions',
 
   components: {
     FormKnowledgeFilter,
-    TableQuestion
+    TableQuestion,
+    TitleH1
   },
 
   computed: {

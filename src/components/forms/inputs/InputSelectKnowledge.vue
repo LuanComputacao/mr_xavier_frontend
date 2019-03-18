@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="form-group">
-      <label for="knowledges">Conhecimentos necessários:</label>
+      <label
+        for="knowledges"
+        v-t="'all--requested_knowledges'"
+      >:</label>
       <select
         class="form-control"
         multiple

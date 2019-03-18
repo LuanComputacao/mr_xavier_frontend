@@ -1,19 +1,9 @@
 <template>
   <div class="question-editor">
-    <nav class="btn-group btn-group-sm">
-      <router-link
-        class="btn btn-primary"
-        to="/"
-      >
-        Home
-      </router-link>
-      <router-link
-        class="btn btn-primary"
-        to="/questions"
-      >
-        Questions
-      </router-link>
-    </nav>
+    <h1
+      class="text-center"
+      v-t="'creating_question--title'"
+    />
     <form-question
       :subjects="availableSubjects"
       :degrees="[]"
