@@ -7,7 +7,7 @@
 <script>
 import { mapState } from 'vuex'
 import TableTests from '@/components/tables/TableTests'
-import TitleH1 from '@/components/TitleH1'
+import TitleH1 from '@/components/titles/TitleH1'
 
 export default {
   name: 'TestsPage',

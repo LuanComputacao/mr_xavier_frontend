@@ -1,17 +1,20 @@
 <template>
   <div class="style-guide">
-    <title-h1>Components</title-h1>
+    <div class="col">
+      <title-h1 :texti18n="'Componentes'" />
+    </div>
     <hr>
     <div class="container">
       <div>
-        <h3>Logo with text</h3>
+        <title-h2 :texti18n="'Logo with text'" />
         <logo-with-text text="Text Logo" />
       </div>
       <hr>
 
       <div class="row">
         <div class="col">
-          <h3>Question Preview</h3>
+          <title-h2 :texti18n="'Question Details'" />
+
           <div class="row">
             <div class="col">
               Tipo da Questão:
@@ -50,6 +53,7 @@
           </div>
           <div class="row">
             <div class="col">
+              <title-h2 :texti18n="'Question Preview'" />
               <question-card
                 :type="questionPreviewType"
                 :options="questionClosed.options"
@@ -60,12 +64,14 @@
           </div>
         </div>
       </div>
-
+      <hr>
       <div class="row">
         <div class="col">
-          <h3>Title H1</h3>
+          <title-h2 :texti18n="'Titles'" />
           <box-default>
-            <title-h1 :texti18n="'lorem-ipsum'" />
+            <title-h1 :texti18n="'Title h1'" />
+            <title-h2 :texti18n="'Title h2'" />
+            <title-h3 :texti18n="'Title h3'" />
           </box-default>
         </div>
       </div>
@@ -76,7 +82,9 @@
 import LogoWithText from '@/components/LogoWithText.vue'
 import QuestionPreview from '@/components/QuestionPreview'
 import QuestionCard from '@/components/QuestionCard'
-import TitleH1 from '@/components/TitleH1'
+import TitleH1 from '@/components/titles/TitleH1'
+import TitleH2 from '@/components/titles/TitleH2'
+import TitleH3 from '@/components/titles/TitleH3'
 import BoxDefault from '@/components/BoxDefault'
 
 export default {
@@ -86,6 +94,8 @@ export default {
     LogoWithText,
     QuestionPreview,
     TitleH1,
+    TitleH2,
+    TitleH3,
     QuestionCard,
     BoxDefault
   },

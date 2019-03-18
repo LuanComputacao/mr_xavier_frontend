@@ -22,7 +22,7 @@
 import { mapState } from 'vuex'
 import FormKnowledgeFilter from '@/components/forms/FormKnowledgeFilter.vue'
 import TableQuestion from '@/components/tables/TableQuestion.vue'
-import TitleH1 from '@/components/TitleH1'
+import TitleH1 from '@/components/titles/TitleH1'
 
 export default {
   name: 'Questions',

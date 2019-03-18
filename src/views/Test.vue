@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import TitleH1 from '@/components/TitleH1'
+import TitleH1 from '@/components/titles/TitleH1'
 
 export default {
   name: 'Test',

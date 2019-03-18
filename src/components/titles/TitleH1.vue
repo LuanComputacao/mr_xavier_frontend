@@ -18,10 +18,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$border-width: 5px;
+
 .title-h1{
-  border-left: solid 0.2em #42b983;
+  border-left: solid $border-width $green;
   font-size: 2em;
-  padding-left: $grid-gutter-width/2;
-  margin-left: -$grid-gutter-width/2
+  margin-left: -$gutter_2;
+  padding-left: $gutter_2 - $border-width;
+  margin-top: $gutter_2;
 }
 </style>

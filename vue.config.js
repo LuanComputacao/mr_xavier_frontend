@@ -18,6 +18,7 @@ module.exports = {
       sass: {
         data: `
           @import 'node_modules/bootstrap/scss/bootstrap';
+          @import 'src/scss/root.scss';
         `
       }
     }
