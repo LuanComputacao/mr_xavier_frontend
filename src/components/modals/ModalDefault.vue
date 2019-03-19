@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="isVisible"
+    v-show="show"
     class="modal-default"
   >
     <box-default
@@ -20,6 +20,7 @@
               </slot>
             </h5>
             <button
+              v-if="!lock"
               @click="dispose"
               type="button"
               class="modal-default__close"
@@ -61,22 +62,17 @@ export default {
       type: Boolean,
       required: true,
       default: false
+    },
+    lock: {
+      type: Boolean,
+      required: false,
+      default: false
     }
-  },
-
-  data () {
-    return {
-      isVisible: true
-    }
-  },
-
-  created () {
-    this.isVisible = this.show
   },
 
   methods: {
     dispose () {
-      this.isVisible = false
+      if (!this.lock) this.$emit('dispose')
     }
   }
 }
@@ -142,6 +138,10 @@ export default {
   &__body {
   }
   &__footer {
+    border-top: solid 1px $grey-light;
+    padding-top: $gutter_2;
+    margin-top: $gutter_2;
   }
+
 }
 </style>

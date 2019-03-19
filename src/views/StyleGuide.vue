@@ -80,7 +80,55 @@
       <div class="row">
         <div class="col">
           <title-h2 :texti18n="'Modals'" />
-          <modal-default :show="true" />
+          <a
+            class="btn btn-primary"
+            @click="toggleModal('default')"
+          >
+            Show modal <strong>default</strong>
+          </a>
+          <a
+            class="btn btn-primary"
+            @click="toggleModal('locked')"
+          >
+            Show modal <strong>locked</strong>
+          </a>
+
+          <modal-default
+            :lock="true"
+            :show="modal.locked"
+          >
+            <template slot="header">
+              This is a sample of Locked Modal Window
+            </template>
+            <template slot="body">
+              <p>This modal window don't emit a dispose event</p>
+              <p>You need to create some element that trigger your <code>toogleModal</code> function as the button on this footer</p>
+            </template>
+            <template slot="footer">
+              <button
+                class="btn btn-secondary"
+                @click="toggleModal('locked')"
+              >
+                Click here to dispose
+              </button>
+            </template>
+          </modal-default>
+
+          <modal-default
+            :show="modal.default"
+            @dispose="toggleModal('default')"
+          >
+            <template slot="header">
+              This is a sample of non Locked Modal Window
+            </template>
+            <template slot="body">
+              <h4>This is a body</h4>
+              <p>You can do wathever you want to do here</p>
+            </template>
+            <template slot="footer">
+              Here you can put some buttons or nothing
+            </template>
+          </modal-default>
         </div>
       </div>
     </div>
@@ -112,6 +160,10 @@ export default {
 
   data () {
     return {
+      modal: {
+        default: false,
+        locked: false
+      },
       questionPreviewType: 1,
       questionClosed: {
         subject: 'Portugues',
@@ -139,6 +191,12 @@ export default {
           }
         ]
       }
+    }
+  },
+
+  methods: {
+    toggleModal (code) {
+      this.modal[code] = !this.modal[code]
     }
   }
 }
