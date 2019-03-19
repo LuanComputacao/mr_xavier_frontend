@@ -110,6 +110,7 @@ export default {
     left: 0;
     display: block;
     z-index: 1;
+
   }
 
   &__content {
@@ -121,6 +122,7 @@ export default {
     border-bottom: solid 1px $grey-light;
   }
   &__title {
+    font-size: 2em;
     margin-right: 30px;
     margin-bottom: 0;
   }
@@ -130,6 +132,8 @@ export default {
     position: absolute;
     right: 0;
     top: 0;
+    font-size: 1.5em;
+
     &:hover{
       border: none;
       background: none;

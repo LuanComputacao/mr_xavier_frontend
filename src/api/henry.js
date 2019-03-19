@@ -6,37 +6,75 @@ const _questions = [
     id: 1,
     subject: 'mat',
     knowledges: ['sum'],
-    type: true,
+    type: 1,
     wording: 'Esta é a primeira questão?',
     grade: 8,
-    level: 10
+    level: 10,
+    options: [
+      {
+        isTrue: false,
+        text: 'First Option'
+      },
+      {
+        isTrue: true,
+        text: 'Second Option'
+      },
+      {
+        isTrue: false,
+        text: 'Third Option'
+      },
+      {
+        isTrue: false,
+        text: 'Forth Option'
+      }
+    ]
   },
   {
     id: 2,
     subject: 'port',
     knowledges: ['predicate'],
-    type: false,
+    type: 2,
     wording: 'Esta é a segunda questão?',
     grade: 9,
-    level: 5
+    level: 5,
+    lines: 25
   },
   {
     id: 3,
     subject: 'port',
     knowledges: ['predicate', 'subject', 'verb'],
-    type: false,
+    type: 1,
     wording: 'Esta é a terceira questão?',
     grade: 9,
-    level: 5
+    level: 5,
+    options: [
+      {
+        isTrue: false,
+        text: 'First Option'
+      },
+      {
+        isTrue: true,
+        text: 'Second Option'
+      },
+      {
+        isTrue: false,
+        text: 'Third Option'
+      },
+      {
+        isTrue: false,
+        text: 'Forth Option'
+      }
+    ]
   },
   {
     id: 4,
     subject: 'port',
     knowledges: ['predicate', 'past'],
-    type: false,
+    type: 2,
     wording: 'Esta é a terceira questão?',
     grade: 9,
-    level: 5
+    level: 5,
+    lines: 3
   }
 ]
 

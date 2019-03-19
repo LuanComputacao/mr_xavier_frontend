@@ -35,7 +35,7 @@
         >
       </div>
       <div v-else>
-        <span>A questão não possui um tipo selecionado</span>
+        <span class="question__type-info">A questão não possui um tipo selecionado</span>
       </div>
     </div>
   </div>
@@ -107,6 +107,10 @@ export default {
   &__line{
     background-color: $blue;
     margin: 0.5em 0 0.5em;
+  }
+
+  &__type-info{
+    @extend .text-info;
   }
 }
 </style>

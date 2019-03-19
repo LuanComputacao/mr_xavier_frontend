@@ -79,6 +79,16 @@
       <hr>
       <div class="row">
         <div class="col">
+          <title-h2 :texti18n="'Buttons'" />
+          <div>
+            <button-default>Default button</button-default>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+      <div class="row">
+        <div class="col">
           <title-h2 :texti18n="'Modals'" />
           <a
             class="btn btn-primary"
@@ -138,6 +148,7 @@
 import LogoWithText from '@/components/LogoWithText.vue'
 import QuestionPreview from '@/components/QuestionPreview'
 import QuestionCard from '@/components/QuestionCard'
+import ButtonDefault from '@/components/buttons/ButtonDefault'
 import TitleH1 from '@/components/titles/TitleH1'
 import TitleH2 from '@/components/titles/TitleH2'
 import TitleH3 from '@/components/titles/TitleH3'
@@ -149,6 +160,7 @@ export default {
 
   components: {
     LogoWithText,
+    ButtonDefault,
     QuestionPreview,
     TitleH1,
     TitleH2,
