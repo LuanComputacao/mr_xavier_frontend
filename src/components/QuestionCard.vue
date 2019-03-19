@@ -105,6 +105,7 @@ export default {
   }
 
   &__line{
+    background-color: $blue;
     margin: 0.5em 0 0.5em;
   }
 }

@@ -75,6 +75,14 @@
           </box-default>
         </div>
       </div>
+
+      <hr>
+      <div class="row">
+        <div class="col">
+          <title-h2 :texti18n="'Modals'" />
+          <modal-default :show="true" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -86,6 +94,7 @@ import TitleH1 from '@/components/titles/TitleH1'
 import TitleH2 from '@/components/titles/TitleH2'
 import TitleH3 from '@/components/titles/TitleH3'
 import BoxDefault from '@/components/BoxDefault'
+import ModalDefault from '@/components/modals/ModalDefault'
 
 export default {
   name: 'StyleGruide',
@@ -97,7 +106,8 @@ export default {
     TitleH2,
     TitleH3,
     QuestionCard,
-    BoxDefault
+    BoxDefault,
+    ModalDefault
   },
 
   data () {

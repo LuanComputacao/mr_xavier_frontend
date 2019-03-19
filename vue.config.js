@@ -19,6 +19,7 @@ module.exports = {
         data: `
           @import 'src/scss/root.scss';
           @import 'node_modules/bootstrap/scss/bootstrap';
+          @import 'src/scss/style.scss';
         `
       }
     }

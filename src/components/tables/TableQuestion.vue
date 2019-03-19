@@ -4,6 +4,7 @@
       <tr>
         <th>Tipo</th>
         <th>Enunciado</th>
+        <th />
         <th>Fase de Ensino</th>
         <th>Nível</th>
         <th>Editar</th>
@@ -18,17 +19,25 @@
         <td>
           <font-awesome-icon
             v-if="question.type"
-            icon="file-alt"
+            icon="pencil-alt"
             class="questions-table__type questions-table__type--open"
           />
           <font-awesome-icon
             v-else
-            icon="check-square"
+            icon="check"
             class="questions-table__type questions-table__type--close"
           />
         </td>
 
         <td>{{ question.wording }}</td>
+        <td>
+          <a @click="showQuestionDetails(question)">
+            <font-awesome-icon
+              class="questions-table__view"
+              icon="eye"
+            />
+          </a>
+        </td>
         <td>{{ question.grade }}</td>
         <td>{{ question.level }}</td>
         <td>
@@ -63,6 +72,9 @@ export default {
   methods: {
     deleteQuestion (questionId) {
       confirm('Do you want to delete the question ' + questionId + '?')
+    },
+    showQuestionDetails (question) {
+      console.log(question)
     }
   }
 }
@@ -75,12 +87,19 @@ export default {
     text-align: center;
 
     &--open{
-      color: $blue-light;
+      color: $blue-dark;
     }
 
     &--close{
       color: $blue-dark;
     }
+  }
+
+  &__view{
+    &:hover{
+      cursor: pointer;
+    }
+    @extend .text-info;
   }
 }
 </style>
