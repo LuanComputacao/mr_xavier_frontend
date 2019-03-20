@@ -3,12 +3,21 @@
     <table class="tests-table">
       <thead>
         <tr>
-          <th>Applied times</th>
-          <th>Enunciado</th>
+          <th class="tests-table__applied-times">
+            Applied times
+          </th>
+          <th>Descrição</th>
+          <th />
           <th>Fase de Ensino</th>
-          <th>Nível</th>
-          <th>Editar</th>
-          <th>Apagar</th>
+          <th class="tests-table__level">
+            Nível
+          </th>
+          <th class="tests-table__edit">
+            Editar
+          </th>
+          <th class="tests-table__delete">
+            Apagar
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -21,6 +30,11 @@
           </td>
           <td class="tests-table__description">
             {{ test.description }}
+          </td>
+          <td class="tests-table__preview">
+            <button class="tests-preview__btn">
+              <font-awesome-icon icon="eye" />
+            </button>
           </td>
           <td class="tests-table__grade">
             {{ test.grade }}
@@ -71,8 +85,35 @@ export default {
   &__grade,
   &__level,
   &__edit,
+  &__preview,
   &__delete{
     text-align: center;
+  }
+
+  &__applied-times,
+  &__level,
+  &__delete,
+  &__edit{
+    display: none;
+
+    @include media-breakpoint-up("sm") {
+      display: table-cell;
+    }
+  }
+}
+.tests-preview{
+  &__btn{
+    background: none;
+    border:none;
+    stroke: none;
+
+    @extend .text-info;
+
+    &:hover{
+      background: none;
+      border:none;
+      stroke: none;
+    }
   }
 }
 </style>
