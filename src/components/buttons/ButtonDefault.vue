@@ -1,6 +1,6 @@
 <template>
   <button
-    @click="$emit('click')"
+    @click.prevent="$emit('click')"
     class="button-default"
     v-t="textI18n"
     :class="classes"

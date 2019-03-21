@@ -21,7 +21,7 @@
             </h5>
             <button
               v-if="!lock"
-              @click="dispose"
+              @click="disposeEmit"
               type="button"
               class="modal-default__close"
               aria-label="Close"
@@ -43,7 +43,7 @@
       </div>
     </box-default>
     <div
-      @click="dispose"
+      @click="disposeEmit"
       class="modal-default__overlay"
     />
   </div>
@@ -71,7 +71,7 @@ export default {
   },
 
   methods: {
-    dispose () {
+    disposeEmit () {
       if (!this.lock) this.$emit('dispose')
     }
   }
@@ -101,8 +101,8 @@ export default {
     }
   }
   &__overlay {
-    background-color: $grey;
-    opacity: 0.95;
+    background-color: $overlay-color;
+    opacity: 0.55;
     width: 100%;
     height: 100vh;
     position: fixed;

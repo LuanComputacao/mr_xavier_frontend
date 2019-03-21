@@ -7,8 +7,8 @@
     <form-question
       :subjects="availableSubjects"
       :degrees="[]"
-      :level-range="100"
-      :level-value="4"
+      :level-range="10"
+      :level-value="Number.parseInt(4)"
     />
   </div>
 </template>

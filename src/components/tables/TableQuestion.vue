@@ -149,11 +149,11 @@ export default {
     text-align: center;
 
     &--open{
-      color: $blue-dark;
+      color: $blue-light;
     }
 
     &--close{
-      color: $blue-dark;
+      color: $blue-light;
     }
   }
 

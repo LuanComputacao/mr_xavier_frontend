@@ -11,9 +11,10 @@
         >
           :
         </div>
-        <div class="col">
-          <label for="type">
+        <div class="col-auto">
+          <label for="type-closed">
             <input
+              id="type-closed"
               type="radio"
               name="type"
               value="1"
@@ -21,15 +22,17 @@
             >
             {{ $t('all--closed') }}
           </label>
-          <label for="type">
+        </div>
+        <div class="col-auto">
+          <label for="type-open">
             <input
+              id="type-open"
               type="radio"
               name="type"
               value="2"
               v-model.number="type"
-              v-t="'all--open'"
             >
-            {{ $t('all--open') }}
+            {{ $t('all--closed') }}
           </label>
         </div>
       </div>
@@ -40,6 +43,7 @@
           class="form-control"
           name="subject"
           id="subject"
+          v-model="subject"
         >
           <option value>
             Selectione uma matéria
@@ -47,7 +51,7 @@
           <option
             v-for="(availableSubject, i) in availableSubjects"
             :key="i"
-            value="availableSubject.code"
+            :value="availableSubject"
           >
             {{ availableSubject.name }}
           </option>
@@ -55,7 +59,7 @@
       </div>
 
       <input-select-knowledge
-        :available-knowledges="this.availableKnowledges"
+        :available-knowledges="subject.knowledge"
         @select="updateKnowledges"
       />
 
@@ -85,8 +89,9 @@
           class="custom-range"
           type="range"
           min="0"
+          step="0.5"
           :max="levelRange"
-          v-model="level"
+          v-model.number="level"
         >
         {{ level }}
       </div>
@@ -113,16 +118,18 @@
               <div class="input-group-text">
                 <input
                   type="checkbox"
-                  :name="'option-checkbox[' + i + ']'"
-                  @change="updateCorrectAnswers"
+                  :name="'option-checkbox[' + j + ']'"
+                  @click="updateCorrectAnswers(j)"
+                  :data-number="i"
                 >
               </div>
             </div>
             <input
               class="form-control"
               type="text"
-              :name="'option-text[' + i + ']'"
-              @change="updateCorrectAnswers"
+              :name="'option-text[' + j + ']'"
+              @change="updateAnswersOptions(j)"
+              :data-number="i"
             >
           </div>
         </div>
@@ -141,32 +148,64 @@
 
       <div class="form-question__buttons">
         <div class="form-question__buttons-group">
-          <button class="form-question__button">
+          <button-default
+            theme="info"
+            @click="toggleModal"
+          >
             Preview
-          </button>
-          <input
-            class="form-question__button"
-            type="button"
-            value="Salvar Rascunho"
-          >
-          <input
-            class="form-question__button"
-            type="button"
-            value="Publicar"
-          >
+          </button-default>
+          <button-default>Salvar rascunho</button-default>
+          <button-default theme="warning">
+            Publicar
+          </button-default>
         </div>
       </div>
     </form>
+
+    <modal-default
+      :show="showPreview"
+      @dispose="toggleModal"
+    >
+      <template slot="header">
+        Detalhes da questão
+      </template>
+      <template slot="body">
+        <question-preview
+          :subject="subject.name"
+          :knowledges="knowledges.map(x=> x.name)"
+          :degree="degree"
+          :level="level"
+          :wording="wording"
+          :type="type"
+          :lines="lines"
+          :options="options"
+        />
+      </template>
+      <template slot="footer">
+        <button-default
+          @click="toggleModal"
+        >
+          Fechar
+        </button-default>
+      </template>
+    </modal-default>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import InputSelectKnowledge from '@/components/forms/inputs/InputSelectKnowledge'
+import ButtonDefault from '@/components/buttons/ButtonDefault'
+import ModalDefault from '@/components/modals/ModalDefault'
+import QuestionPreview from '@/components/QuestionPreview'
 
 export default {
   name: 'FormQuestion',
 
   components: {
-    InputSelectKnowledge
+    InputSelectKnowledge,
+    ButtonDefault,
+    ModalDefault,
+    QuestionPreview
   },
 
   props: {
@@ -190,11 +229,6 @@ export default {
       required: false,
       default: null
     },
-    availableSubjects: {
-      type: Array,
-      required: false,
-      default: () => []
-    },
     availableDegrees: {
       type: Array,
       required: false,
@@ -204,22 +238,33 @@ export default {
 
   data () {
     return {
+      showPreview: false,
       availableKnowledges: [],
-      subject: '',
+      subject: {},
       knowledges: [],
       level: null,
       wording: '',
       degree: 0,
       type: 1,
-      options: {},
+      options: [],
       lines: 0
     }
   },
 
+  computed: {
+    ...mapState({
+      availableSubjects: state => state.subjects.all
+    })
+  },
+
   created () {
-    this.level = this.levelValue ? this.levelValue : this.levelRange / 2
+    this.$store.dispatch('subjects/getAllSubjects')
+    this.level = this.levelValue ? this.levelValue : 0
     for (let i = 0; i < 5; i++) {
-      this.options[i] = {}
+      this.options[i] = {
+        isTrue: false,
+        text: ''
+      }
     }
   },
 
@@ -228,15 +273,18 @@ export default {
       this.knowledges = knowledges
     },
 
-    updateCorrectAnswers () {
-      let answers = document.querySelectorAll("[name*='option-radio']")
-      console.log(answers)
+    updateCorrectAnswers (number) {
+      let answers = document.querySelector("[name*='option-checkbox[" + number + "]']")
+      this.options[number]['isTrue'] = (answers.checked === true)
     },
-    updateAnswersOptions () {
-      let answers = document.querySelectorAll("[name*='option-text']")
-      answers.forEach(element => {
-        console.log(element)
-      })
+
+    updateAnswersOptions (number) {
+      let answers = document.querySelector("[name*='option-text[" + number + "]']")
+      this.options[number]['text'] = answers.value
+    },
+
+    toggleModal () {
+      this.showPreview = !this.showPreview
     }
   }
 }
@@ -248,10 +296,6 @@ export default {
   }
   &__buttons-group{
     @extend .col-auto;
-  }
-  &__button{
-    align-self: center;
-    @extend .btn, .btn-primary, .mt-1, .ml-1, .mr-1;
   }
 }
 

@@ -16,7 +16,7 @@
         <option
           v-for="(knowledge, i) in availableKnowledges"
           :key="i"
-          :value="knowledge.code"
+          :value="knowledge"
         >
           {{ knowledge.name }}
         </option>
