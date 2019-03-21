@@ -142,7 +142,7 @@
           type="number"
           min="0"
           max="50"
-          v-model="lines"
+          v-model.number="lines"
         >
       </div>
 

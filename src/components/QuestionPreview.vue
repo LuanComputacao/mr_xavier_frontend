@@ -38,7 +38,7 @@
           <question-card
             :type="type"
             :wording="wording"
-            :options="options"
+            :options="_options"
             :lines="lines"
           />
         </div>
@@ -97,6 +97,10 @@ export default {
       required: false,
       default: () => []
     }
+  },
+
+  computed: {
+    _options () { return this.options }
   }
 }
 </script>

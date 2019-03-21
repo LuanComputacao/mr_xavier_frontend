@@ -14,6 +14,7 @@
           :key="i"
           class="question__option"
         >
+          {{ option }}
           <font-awesome-icon
             class="question__option-circle--true"
             v-if="option.isTrue"
@@ -61,13 +62,7 @@ export default {
     },
     options: {
       type: Array,
-      required: true,
-      default: () => {
-        return [{
-          isTrue: false,
-          text: 'Default Text'
-        }]
-      }
+      required: true
     }
   }
 }

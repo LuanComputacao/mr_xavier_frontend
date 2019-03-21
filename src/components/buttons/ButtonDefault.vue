@@ -2,10 +2,13 @@
   <button
     @click.prevent="$emit('click')"
     class="button-default"
-    v-t="textI18n"
     :class="classes"
   >
-    <slot />
+    <span
+      v-if="textI18n"
+      v-t="textI18n"
+    />
+    <slot name="default" />
   </button>
 </template>
 <script>
@@ -15,8 +18,7 @@ export default {
   props: {
     textI18n: {
       type: String,
-      required: false,
-      default: ''
+      required: false
     },
     text: {
       type: String,

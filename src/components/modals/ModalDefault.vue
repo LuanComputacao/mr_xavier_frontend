@@ -78,43 +78,37 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+$overlay-c: rgba(87, 87, 87, 0.6);
 .modal-default {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 
   &__window {
-    z-index: 100;
-    opacity: 1;
-    background-color: $white-fresh;
-    height: 100vh;
-
-    @extend .container;
+    background-color: $grey-light;
+    z-index: 10072;
 
     @include media-breakpoint-up("sm") {
       height: auto;
+      margin: $gutter;
     }
+
+    @extend .container;
   }
   &__overlay {
-    background-color: $overlay-color;
+    background-color: $overlay-c;
     opacity: 0.55;
+    height: 100%;
     width: 100%;
-    height: 100vh;
     position: fixed;
     top: 0;
-    left: 0;
-    display: block;
-    z-index: 1;
-
   }
 
-  &__content {
-  }
   &__header {
     position: relative;
     padding-bottom: $gutter_2;
@@ -134,7 +128,7 @@ export default {
     top: 0;
     font-size: 1.5em;
 
-    &:hover{
+    &:hover {
       border: none;
       background: none;
     }
@@ -146,6 +140,5 @@ export default {
     padding-top: $gutter_2;
     margin-top: $gutter_2;
   }
-
 }
 </style>
