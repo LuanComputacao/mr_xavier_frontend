@@ -36,7 +36,8 @@ export default {
   computed: {
     ...mapState({
       questions: state => state.questions.all,
-      subjects: state => state.subjects.all
+      subjects: state => state.subjects.all,
+      grades: state => state.grades.all
     }),
     filteredQuestions () {
       let that = this
@@ -49,12 +50,12 @@ export default {
         x => x.subject === this.curSubject.code
       )
 
+      let knowledgesCodes = that.curSubject.knowledges.map(x => x.code)
       let filteredQuestions = subjectQuestions.filter(x => {
         let filteredKnowledge = x.knowledges.filter(
-          x => that.curSubject.knowledges.indexOf(x) > -1
+          y => knowledgesCodes.indexOf(y) > -1
         )
-
-        return that.curSubject.knowledges.length === filteredKnowledge.length
+        return knowledgesCodes.length === filteredKnowledge.length
       })
 
       return filteredQuestions
@@ -72,10 +73,10 @@ export default {
   created () {
     this.$store.dispatch('questions/getAllQuestions')
     this.$store.dispatch('subjects/getAllSubjects')
+    this.$store.dispatch('grades/getAllGrades')
   },
   methods: {
     updateCurrentSubject (code, knowledges) {
-      console.log(code, knowledges)
       this.curSubject.code = code
       this.curSubject.knowledges = knowledges
     }

@@ -141,7 +141,17 @@ const _tests = [
       3: 2
     }
   }
+]
 
+const _grades = [
+  { code: 1, name: 'First Year' },
+  { code: 2, name: 'Second Year' },
+  { code: 3, name: 'Third Year' },
+  { code: 4, name: 'Fourth Year' },
+  { code: 5, name: 'Fifth Year' },
+  { code: 6, name: 'Sixth Year' },
+  { code: 7, name: 'Seventh Year' },
+  { code: 8, name: 'Eighth Year' }
 ]
 
 export default {
@@ -153,5 +163,8 @@ export default {
   },
   getTests (cb) {
     setTimeout(() => cb(_tests), 100)
+  },
+  getGrades (cb) {
+    setTimeout(() => cb(_grades), 100)
   }
 }
