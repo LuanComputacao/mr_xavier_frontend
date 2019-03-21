@@ -14,7 +14,6 @@
           :key="i"
           class="question__option"
         >
-          {{ option }}
           <font-awesome-icon
             class="question__option-circle--true"
             v-if="option.isTrue"

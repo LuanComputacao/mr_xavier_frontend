@@ -18,7 +18,8 @@ export default {
   props: {
     textI18n: {
       type: String,
-      required: false
+      required: false,
+      default: 'void'
     },
     text: {
       type: String,

@@ -75,6 +75,7 @@ export default {
   },
   methods: {
     updateCurrentSubject (code, knowledges) {
+      console.log(code, knowledges)
       this.curSubject.code = code
       this.curSubject.knowledges = knowledges
     }

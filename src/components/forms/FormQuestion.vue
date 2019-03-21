@@ -275,12 +275,18 @@ export default {
 
     updateCorrectAnswers (number) {
       let answers = document.querySelector("[name*='option-checkbox[" + number + "]']")
-      this.options[number]['isTrue'] = (answers.checked === true)
+      // this.options[number]['isTrue'] = (answers.checked === true)
+      this.$set(this.options, number, { isTrue: answers.checked, text: this.options[number]['text'] })
+      this.updateOption(number, answers.checked, this.options[number]['text'])
     },
 
     updateAnswersOptions (number) {
       let answers = document.querySelector("[name*='option-text[" + number + "]']")
-      this.options[number]['text'] = answers.value
+      this.updateOption(number, this.options[number]['isTrue'], answers.value)
+    },
+
+    updateOption (position, checked, text) {
+      this.$set(this.options, position, { isTrue: checked, text: text })
     },
 
     toggleModal () {
