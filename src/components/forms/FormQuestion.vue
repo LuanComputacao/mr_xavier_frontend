@@ -49,11 +49,11 @@
             Selectione uma matéria
           </option>
           <option
-            v-for="(availableSubject, i) in availableSubjects"
+            v-for="(subjectI, i) in subjects"
             :key="i"
-            :value="availableSubject"
+            :value="subjectI"
           >
-            {{ availableSubject.name }}
+            {{ subjectI.name }}
           </option>
         </select>
       </div>
@@ -64,21 +64,22 @@
       />
 
       <div class="form-group">
-        <label for="degree">Fase de ensino</label>
+        <label for="grade">Fase de ensino</label>
         <select
           class="form-control"
-          name="degree"
-          id="degree"
+          name="grade"
+          id="grade"
+          v-model="grade"
         >
           <option value>
             Selecione uma fase de ensino
           </option>
           <option
-            v-for="(availableDegree, i) in availableDegrees"
+            v-for="(gradeI, i) in grades"
             :key="i"
-            value="availableDegree.code"
+            :value="gradeI"
           >
-            {{ availableDegree.name }}
+            {{ gradeI.name }}
           </option>
         </select>
       </div>
@@ -173,7 +174,7 @@
         <question-preview
           :subject="subject.name"
           :knowledges="knowledges.map(x=> x.name)"
-          :degree="degree"
+          :grade="grade"
           :level="level"
           :wording="wording"
           :type="type"
@@ -192,7 +193,6 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
 import InputSelectKnowledge from '@/components/forms/inputs/InputSelectKnowledge'
 import ButtonDefault from '@/components/buttons/ButtonDefault'
 import ModalDefault from '@/components/modals/ModalDefault'
@@ -214,7 +214,7 @@ export default {
       required: true,
       default: () => []
     },
-    degrees: {
+    grades: {
       type: Array,
       required: true,
       default: () => []
@@ -228,11 +228,6 @@ export default {
       type: Number,
       required: false,
       default: null
-    },
-    availableDegrees: {
-      type: Array,
-      required: false,
-      default: () => []
     }
   },
 
@@ -244,17 +239,11 @@ export default {
       knowledges: [],
       level: null,
       wording: '',
-      degree: 0,
+      grade: 0,
       type: 1,
       options: [],
       lines: 0
     }
-  },
-
-  computed: {
-    ...mapState({
-      availableSubjects: state => state.subjects.all
-    })
   },
 
   created () {

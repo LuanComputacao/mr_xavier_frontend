@@ -6,13 +6,14 @@
     />
     <form-question
       :subjects="availableSubjects"
-      :degrees="[]"
+      :grades="availableGrades"
       :level-range="10"
       :level-value="Number.parseInt(4)"
     />
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import FormQuestion from '@/components/forms/FormQuestion'
 
 export default {
@@ -22,10 +23,16 @@ export default {
     FormQuestion
   },
 
-  data () {
-    return {
-      availableSubjects: []
-    }
+  computed: {
+    ...mapState({
+      availableSubjects: state => state.subjects.all,
+      availableGrades: state => state.grades.all
+    })
+  },
+
+  created () {
+    this.$store.dispatch('subjects/getAllSubjects')
+    this.$store.dispatch('grades/getAllGrades')
   }
 }
 </script>

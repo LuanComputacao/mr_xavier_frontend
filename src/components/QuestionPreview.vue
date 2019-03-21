@@ -12,7 +12,7 @@
         </div>
         <div class="col-12">
           <span class="font-weight-bold">Fase de Ensino:</span>
-          {{ degree }}
+          {{ grade.name }} ({{ grade.code }})
         </div>
         <div class="col-12">
           <span class="font-weight-bold">Nível:</span>
@@ -72,10 +72,10 @@ export default {
       required: true,
       default: () => []
     },
-    degree: {
-      type: Number,
+    grade: {
+      type: Object,
       required: true,
-      default: 0
+      default: () => {}
     },
     level: {
       type: Number,

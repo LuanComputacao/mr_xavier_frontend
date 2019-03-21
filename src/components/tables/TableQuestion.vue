@@ -74,7 +74,7 @@
           <question-preview
             :subject="currentQuestion.subject"
             :knowledges="currentQuestion.knowledges"
-            :degree="currentQuestion.degree"
+            :grade="currentQuestion.grade"
             :level="currentQuestion.level"
             :wording="currentQuestion.wording"
             :type="currentQuestion.type"
