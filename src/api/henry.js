@@ -8,7 +8,7 @@ const _questions = [
     knowledges: ['sum'],
     type: 1,
     wording: 'Esta é a primeira questão?',
-    grade: 8,
+    grade_code: 8,
     level: 10,
     options: [
       {
@@ -35,7 +35,7 @@ const _questions = [
     knowledges: ['predicate'],
     type: 2,
     wording: 'Esta é a segunda questão?',
-    grade: 9,
+    grade_code: 9,
     level: 5,
     lines: 25
   },
@@ -45,7 +45,7 @@ const _questions = [
     knowledges: ['predicate', 'subject', 'verb'],
     type: 1,
     wording: 'Esta é a terceira questão?',
-    grade: 9,
+    grade_code: 9,
     level: 5,
     options: [
       {
@@ -72,7 +72,7 @@ const _questions = [
     knowledges: ['predicate', 'past'],
     type: 2,
     wording: 'Esta é a terceira questão?',
-    grade: 9,
+    grade_code: 9,
     level: 5,
     lines: 3
   }
@@ -133,7 +133,7 @@ const _tests = [
     appliedTimes: 2,
     author: 'Luan Roger',
     description: 'Avaliar a Identificação dos componentes das orações',
-    grade: 9,
+    grade_code: 9,
     level: 5,
     questions: {
       1: 3,
@@ -151,7 +151,8 @@ const _grades = [
   { code: 5, name: 'Fifth Year' },
   { code: 6, name: 'Sixth Year' },
   { code: 7, name: 'Seventh Year' },
-  { code: 8, name: 'Eighth Year' }
+  { code: 8, name: 'Eighth Year' },
+  { code: 9, name: 'Nine Year' }
 ]
 
 export default {

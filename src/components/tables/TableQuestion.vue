@@ -43,7 +43,7 @@
               />
             </a>
           </td>
-          <td>{{ question.grade }}</td>
+          <td>{{ question.grade.name }}</td>
           <td>{{ question.level }}</td>
           <td class="questions-table__edit">
             <router-link :to="{name:'edit-question', params: {id: question.id}}">

@@ -6,7 +6,11 @@ const state = {
 }
 
 // Getters
-const getters = {}
+const getters = {
+  gradeByCode: (state) => (code) => {
+    return state.all.find(grade => grade.code === Number.parseInt(code))
+  }
+}
 
 // Actions
 const actions = {

@@ -1,18 +1,18 @@
 {
-  "void": "",
-  "all--create_question": "Create Question",
-  "all--subject": "Subject",
-  "all--home": "Home",
-  "all--questions": "Questions",
-  "all--tests": "Tests",
-  "all--requested_knowledges": "Requested knowledges",
   "all--closed": "Closed",
   "all--closed-question": "Closed question",
+  "all--create_question": "Create Question",
+  "all--home": "Home",
+  "all--invalidation_proposals": "Propostas de invalidação",
   "all--open": "Open",
   "all--open-question": "Open question",
-  "all--type": "Tipo",
-  "all--invalidation_proposals": "Propostas de invalidação",
+  "all--questions": "Questions",
+  "all--requested_knowledges": "Requested knowledges",
   "all--style_guide": "Style Guide",
+  "all--subject": "Subject",
+  "all--tests": "Tests",
+  "all--type": "Type",
   "creating_question--title": "Creating question",
-  "lorem-ipsum": "Lorem ipsum sit amet"
+  "lorem-ipsum": "Lorem ipsum sit amet",
+  "void": ""
 }

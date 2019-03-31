@@ -80,7 +80,7 @@ export default {
 <style lang="scss" scoped>
 $overlay-c: rgba(87, 87, 87, 0.6);
 .modal-default {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -132,8 +132,6 @@ $overlay-c: rgba(87, 87, 87, 0.6);
       border: none;
       background: none;
     }
-  }
-  &__body {
   }
   &__footer {
     border-top: solid 1px $grey-light;

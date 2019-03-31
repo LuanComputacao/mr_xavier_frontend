@@ -19,7 +19,7 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import FormKnowledgeFilter from '@/components/forms/FormKnowledgeFilter.vue'
 import TableQuestion from '@/components/tables/TableQuestion.vue'
 import TitleH1 from '@/components/titles/TitleH1'
@@ -34,6 +34,9 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      gradeByCode: 'grades/gradeByCode'
+    }),
     ...mapState({
       questions: state => state.questions.all,
       subjects: state => state.subjects.all,
@@ -41,24 +44,32 @@ export default {
     }),
     filteredQuestions () {
       let that = this
+      let filteredQuestions
 
       if (this.curSubject.code.length < 1) {
-        return this.questions
+        filteredQuestions = this.questions
+      } else {
+        let subjectQuestions = this.questions.filter(
+          x => x.subject === this.curSubject.code
+        )
+
+        let knowledgesCodes = that.curSubject.knowledges.map(x => x.code)
+        filteredQuestions = subjectQuestions.filter(x => {
+          let filteredKnowledge = x.knowledges.filter(
+            y => knowledgesCodes.indexOf(y) > -1
+          )
+          return knowledgesCodes.length === filteredKnowledge.length
+        })
       }
 
-      let subjectQuestions = this.questions.filter(
-        x => x.subject === this.curSubject.code
-      )
-
-      let knowledgesCodes = that.curSubject.knowledges.map(x => x.code)
-      let filteredQuestions = subjectQuestions.filter(x => {
-        let filteredKnowledge = x.knowledges.filter(
-          y => knowledgesCodes.indexOf(y) > -1
-        )
-        return knowledgesCodes.length === filteredKnowledge.length
+      return filteredQuestions.map(question => {
+        let questionMapped = question
+        console.log(question.grade_code)
+        let grade = that.gradeByCode(question.grade_code)
+        console.log(grade)
+        questionMapped.grade = grade
+        return questionMapped
       })
-
-      return filteredQuestions
     }
   },
 
@@ -71,9 +82,9 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('questions/getAllQuestions')
-    this.$store.dispatch('subjects/getAllSubjects')
     this.$store.dispatch('grades/getAllGrades')
+    this.$store.dispatch('subjects/getAllSubjects')
+    this.$store.dispatch('questions/getAllQuestions')
   },
   methods: {
     updateCurrentSubject (code, knowledges) {
