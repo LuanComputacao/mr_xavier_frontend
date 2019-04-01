@@ -6,7 +6,15 @@ const state = {
 }
 
 // Getters
-const getters = {}
+const getters = {
+  questionById: (state) => (id) => {
+    let found = state.all.find(x => {
+      console.log('x ', x)
+      return Number.parseInt(x.id) === Number.parseInt(id)
+    })
+    return found
+  }
+}
 
 // Actions
 const actions = {

@@ -32,7 +32,7 @@
               value="2"
               v-model.number="type"
             >
-            {{ $t('all--closed') }}
+            {{ $t('all--open') }}
           </label>
         </div>
       </div>
@@ -209,6 +209,16 @@ export default {
   },
 
   props: {
+    edit: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    question: {
+      type: Object,
+      required: false,
+      default: () => {}
+    },
     subjects: {
       type: Array,
       required: true,
@@ -223,11 +233,6 @@ export default {
       type: Number,
       required: true,
       default: 10
-    },
-    levelValue: {
-      type: Number,
-      required: false,
-      default: null
     }
   },
 
@@ -239,7 +244,7 @@ export default {
       knowledges: [],
       level: null,
       wording: '',
-      grade: 0,
+      grade: {},
       type: 1,
       options: [],
       lines: 0
@@ -247,17 +252,40 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('subjects/getAllSubjects')
-    this.level = this.levelValue ? this.levelValue : 0
-    for (let i = 0; i < 5; i++) {
-      this.options[i] = {
-        isTrue: false,
-        text: ''
-      }
-    }
+    this.level = 0
+    this.initializeOptionsFields()
+  },
+
+  mounted () {
+    this.adaptEditOrCreate()
   },
 
   methods: {
+    initializeOptionsFields () {
+      for (let i = 0; i < 5; i++) {
+        this.options[i] = {
+          isTrue: false,
+          text: ''
+        }
+      }
+    },
+
+    adaptEditOrCreate () {
+      if (this.edit) {
+        this.level = this.question.level
+        this.wording = this.question.wording
+        this.grade = this.question.grade
+        this.type = this.question.type
+        this.options = this.question.options
+        this.lines = this.question.lines
+        this.fillSubject()
+        this.fillKnowledges()
+      }
+    },
+
+    fillSubject () {},
+    fillKnowledges () {},
+
     updateKnowledges (knowledges) {
       this.knowledges = knowledges
     },

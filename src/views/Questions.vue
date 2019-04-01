@@ -64,9 +64,7 @@ export default {
 
       return filteredQuestions.map(question => {
         let questionMapped = question
-        console.log(question.grade_code)
         let grade = that.gradeByCode(question.grade_code)
-        console.log(grade)
         questionMapped.grade = grade
         return questionMapped
       })

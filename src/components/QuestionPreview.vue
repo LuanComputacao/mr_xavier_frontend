@@ -12,7 +12,7 @@
         </div>
         <div class="col-12">
           <span class="font-weight-bold">Fase de Ensino:</span>
-          {{ grade.name }} ({{ grade.code }})
+          <span v-if="grade.name">{{ grade.name }} ({{ grade.code }})</span>
         </div>
         <div class="col-12">
           <span class="font-weight-bold">Nível:</span>
