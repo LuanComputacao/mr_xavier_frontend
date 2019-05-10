@@ -2,7 +2,8 @@ import henry from '@/api/henry'
 
 // Initial state
 const state = {
-  all: []
+  all: [],
+  question: null
 }
 
 // Getters
@@ -18,10 +19,12 @@ const getters = {
 
 // Actions
 const actions = {
-  getAllQuestions ({ commit }) {
-    henry.getQuestions(questions => {
-      commit('setQuestions', questions)
-    })
+  async getAllQuestions ({ commit }) {
+    commit('setQuestions', await henry.getQuestions())
+  },
+
+  async actionQuestionById ({ commit }, questionId) {
+    commit('setQuestion', await henry.getQuestionById(questionId))
   }
 }
 
@@ -29,6 +32,10 @@ const actions = {
 const mutations = {
   setQuestions (state, questions) {
     state.all = questions
+  },
+
+  setQuestion (state, question) {
+    state.question = question
   }
 }
 

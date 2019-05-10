@@ -6,6 +6,7 @@ import Pages from './views/Pages.vue'
 import Login from './views/Login.vue'
 import Questions from './views/Questions.vue'
 import Question from './views/Question.vue'
+import QuestionForm from './views/QuestionForm.vue'
 import TestsSearch from './views/TestsSearch.vue'
 import Test from './views/Test.vue'
 
@@ -30,13 +31,18 @@ export default new Router({
     },
     {
       path: '/question/',
+      name: 'create-question',
+      component: QuestionForm
+    },
+    {
+      path: '/question/:id',
       name: 'question',
       component: Question
     },
     {
-      path: '/question/:id',
+      path: '/question/:id/form',
       name: 'edit-question',
-      component: Question
+      component: QuestionForm
     },
     {
       path: '/questions/',

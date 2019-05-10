@@ -1,71 +1,75 @@
 <template>
-  <div class="question-editor">
-    <h1
-      class="text-center"
-      v-t="'creating_question--title'"
-    />
-    <form-question
-      :edit="edit"
-      :question="question"
-      :subjects="availableSubjects"
-      :grades="availableGrades"
-      :level-range="10"
-    />
+  <div class="question">
+    <div v-if="question">
+      <question-preview
+        :subject="question.subject"
+        :knowledges="question.knowledges"
+        :level="question.level"
+        :wording="question.wording"
+        :type="question.type"
+        :lines="question.lines"
+        :options="question.options"
+        :grade="question.grade"
+      />
+    </div>
   </div>
 </template>
+
 <script>
-import { mapState, mapGetters } from 'vuex'
-import FormQuestion from '@/components/forms/FormQuestion'
+import { mapActions, mapState } from 'vuex'
+import QuestionPreview from '@/components/QuestionPreview'
 
 export default {
   name: 'Question',
 
   data () {
     return {
-      questionId: null,
-      edit: false,
-      question: {}
+      ready: false,
+      question: null
     }
   },
 
   components: {
-    FormQuestion
-  },
-
-  computed: {
-    ...mapGetters({
-      getQuestion: 'questions/questionById'
-    }),
-    ...mapState({
-      availableSubjects: state => state.subjects.all,
-      availableGrades: state => state.grades.all
-    })
+    QuestionPreview
   },
 
   created () {
-    this.$store.dispatch('grades/getAllGrades')
-    this.$store.dispatch('subjects/getAllSubjects')
-    this.$store.dispatch('questions/getAllQuestions')
-    this.retrieveQuestionIfEditing()
+    this.actionQuestionById(this.retrievedQuestionId).then(() => {
+      this.actionGradeByCode(this.sQuestion.grade_code).then(() => {
+        this.sQuestion.grade = this.grade
+        this.question = this.sQuestion
+      })
+    })
   },
 
-  updated () {
+  computed: {
+    ...mapState('questions', {
+      sQuestion: state => state.question
+    }),
+
+    ...mapState('grades', {
+      grade: state => state.grade
+    }),
+
+    retrievedQuestionId () {
+      return this.$route.params.id
+    }
   },
 
   methods: {
-    retrieveQuestionIfEditing () {
-      if (this.$route.params.id) {
-        this.questionId = this.$route.params.id
-        this.question = this.getQuestion(this.questionId)
-        this.edit = !!(this.question)
-      }
-      return true
-    }
+    ...mapActions('questions', {
+      actionQuestionById: 'actionQuestionById'
+    }),
+
+    ...mapActions('grades', {
+      actionGradeByCode: 'actionGradeByCode'
+    })
   }
 }
 </script>
-<style lang="scss">
-.question-editor{
-  @extend .mb-1, .container;
+
+<style lang="scss" scoped>
+.question{
+  @extend .pt-5, .container;
 }
 </style>

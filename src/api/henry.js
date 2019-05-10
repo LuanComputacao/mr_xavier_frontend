@@ -156,16 +156,41 @@ const _grades = [
 ]
 
 export default {
-  getQuestions (cb) {
-    setTimeout(() => cb(_questions), 100)
+  getQuestions () {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => { resolve(_questions) }, 6000)
+    })
   },
+
+  getQuestionById (questionId) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let question = _questions.find(question => question.id === Number.parseInt(questionId))
+        resolve(question)
+      }, 6000)
+    })
+  },
+
   getSubjects (cb) {
     setTimeout(() => cb(_subjects), 100)
   },
+
   getTests (cb) {
     setTimeout(() => cb(_tests), 100)
   },
-  getGrades (cb) {
-    setTimeout(() => cb(_grades), 100)
+
+  getGrades () {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => { resolve(_grades) }, 1000)
+    })
+  },
+
+  getGradeByCode (code) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let grade = _grades.find(grade => grade.code === Number.parseInt(code))
+        resolve(grade)
+      }, 1000)
+    })
   }
 }

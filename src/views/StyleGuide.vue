@@ -42,12 +42,12 @@
               <question-preview
                 :subject="questionClosed.subject"
                 :knowledges="questionClosed.knowledges"
-                :degree="questionClosed.degree"
                 :level="questionClosed.level"
                 :wording="questionClosed.wording"
                 :type="questionPreviewType"
                 :lines="questionClosed.lines"
                 :options="questionClosed.options"
+                :grade="questionClosed.grade"
               />
             </div>
           </div>
@@ -180,8 +180,11 @@ export default {
       questionClosed: {
         subject: 'Portugues',
         knowledges: ['Predicado', 'Sujeito', 'Verbo', 'Predicativo do Sujeito'],
-        degree: 3,
         level: 3,
+        grade: {
+          name: 'Terceiro ano',
+          code: 3
+        },
         wording: 'O rato roeu a roupa do Rei de Roma',
         lines: 4,
         options: [

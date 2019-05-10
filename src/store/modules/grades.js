@@ -2,7 +2,8 @@ import henry from '@/api/henry'
 
 // State
 const state = {
-  all: []
+  all: [],
+  grade: null
 }
 
 // Getters
@@ -14,10 +15,12 @@ const getters = {
 
 // Actions
 const actions = {
-  getAllGrades ({ commit }) {
-    henry.getGrades(grades => {
-      commit('setGrades', grades)
-    })
+  async getAllGrades ({ commit }) {
+    commit('setGrades', await henry.getGrades())
+  },
+
+  async actionGradeByCode ({ commit }, code) {
+    commit('setGrade', await henry.getGradeByCode(code))
   }
 }
 
@@ -25,6 +28,10 @@ const actions = {
 const mutations = {
   setGrades (state, grades) {
     state.all = grades
+  },
+
+  setGrade (state, grade) {
+    state.grade = grade
   }
 }
 
