@@ -70,9 +70,24 @@ export default {
     }
   },
 
+  created () {
+    if (!this.lock) {
+      this.detectEsc()
+    }
+  },
+
   methods: {
     disposeEmit () {
       if (!this.lock) this.$emit('dispose')
+    },
+
+    detectEsc () {
+      let that = this
+      window.onkeyup = function (event) {
+        if (event.keyCode === 27) {
+          that.disposeEmit()
+        }
+      }
     }
   }
 }
@@ -90,7 +105,7 @@ $overlay-c: rgba(87, 87, 87, 0.6);
   min-height: 100vh;
 
   &__window {
-    background-color: $grey-light;
+    background-color: $grey-green;
     z-index: 10072;
 
     @include media-breakpoint-up("sm") {

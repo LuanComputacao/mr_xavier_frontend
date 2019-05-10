@@ -4,7 +4,7 @@
     <div class="text-right">
       <router-link
         class="btn btn-secondary"
-        :to="{name: 'question'}"
+        :to="{name: 'create-question'}"
         v-t="'all--create_question'"
       />
     </div>
@@ -44,7 +44,7 @@ export default {
     }),
     filteredQuestions () {
       let that = this
-      let filteredQuestions
+      let filteredQuestions = []
 
       if (this.curSubject.code.length < 1) {
         filteredQuestions = this.questions
