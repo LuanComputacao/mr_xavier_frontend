@@ -16,7 +16,7 @@
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody v-if="questions.length">
         <tr
           v-for="(question, i) in questions"
           :key="i"
@@ -58,6 +58,16 @@
               icon="trash"
               @click="deleteQuestion(question.id)"
             />
+          </td>
+        </tr>
+      </tbody>
+      <tbody v-else>
+        <tr>
+          <td
+            colspan="7"
+            class="questions-table__loading-row"
+          >
+            Carregando questões
           </td>
         </tr>
       </tbody>
@@ -177,6 +187,10 @@ export default {
       cursor: pointer;
     }
     @extend .text-info;
+  }
+
+  &__loading-row{
+    text-align: center;
   }
 }
 </style>

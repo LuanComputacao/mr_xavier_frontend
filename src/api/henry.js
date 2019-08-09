@@ -158,7 +158,7 @@ const _grades = [
 export default {
   getQuestions () {
     return new Promise((resolve, reject) => {
-      setTimeout(() => { resolve(_questions) }, 6000)
+      setTimeout(() => { resolve(_questions) }, 3000)
     })
   },
 
@@ -167,16 +167,16 @@ export default {
       setTimeout(() => {
         let question = _questions.find(question => question.id === Number.parseInt(questionId))
         resolve(question)
-      }, 6000)
+      }, 3000)
     })
   },
 
   getSubjects (cb) {
-    setTimeout(() => cb(_subjects), 100)
+    setTimeout(() => cb(_subjects), 3000)
   },
 
   getTests (cb) {
-    setTimeout(() => cb(_tests), 100)
+    setTimeout(() => cb(_tests), 3000)
   },
 
   getGrades () {
@@ -190,7 +190,7 @@ export default {
       setTimeout(() => {
         let grade = _grades.find(grade => grade.code === Number.parseInt(code))
         resolve(grade)
-      }, 1000)
+      }, 3000)
     })
   }
 }

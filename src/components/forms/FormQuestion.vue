@@ -38,7 +38,7 @@
       </div>
 
       <div class="form-group">
-        <label for="subject">Selecione uma matéria</label>
+        <label for="subject"> <strong>Selecione uma matéria</strong> </label>
         <select
           class="form-control"
           name="subject"
@@ -46,7 +46,7 @@
           v-model="subject"
         >
           <option value>
-            Selectione uma matéria
+            <strong>Selectione uma matéria</strong>
           </option>
           <option
             v-for="(subjectI, i) in subjects"
@@ -64,7 +64,7 @@
       />
 
       <div class="form-group">
-        <label for="grade">Fase de ensino</label>
+        <label for="grade"><strong>Fase de ensino</strong></label>
         <select
           class="form-control"
           name="grade"
@@ -72,7 +72,7 @@
           v-model="grade"
         >
           <option value>
-            Selecione uma fase de ensino
+            <strong>Selecione uma fase de ensino</strong>
           </option>
           <option
             v-for="(gradeI, i) in grades"
@@ -85,7 +85,7 @@
       </div>
 
       <div>
-        <label for="level">Nível:</label>
+        <label for="level"><strong>Nível:</strong> {{ level }}</label>
         <input
           class="custom-range"
           type="range"
@@ -94,11 +94,10 @@
           :max="levelRange"
           v-model.number="level"
         >
-        {{ level }}
       </div>
 
       <div class="form-group">
-        <label for="wording">Enunciado:</label>
+        <label for="wording"><strong>Enunciado:</strong></label>
         <textarea
           class="form-control"
           name="wording"
@@ -109,7 +108,7 @@
       </div>
 
       <div v-if="Number.parseInt(type)===1">
-        <span>Opções:</span>
+        <span><strong>Opções:</strong></span>
         <div
           v-for="(i, j) in 5"
           :key="j"
@@ -155,7 +154,9 @@
           >
             Preview
           </button-default>
-          <button-default>Salvar rascunho</button-default>
+          <button-default @click="saveDraft">
+            Salvar rascunho
+          </button-default>
           <button-default theme="warning">
             Publicar
           </button-default>
@@ -286,6 +287,23 @@ export default {
     fillSubject () {},
     fillKnowledges () {},
 
+    saveDraft () {
+      this.$emit('saveDraft', {
+        subject: this.subject,
+        knowledges: this.knowledges,
+        level: this.level,
+        wording: this.wording,
+        grade: this.grade,
+        type: this.type,
+        options: this.options,
+        lines: this.lines
+      })
+    },
+
+    toggleModal () {
+      this.showPreview = !this.showPreview
+    },
+
     updateKnowledges (knowledges) {
       this.knowledges = knowledges
     },
@@ -304,11 +322,8 @@ export default {
 
     updateOption (position, checked, text) {
       this.$set(this.options, position, { isTrue: checked, text: text })
-    },
-
-    toggleModal () {
-      this.showPreview = !this.showPreview
     }
+
   }
 }
 </script>

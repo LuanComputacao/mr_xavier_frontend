@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="form-login">
     <form
       action="api/v1/login"
       method="post"
@@ -35,3 +35,8 @@ export default {
   name: 'FormLogin'
 }
 </script>
+<style lang="scss" scoped>
+.form-login{
+  text-align: center;
+}
+</style>

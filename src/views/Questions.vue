@@ -80,9 +80,9 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('grades/getAllGrades')
-    this.$store.dispatch('subjects/getAllSubjects')
-    this.$store.dispatch('questions/getAllQuestions')
+    this.$store.dispatch('grades/actionAllGrades')
+    this.$store.dispatch('subjects/actionAllSubjects')
+    this.$store.dispatch('questions/actionAllQuestions')
   },
   methods: {
     updateCurrentSubject (code, knowledges) {

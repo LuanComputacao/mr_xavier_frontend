@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pages">
     <router-link
       class="route-link"
       :to="route.path"
@@ -29,6 +29,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.pages{
+  @extend .container;
+  display: flex;
+}
+
 .route-link{
     text-decoration: none;
     border: solid 1px #707070;

@@ -10,7 +10,7 @@ const getters = {}
 
 // Actions
 const actions = {
-  getAllSubjects ({ commit }) {
+  actionAllSubjects ({ commit }) {
     henry.getSubjects(subjects => {
       commit('setSubjects', subjects)
     })

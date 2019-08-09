@@ -1,10 +1,6 @@
 <template>
-  <div class="home">
-    <img
-      alt="Vue logo"
-      src="../assets/logo.png"
-    >
-    <logo-with-text />
+  <div class="login-page">
+    <logo-with-text text="Login Page" />
     <form-login />
   </div>
 </template>
@@ -21,3 +17,12 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.login-page{
+  @extend .container;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+</style>

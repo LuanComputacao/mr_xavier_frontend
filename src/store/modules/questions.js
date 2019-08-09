@@ -19,7 +19,7 @@ const getters = {
 
 // Actions
 const actions = {
-  async getAllQuestions ({ commit }) {
+  async actionAllQuestions ({ commit }) {
     commit('setQuestions', await henry.getQuestions())
   },
 

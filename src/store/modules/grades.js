@@ -15,7 +15,7 @@ const getters = {
 
 // Actions
 const actions = {
-  async getAllGrades ({ commit }) {
+  async actionAllGrades ({ commit }) {
     commit('setGrades', await henry.getGrades())
   },
 
