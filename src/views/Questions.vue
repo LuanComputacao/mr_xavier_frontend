@@ -82,8 +82,8 @@ export default {
 
       return filteredQuestions.map(question => {
         let questionMapped = question
-        let grade = that.gradeByCode(question.grade_code)
-        questionMapped.grade = grade
+        // let grade = that.gradeByCode(question.grade)
+        // questionMapped.grade = grade
         return questionMapped
       })
     }
@@ -92,6 +92,9 @@ export default {
   methods: {
     ...mapActions('questions', {
       actionAllQuestions: 'actionAllQuestions'
+    }),
+    ...mapActions('subjects', {
+      actionAllSubjects: 'actionAllSubjects'
     }),
     ...mapActions('subjects', {
       actionAllSubjects: 'actionAllSubjects'

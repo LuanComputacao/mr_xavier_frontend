@@ -51,7 +51,7 @@ export default {
 
     this.actionQuestionById(this.questionId)
       .then(() => {
-        this.actionGradeByCode(this.sQuestion.grade_code)
+        this.actionGradeByCode(this.sQuestion.grade)
           .then(() => {
             this.sQuestion.grade = this.grade
             this.question = this.sQuestion
