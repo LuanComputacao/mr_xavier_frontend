@@ -3,6 +3,10 @@ module.exports = {
     name: 'Mr Xavier'
   },
 
+  devServer: {
+    proxy: 'http://localhost:8080'
+  },
+
   lintOnSave: undefined,
 
   pluginOptions: {

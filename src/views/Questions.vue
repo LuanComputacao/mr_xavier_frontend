@@ -15,11 +15,14 @@
       @filterKnowledge="updateCurrentSubject"
     />
 
-    <table-question :questions="filteredQuestions" />
+    <div v-if="questions.length > 0">
+      <table-question :questions="filteredQuestions" />
+    </div>
   </div>
 </template>
+
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import FormKnowledgeFilter from '@/components/forms/FormKnowledgeFilter.vue'
 import TableQuestion from '@/components/tables/TableQuestion.vue'
 import TitleH1 from '@/components/titles/TitleH1'
@@ -31,6 +34,21 @@ export default {
     FormKnowledgeFilter,
     TableQuestion,
     TitleH1
+  },
+
+  data () {
+    return {
+      curSubject: {
+        code: '',
+        knowledges: []
+      }
+    }
+  },
+
+  mounted () {
+    this.actionAllSubjects()
+    this.actionAllQuestions()
+    // this.$store.dispatch('grades/actionAllGrades')
   },
 
   computed: {
@@ -71,20 +89,14 @@ export default {
     }
   },
 
-  data () {
-    return {
-      curSubject: {
-        code: '',
-        knowledges: []
-      }
-    }
-  },
-  created () {
-    this.$store.dispatch('grades/actionAllGrades')
-    this.$store.dispatch('subjects/actionAllSubjects')
-    this.$store.dispatch('questions/actionAllQuestions')
-  },
   methods: {
+    ...mapActions('questions', {
+      actionAllQuestions: 'actionAllQuestions'
+    }),
+    ...mapActions('subjects', {
+      actionAllSubjects: 'actionAllSubjects'
+    }),
+
     updateCurrentSubject (code, knowledges) {
       this.curSubject.code = code
       this.curSubject.knowledges = knowledges

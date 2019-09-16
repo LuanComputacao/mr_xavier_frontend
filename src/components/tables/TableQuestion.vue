@@ -43,14 +43,14 @@
               />
             </a>
           </td>
-          <td>{{ question.grade.name }}</td>
+          <!-- <td>{{ question.grade.name }}</td> -->
           <td>{{ question.level }}</td>
           <td class="questions-table__edit">
-            <router-link :to="{name:'edit-question', params: {id: question.id}}">
+            <!-- <router-link :to="{name:'edit-question', params: {id: question.id}}">
               <font-awesome-icon
                 icon="edit"
               />
-            </router-link>
+            </router-link> -->
           </td>
           <td class="questions-table__delete">
             <font-awesome-icon

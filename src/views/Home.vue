@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 import LogoWithText from '@/components/LogoWithText.vue'
 
 export default {
@@ -43,17 +44,35 @@ export default {
 
   data () {
     return {
+      grades: {},
       isModerator: false
     }
   },
 
+  mounted () {
+    this.actionAllGrades()
+    this.actionGradeByCode(1)
+  },
+
   computed: {
+    ...mapState({
+      availableGrades: state => state.grades.all,
+      availableGrade: state => state.grades.grade
+    }),
     professorIdentification () {
       return 'Professor' + (this.isModerator ? ' Moderador' : '')
     }
+  },
+
+  methods: {
+    ...mapActions('grades', {
+      actionAllGrades: 'actionAllGrades',
+      actionGradeByCode: 'actionGradeByCode'
+    })
   }
 }
 </script>
+
 <style lang="scss" scoped>
 .home{
   display: flex;

@@ -1,3 +1,4 @@
+import axios from 'axios'
 /**
  * Mocking client-server processing
  */
@@ -78,54 +79,6 @@ const _questions = [
   }
 ]
 
-const _subjects = [
-  {
-    id: 0,
-    code: 'port',
-    name: 'Português',
-    knowledge: [
-      {
-        code: 'predicate',
-        name: 'Predicado'
-      },
-      {
-        code: 'subject',
-        name: 'Sujeito'
-      },
-      {
-        code: 'verb',
-        name: 'Verbo'
-      },
-      {
-        code: 'past',
-        name: 'Preterito'
-      }
-    ]
-  },
-  {
-    id: 2,
-    code: 'mat',
-    name: 'Matemática',
-    knowledge: [
-      {
-        code: 'sum',
-        name: 'Soma'
-      }
-    ]
-  },
-  {
-    id: 3,
-    code: 'hist',
-    name: 'História',
-    knowledge: [
-      {
-        code: 'br_general',
-        name: 'História Geral do Brasil'
-      }
-    ]
-  }
-]
-
 const _tests = [
   {
     id: 1,
@@ -143,22 +96,14 @@ const _tests = [
   }
 ]
 
-const _grades = [
-  { code: 1, name: 'First Year' },
-  { code: 2, name: 'Second Year' },
-  { code: 3, name: 'Third Year' },
-  { code: 4, name: 'Fourth Year' },
-  { code: 5, name: 'Fifth Year' },
-  { code: 6, name: 'Sixth Year' },
-  { code: 7, name: 'Seventh Year' },
-  { code: 8, name: 'Eighth Year' },
-  { code: 9, name: 'Nine Year' }
-]
-
 export default {
   getQuestions () {
     return new Promise((resolve, reject) => {
-      setTimeout(() => { resolve(_questions) }, 3000)
+      axios
+        .get('question/')
+        .then(response => {
+          resolve(response.data)
+        })
     })
   },
 
@@ -171,8 +116,14 @@ export default {
     })
   },
 
-  getSubjects (cb) {
-    setTimeout(() => cb(_subjects), 3000)
+  getSubjects () {
+    return new Promise((resolve, reject) => {
+      axios
+        .get('subject/')
+        .then(response => {
+          resolve(response.data)
+        })
+    })
   },
 
   getTests (cb) {
@@ -181,16 +132,19 @@ export default {
 
   getGrades () {
     return new Promise((resolve, reject) => {
-      setTimeout(() => { resolve(_grades) }, 1000)
+      axios
+        .get('grade/')
+        .then((response) => {
+          resolve(response.data)
+        })
     })
   },
 
   getGradeByCode (code) {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        let grade = _grades.find(grade => grade.code === Number.parseInt(code))
-        resolve(grade)
-      }, 3000)
+      axios.get('grade/' + code).then((response) => {
+        resolve(response.data)
+      })
     })
   }
 }

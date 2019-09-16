@@ -10,10 +10,8 @@ const getters = {}
 
 // Actions
 const actions = {
-  getAllTests ({ commit }) {
-    henry.getTests(subjects => {
-      commit('setTests', subjects)
-    })
+  async getAllTests ({ commit }) {
+    commit('setTests', await henry.getTests())
   }
 }
 
