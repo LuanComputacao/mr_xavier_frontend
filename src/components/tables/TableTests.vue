@@ -3,9 +3,6 @@
     <table class="tests-table">
       <thead>
         <tr>
-          <th class="tests-table__applied-times">
-            Applied times
-          </th>
           <th>Descrição</th>
           <th />
           <th>Fase de Ensino</th>
@@ -25,9 +22,6 @@
           v-for="(test, i) in tests"
           :key="i"
         >
-          <td class="tests-table__applied-times">
-            {{ test.appliedTimes }}
-          </td>
           <td class="tests-table__description">
             {{ test.description }}
           </td>
@@ -37,7 +31,7 @@
             </button>
           </td>
           <td class="tests-table__grade">
-            {{ test.grade }}
+            {{ test.grade.name }}
           </td>
           <td class="tests-table__level">
             {{ test.level }}

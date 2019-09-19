@@ -4,8 +4,9 @@
     <table-tests :tests="tests" />
   </div>
 </template>
+
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import TableTests from '@/components/tables/TableTests'
 import TitleH1 from '@/components/titles/TitleH1'
 
@@ -28,8 +29,14 @@ export default {
     })
   },
 
-  created () {
-    this.$store.dispatch('tests/getAllTests')
+  mounted () {
+    this.getAllTests()
+  },
+
+  methods: {
+    ...mapActions('tests', {
+      getAllTests: 'getAllTests'
+    })
   }
 
 }

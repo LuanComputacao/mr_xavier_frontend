@@ -68,13 +68,14 @@ export default {
         filteredQuestions = this.questions
       } else {
         let subjectQuestions = this.questions.filter(
-          x => x.subject === this.curSubject.code
+          x => x.subject.code === this.curSubject.code
         )
+        console.log(subjectQuestions)
 
         let knowledgesCodes = that.curSubject.knowledges.map(x => x.code)
         filteredQuestions = subjectQuestions.filter(x => {
           let filteredKnowledge = x.knowledges.filter(
-            y => knowledgesCodes.indexOf(y) > -1
+            y => knowledgesCodes.indexOf(y.code) > -1
           )
           return knowledgesCodes.length === filteredKnowledge.length
         })
@@ -92,9 +93,6 @@ export default {
   methods: {
     ...mapActions('questions', {
       actionAllQuestions: 'actionAllQuestions'
-    }),
-    ...mapActions('subjects', {
-      actionAllSubjects: 'actionAllSubjects'
     }),
     ...mapActions('subjects', {
       actionAllSubjects: 'actionAllSubjects'

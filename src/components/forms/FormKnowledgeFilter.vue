@@ -71,7 +71,7 @@ export default {
     availableKnowledges () {
       let subject = this.subjects.filter(x => x.code === this.curSubject)
       if (subject.length > 0) {
-        let knowledges = subject[0].knowledge
+        let knowledges = subject[0].knowledges
         return knowledges
       }
       return []

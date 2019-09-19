@@ -82,8 +82,8 @@
       <template slot="body">
         <div v-if="currentQuestion">
           <question-preview
-            :subject="currentQuestion.subject"
-            :knowledges="currentQuestion.knowledges"
+            :subject="currentQuestion.subject.name"
+            :knowledges="currentQuestion.knowledges.map( x => x.name)"
             :grade="currentQuestion.grade"
             :level="currentQuestion.level"
             :wording="currentQuestion.wording"

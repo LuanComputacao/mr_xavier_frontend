@@ -79,23 +79,6 @@ const _questions = [
   }
 ]
 
-const _tests = [
-  {
-    id: 1,
-    subject: 1,
-    appliedTimes: 2,
-    author: 'Luan Roger',
-    description: 'Avaliar a Identificação dos componentes das orações',
-    grade: 9,
-    level: 5,
-    questions: {
-      1: 3,
-      2: 4,
-      3: 2
-    }
-  }
-]
-
 export default {
   getQuestions () {
     return new Promise((resolve, reject) => {
@@ -126,8 +109,14 @@ export default {
     })
   },
 
-  getTests (cb) {
-    setTimeout(() => cb(_tests), 3000)
+  getTests () {
+    return new Promise((resolve, reject) => {
+      axios
+        .get('test/')
+        .then((response) => {
+          resolve(response.data)
+        })
+    })
   },
 
   getGrades () {
