@@ -72,7 +72,6 @@ export default {
 
     retrieveQuestionIfEditing () {
       if (this.$route.params.id) {
-        console.log(this.question)
         this.edit = !!(this.question)
       }
       return true

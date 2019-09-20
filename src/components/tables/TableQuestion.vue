@@ -23,7 +23,7 @@
         >
           <td>
             <font-awesome-icon
-              v-if="question.type == 1"
+              v-if="question.type == questionType.discursive"
               icon="check"
               class="questions-table__type questions-table__type--close"
             />
@@ -83,7 +83,7 @@
         <div v-if="currentQuestion">
           <question-preview
             :subject="currentQuestion.subject.name"
-            :knowledges="currentQuestion.knowledges.map( x => x.name)"
+            :knowledges="currentQuestion.knowledges"
             :grade="currentQuestion.grade"
             :level="currentQuestion.level"
             :wording="currentQuestion.wording"
@@ -113,6 +113,7 @@
 import ModalDefault from '@/components/modals/ModalDefault'
 import ButtonDefault from '@/components/buttons/ButtonDefault'
 import QuestionPreview from '@/components/QuestionPreview'
+import { mapState } from 'vuex'
 
 export default {
   name: 'TableQuestion',
@@ -128,6 +129,12 @@ export default {
       type: Array,
       required: true
     }
+  },
+
+  computed: {
+    ...mapState({
+      questionType: state => state.questions.type
+    })
   },
 
   data () {

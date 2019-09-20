@@ -29,7 +29,7 @@
             v-for="(knowledge, i) in knowledges"
             :key="i"
             class="badge badge-pill badge-info mr-1"
-          >{{ knowledge }}</span>
+          >{{ knowledge.name }}</span>
         </div>
       </div>
 
@@ -58,9 +58,9 @@ export default {
 
   props: {
     type: {
-      type: Number,
+      type: String,
       required: true,
-      default: -1
+      default: 'OBJETIVA'
     },
     subject: {
       type: String,

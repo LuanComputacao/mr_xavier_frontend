@@ -3,14 +3,17 @@ import henry from '@/api/henry'
 // Initial state
 const state = {
   all: [],
-  question: null
+  question: null,
+  type: {
+    objective: 'OBJETIVA',
+    discursive: 'DISCURSIVA'
+  }
 }
 
 // Getters
 const getters = {
   questionById: (state) => (id) => {
     let found = state.all.find(x => {
-      console.log('x ', x)
       return Number.parseInt(x.id) === Number.parseInt(id)
     })
     return found

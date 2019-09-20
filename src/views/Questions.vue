@@ -60,6 +60,10 @@ export default {
       subjects: state => state.subjects.all,
       grades: state => state.grades.all
     }),
+    selectedNoOneKnowledge () {
+      return this.curSubject.knowledges.length === 1 && this.curSubject.knowledges[0] === ''
+    },
+
     filteredQuestions () {
       let that = this
       let filteredQuestions = []
@@ -67,26 +71,23 @@ export default {
       if (this.curSubject.code.length < 1) {
         filteredQuestions = this.questions
       } else {
+        let knowledgesCodes = that.curSubject.knowledges.map(x => x.code)
+
+        // Filter questions by subject
         let subjectQuestions = this.questions.filter(
           x => x.subject.code === this.curSubject.code
         )
-        console.log(subjectQuestions)
 
-        let knowledgesCodes = that.curSubject.knowledges.map(x => x.code)
+        // Filter the questions by knowledge
         filteredQuestions = subjectQuestions.filter(x => {
           let filteredKnowledge = x.knowledges.filter(
-            y => knowledgesCodes.indexOf(y.code) > -1
+            y => knowledgesCodes.indexOf(y.code) > -1 || this.selectedNoOneKnowledge
           )
-          return knowledgesCodes.length === filteredKnowledge.length
+          return knowledgesCodes.length === filteredKnowledge.length || this.selectedNoOneKnowledge
         })
       }
 
-      return filteredQuestions.map(question => {
-        let questionMapped = question
-        // let grade = that.gradeByCode(question.grade)
-        // questionMapped.grade = grade
-        return questionMapped
-      })
+      return filteredQuestions
     }
   },
 

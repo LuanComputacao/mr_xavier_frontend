@@ -6,7 +6,7 @@
 
     <div class="question__answer">
       <ul
-        v-if="type === 1"
+        v-if="type === questionType.objective"
         class="question__options"
       >
         <li
@@ -27,7 +27,7 @@
           - {{ option.text }}
         </li>
       </ul>
-      <div v-else-if="type === 2">
+      <div v-else-if="type === questionType.discursive">
         <hr
           v-for="(i, j) in Number.parseInt(lines)"
           :key="j"
@@ -41,28 +41,39 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'QuestionCard',
+
   props: {
     type: {
-      type: Number,
+      type: String,
       required: true,
-      default: -1
+      default: 'OBJETIVA'
     },
+
     wording: {
       type: String,
       required: true,
       default: '...'
     },
+
     lines: {
       type: Number,
       required: true,
       default: 0
     },
+
     options: {
       type: Array,
       required: true
     }
+  },
+
+  computed: {
+    ...mapState({
+      questionType: state => state.questions.type
+    })
   }
 }
 </script>
