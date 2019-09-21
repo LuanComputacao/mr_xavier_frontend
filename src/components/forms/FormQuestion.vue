@@ -39,6 +39,13 @@
 
       <div class="form-group">
         <label for="subject"> <strong>Selecione uma matéria</strong> </label>
+
+        <form-knowledge-filter
+          :subjects="subjects"
+          :level-range="50"
+          @filterKnowledge="updateCurrentSubject"
+        />
+
         <select
           class="form-control"
           name="subject"
@@ -198,11 +205,13 @@ import InputSelectKnowledge from '@/components/forms/inputs/InputSelectKnowledge
 import ButtonDefault from '@/components/buttons/ButtonDefault'
 import ModalDefault from '@/components/modals/ModalDefault'
 import QuestionPreview from '@/components/QuestionPreview'
+import FormKnowledgeFilter from './FormKnowledgeFilter'
 
 export default {
   name: 'FormQuestion',
 
   components: {
+    FormKnowledgeFilter,
     InputSelectKnowledge,
     ButtonDefault,
     ModalDefault,
@@ -218,7 +227,8 @@ export default {
     question: {
       type: Object,
       required: false,
-      default: () => {}
+      default: () => {
+      }
     },
     subjects: {
       type: Array,
@@ -284,8 +294,10 @@ export default {
       }
     },
 
-    fillSubject () {},
-    fillKnowledges () {},
+    fillSubject () {
+    },
+    fillKnowledges () {
+    },
 
     saveDraft () {
       this.$emit('saveDraft', {
@@ -309,14 +321,14 @@ export default {
     },
 
     updateCorrectAnswers (number) {
-      let answers = document.querySelector("[name*='option-checkbox[" + number + "]']")
+      let answers = document.querySelector('[name*=\'option-checkbox[' + number + ']\']')
       // this.options[number]['isTrue'] = (answers.checked === true)
       this.$set(this.options, number, { isTrue: answers.checked, text: this.options[number]['text'] })
       this.updateOption(number, answers.checked, this.options[number]['text'])
     },
 
     updateAnswersOptions (number) {
-      let answers = document.querySelector("[name*='option-text[" + number + "]']")
+      let answers = document.querySelector('[name*=\'option-text[' + number + ']\']')
       this.updateOption(number, this.options[number]['isTrue'], answers.value)
     },
 
@@ -328,13 +340,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.form-question{
-  &__buttons{
-    @extend .row, .pb-3, .pt-3, .justify-content-end;
+  .form-question {
+    &__buttons {
+      @extend .row, .pb-3, .pt-3, .justify-content-end;
+    }
+
+    &__buttons-group {
+      @extend .col-auto;
+    }
   }
-  &__buttons-group{
-    @extend .col-auto;
-  }
-}
 
 </style>

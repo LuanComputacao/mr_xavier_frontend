@@ -51,23 +51,17 @@ export default {
 
     this.actionQuestionById(this.questionId)
       .then(() => {
-        this.actionGradeByCode(this.sQuestion.grade)
-          .then(() => {
-            this.sQuestion.grade = this.grade
-            this.question = this.sQuestion
-          })
+        this.question = this.sQuestion
       })
-    this.$store.dispatch('grades/actionAllGrades')
-    this.$store.dispatch('subjects/actionAllSubjects')
+    this.actionAllGrades()
+    this.actionAllSubjects()
   },
 
   methods: {
-    ...mapActions('questions', {
-      actionQuestionById: 'actionQuestionById'
-    }),
-
-    ...mapActions('grades', {
-      actionGradeByCode: 'actionGradeByCode'
+    ...mapActions({
+      actionQuestionById: 'questions/actionQuestionById',
+      actionAllGrades: 'grades/actionAllGrades',
+      actionAllSubjects: 'subjects/actionAllSubjects'
     }),
 
     retrieveQuestionIfEditing () {
