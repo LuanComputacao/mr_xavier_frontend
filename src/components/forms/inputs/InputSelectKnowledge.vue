@@ -1,7 +1,6 @@
 <template>
   <div>
     <div
-      v-if="availableKnowledges.length > 0"
       class="form-group"
     >
       <label
@@ -16,9 +15,10 @@
         @change="doSelection"
         v-model="knowledges"
       >
-        <option value="">
-          Qualquer um
-        </option>
+        <option
+          value=""
+          v-t="'form__select_any_knowledge'"
+        />
         <option
           v-for="(knowledge, i) in availableKnowledges"
           :key="i"

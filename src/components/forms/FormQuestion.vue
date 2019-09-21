@@ -37,37 +37,9 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="subject"> <strong>Selecione uma matéria</strong> </label>
-
-        <form-knowledge-filter
-          :subjects="subjects"
-          :level-range="50"
-          @filterKnowledge="updateCurrentSubject"
-        />
-
-        <select
-          class="form-control"
-          name="subject"
-          id="subject"
-          v-model="subject"
-        >
-          <option value>
-            <strong>Selectione uma matéria</strong>
-          </option>
-          <option
-            v-for="(subjectI, i) in subjects"
-            :key="i"
-            :value="subjectI"
-          >
-            {{ subjectI.name }}
-          </option>
-        </select>
-      </div>
-
-      <input-select-knowledge
-        :available-knowledges="subject.knowledge"
-        @select="updateKnowledges"
+      <form-group-knowledge-selector
+        :subjects="subjects"
+        @select-subject-knowledges="selectSubjectAndKnowledges"
       />
 
       <div class="form-group">
@@ -79,7 +51,7 @@
           v-model="grade"
         >
           <option value>
-            <strong>Selecione uma fase de ensino</strong>
+            Selecione uma fase de ensino
           </option>
           <option
             v-for="(gradeI, i) in grades"
@@ -94,6 +66,7 @@
       <div>
         <label for="level"><strong>Nível:</strong> {{ level }}</label>
         <input
+          id="level"
           class="custom-range"
           type="range"
           min="0"
@@ -201,18 +174,16 @@
   </div>
 </template>
 <script>
-import InputSelectKnowledge from '@/components/forms/inputs/InputSelectKnowledge'
 import ButtonDefault from '@/components/buttons/ButtonDefault'
 import ModalDefault from '@/components/modals/ModalDefault'
 import QuestionPreview from '@/components/QuestionPreview'
-import FormKnowledgeFilter from './FormKnowledgeFilter'
+import FormGroupKnowledgeSelector from './groups/FormGroupKnowledgeSelector'
 
 export default {
   name: 'FormQuestion',
 
   components: {
-    FormKnowledgeFilter,
-    InputSelectKnowledge,
+    FormGroupKnowledgeSelector,
     ButtonDefault,
     ModalDefault,
     QuestionPreview
@@ -334,6 +305,12 @@ export default {
 
     updateOption (position, checked, text) {
       this.$set(this.options, position, { isTrue: checked, text: text })
+    },
+
+    selectSubjectAndKnowledges (subject, knowledges) {
+      console.log(subject, knowledges)
+      this.question.subject = subject
+      this.question.knowledges = knowledges
     }
 
   }

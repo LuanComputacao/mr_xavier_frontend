@@ -13,6 +13,9 @@
   "all--tests": "Tests",
   "all--type": "Type",
   "creating_question--title": "Creating question",
+  "creating_test--title": "Creating test",
+  "form__select_subject": "Select a subject",
+  "form__select_any_knowledge": "Any one",
   "lorem-ipsum": "Lorem ipsum sit amet",
   "void": ""
 }
