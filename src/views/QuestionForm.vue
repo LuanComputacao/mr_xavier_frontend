@@ -12,6 +12,7 @@
         :grades="availableGrades"
         :level-range="10"
         :save-draft="saveDraft"
+        @saveDraft="saveDraft"
       />
     </div>
   </div>
@@ -23,16 +24,16 @@ import FormQuestion from '@/components/forms/FormQuestion'
 export default {
   name: 'QuestionForm',
 
+  components: {
+    FormQuestion
+  },
+
   data () {
     return {
       questionId: null,
       edit: false,
       question: null
     }
-  },
-
-  components: {
-    FormQuestion
   },
 
   computed: {

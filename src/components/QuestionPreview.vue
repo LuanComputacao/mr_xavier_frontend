@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-12">
           <span class="font-weight-bold">Matéria:</span>
-          {{ subject }}
+          {{ subject.name }}
         </div>
         <div class="col-12">
           <span class="font-weight-bold">Fase de Ensino:</span>
@@ -63,9 +63,9 @@ export default {
       default: 'OBJETIVA'
     },
     subject: {
-      type: String,
+      type: Object,
       required: true,
-      default: ''
+      default: () => {}
     },
     knowledges: {
       type: Array,

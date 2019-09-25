@@ -25,6 +25,7 @@
 
     <input-select-knowledge
       :available-knowledges="this.availableKnowledges"
+      :initial-knowledge-group="this.initialKnowledgeGroup"
       @select="updateKnowledges"
     />
   </div>
@@ -40,6 +41,16 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+    initialSubject: {
+      type: Object,
+      required: false,
+      default: () => {}
+    },
+    initialKnowledgeGroup: {
+      type: Array,
+      required: false,
+      default: () => []
     }
   },
   data () {
@@ -47,12 +58,16 @@ export default {
       curSubjectCode: ''
     }
   },
+  mounted () {
+    this.curSubjectCode = this.initialSubject.code
+  },
+
   computed: {
     curSubject () {
       return this.subjects.find(x => x.code === this.curSubjectCode)
     },
     availableKnowledges () {
-      return (typeof this.curSubject !== 'undefined') ? this.curSubject.knowledges : null
+      return (typeof this.curSubject !== 'undefined') ? this.curSubject.knowledges : []
     }
   },
   methods: {

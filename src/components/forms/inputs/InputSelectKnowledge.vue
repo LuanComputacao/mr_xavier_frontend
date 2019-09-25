@@ -40,6 +40,11 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+    initialKnowledgeGroup: {
+      type: Array,
+      required: false,
+      default: () => []
     }
   },
 
@@ -47,6 +52,10 @@ export default {
     return {
       knowledges: []
     }
+  },
+
+  mounted () {
+    this.knowledges = this.initialKnowledgeGroup
   },
 
   methods: {

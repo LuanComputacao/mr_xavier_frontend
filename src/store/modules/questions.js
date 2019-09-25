@@ -3,7 +3,27 @@ import henry from '@/api/henry'
 // Initial state
 const state = {
   all: [],
-  question: null,
+  question: {
+    'id': 1,
+    'criadoEm': '',
+    'atualizadoEm': '',
+    'wording': '',
+    'espacos': 0,
+    'invalidada': false,
+    'level': 0,
+    'publica': false,
+    'autor': {},
+    'subject': {
+      'id': 1,
+      'code': '',
+      'name': '',
+      'knowledges': []
+    },
+    'grade': {},
+    'knowledges': [],
+    'options': [],
+    'type': 'OBJETIVA'
+  },
   type: {
     objective: 'OBJETIVA',
     discursive: 'DISCURSIVA'
@@ -13,10 +33,7 @@ const state = {
 // Getters
 const getters = {
   questionById: (state) => (id) => {
-    let found = state.all.find(x => {
-      return Number.parseInt(x.id) === Number.parseInt(id)
-    })
-    return found
+    return state.all.find(x => Number.parseInt(x.id) === Number.parseInt(id))
   }
 }
 
@@ -28,6 +45,10 @@ const actions = {
 
   async actionQuestionById ({ commit }, questionId) {
     commit('setQuestion', await henry.getQuestionById(questionId))
+  },
+
+  async actionPutQuestion ({ commit }, questionData) {
+    commit('printQuestion', await henry.putQuestion(questionData))
   }
 }
 
@@ -39,6 +60,10 @@ const mutations = {
 
   setQuestion (state, question) {
     state.question = question
+  },
+
+  printQuestion (state, question) {
+    console.log(question)
   }
 }
 

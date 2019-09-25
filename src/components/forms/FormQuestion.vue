@@ -17,8 +17,8 @@
               id="type-closed"
               type="radio"
               name="type"
-              value="1"
-              v-model.number="type"
+              :value="questionType.objective"
+              v-model.number="question.type"
             >
             {{ $t('all--closed') }}
           </label>
@@ -29,8 +29,8 @@
               id="type-open"
               type="radio"
               name="type"
-              value="2"
-              v-model.number="type"
+              :value="questionType.discursive"
+              v-model.number="question.type"
             >
             {{ $t('all--open') }}
           </label>
@@ -39,6 +39,8 @@
 
       <form-group-knowledge-selector
         :subjects="subjects"
+        :initial-subject="question.subject"
+        :initial-knowledge-group="question.knowledges"
         @select-subject-knowledges="selectSubjectAndKnowledges"
       />
 
@@ -48,7 +50,7 @@
           class="form-control"
           name="grade"
           id="grade"
-          v-model="grade"
+          v-model="question.grade"
         >
           <option value>
             Selecione uma fase de ensino
@@ -64,7 +66,7 @@
       </div>
 
       <div>
-        <label for="level"><strong>Nível:</strong> {{ level }}</label>
+        <label for="level"><strong>Nível:</strong> {{ question.level }}</label>
         <input
           id="level"
           class="custom-range"
@@ -72,7 +74,7 @@
           min="0"
           step="0.5"
           :max="levelRange"
-          v-model.number="level"
+          v-model.number="question.level"
         >
       </div>
 
@@ -83,38 +85,62 @@
           name="wording"
           id="wording"
           rows="5"
-          v-model="wording"
+          v-model="question.wording"
         />
       </div>
 
-      <div v-if="Number.parseInt(type)===1">
+      <div v-if="question.type === questionType.objective">
         <span><strong>Opções:</strong></span>
-        <div
-          v-for="(i, j) in 5"
-          :key="j"
-        >
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <input
-                  type="checkbox"
-                  :name="'option-checkbox[' + j + ']'"
-                  @click="updateCorrectAnswers(j)"
-                  :data-number="i"
-                >
+        <div v-if="question.options.length < 1">
+          <button-default @click="addOption">
+            Adicione uma opção
+          </button-default>
+        </div>
+        <div v-else>
+          <div
+            v-for="(i, j) in question.options"
+            :key="j"
+          >
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <input
+                    type="checkbox"
+                    :name="'option-checkbox[' + j + ']'"
+                    @click="updateCorrectAnswers(j)"
+                    :data-number="i"
+                  >
+                </div>
+              </div>
+              <input
+                class="form-control"
+                type="text"
+                :name="'option-text[' + j + ']'"
+                @change="updateAnswersOptions(j)"
+                :data-number="i"
+              >
+              <div
+                class="input-group-append"
+                @click="removeOption(j)"
+              >
+                <div class="input-group-text">
+                  <font-awesome-icon
+                    icon="minus"
+                  />
+                </div>
               </div>
             </div>
-            <input
-              class="form-control"
-              type="text"
-              :name="'option-text[' + j + ']'"
-              @change="updateAnswersOptions(j)"
-              :data-number="i"
-            >
+          </div>
+          <div @click="addOption">
+            <button-default>
+              <font-awesome-icon
+                icon="plus"
+              />
+            </button-default>
           </div>
         </div>
       </div>
-      <div v-else-if="Number.parseInt(type)===2">
+      <div v-else-if="question.type === questionType.discursive">
         <label for="lines">Lines:</label>
         <input
           id="lines"
@@ -153,14 +179,14 @@
       </template>
       <template slot="body">
         <question-preview
-          :subject="subject.name"
-          :knowledges="knowledges.map(x=> x.name)"
-          :grade="grade"
-          :level="level"
-          :wording="wording"
-          :type="type"
-          :lines="lines"
-          :options="options"
+          :subject="question.subject"
+          :knowledges="question.knowledges"
+          :grade="question.grade"
+          :level="question.level"
+          :wording="question.wording"
+          :type="question.type"
+          :lines="question.lines"
+          :options="question.options"
         />
       </template>
       <template slot="footer">
@@ -178,6 +204,7 @@ import ButtonDefault from '@/components/buttons/ButtonDefault'
 import ModalDefault from '@/components/modals/ModalDefault'
 import QuestionPreview from '@/components/QuestionPreview'
 import FormGroupKnowledgeSelector from './groups/FormGroupKnowledgeSelector'
+import { mapState } from 'vuex'
 
 export default {
   name: 'FormQuestion',
@@ -233,6 +260,12 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState({
+      questionType: state => state.questions.type
+    })
+  },
+
   created () {
     this.level = 0
     this.initializeOptionsFields()
@@ -265,22 +298,16 @@ export default {
       }
     },
 
-    fillSubject () {
+    addOption () {
+      this.question.options.push({ text: '', value: false })
     },
-    fillKnowledges () {
+
+    removeOption (index) {
+      this.question.options.splice(index, 1)
     },
 
     saveDraft () {
-      this.$emit('saveDraft', {
-        subject: this.subject,
-        knowledges: this.knowledges,
-        level: this.level,
-        wording: this.wording,
-        grade: this.grade,
-        type: this.type,
-        options: this.options,
-        lines: this.lines
-      })
+      this.$emit('saveDraft', this.question)
     },
 
     toggleModal () {
@@ -304,11 +331,10 @@ export default {
     },
 
     updateOption (position, checked, text) {
-      this.$set(this.options, position, { isTrue: checked, text: text })
+      this.$set(this.question.options, position, { value: checked, text: text })
     },
 
     selectSubjectAndKnowledges (subject, knowledges) {
-      console.log(subject, knowledges)
       this.question.subject = subject
       this.question.knowledges = knowledges
     }

@@ -11,6 +11,19 @@ export default {
     })
   },
 
+  putQuestion (questionData) {
+    return new Promise((resolve, reject) => {
+      axios
+        .put(
+          'question/',
+          questionData
+        )
+        .then(response => {
+          resolve(response)
+        })
+    })
+  },
+
   getQuestionById (questionId) {
     return new Promise((resolve, reject) => {
       axios
