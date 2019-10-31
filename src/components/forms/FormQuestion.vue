@@ -148,7 +148,7 @@
           type="number"
           min="0"
           max="50"
-          v-model.number="lines"
+          v-model.number="question.lines"
         >
       </div>
 

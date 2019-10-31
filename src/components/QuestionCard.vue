@@ -23,7 +23,7 @@
           >
             <font-awesome-icon
               class="question__option-circle--true"
-              v-if="option.isTrue"
+              v-if="option.value"
               icon="check-circle"
             />
             <font-awesome-icon

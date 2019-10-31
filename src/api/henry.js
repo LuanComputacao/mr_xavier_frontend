@@ -4,7 +4,7 @@ export default {
   getQuestions () {
     return new Promise((resolve, reject) => {
       axios
-        .get('question/')
+        .get('questions/')
         .then(response => {
           resolve(response.data)
         })
@@ -15,7 +15,7 @@ export default {
     return new Promise((resolve, reject) => {
       axios
         .put(
-          'question/',
+          'questions/',
           questionData
         )
         .then(response => {
@@ -27,7 +27,7 @@ export default {
   getQuestionById (questionId) {
     return new Promise((resolve, reject) => {
       axios
-        .get('question/' + questionId)
+        .get('questions/' + questionId)
         .then(response => {
           resolve(response.data)
         })
@@ -68,6 +68,20 @@ export default {
     return new Promise((resolve, reject) => {
       axios
         .get('grade/' + code)
+        .then((response) => {
+          resolve(response.data)
+        })
+    })
+  },
+
+  login (username, password) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post('authenticate/', {
+          password: password,
+          rememberMe: true,
+          username: username
+        })
         .then((response) => {
           resolve(response.data)
         })

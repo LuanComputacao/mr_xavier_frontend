@@ -4,6 +4,8 @@ import questions from './modules/questions'
 import subjects from './modules/subjects'
 import tests from './modules/tests'
 import grades from './modules/grades'
+import authentication from './modules/authentication'
+import users from './modules/users.module'
 
 Vue.use(Vuex)
 
@@ -12,6 +14,8 @@ export default new Vuex.Store({
     grades,
     questions,
     subjects,
-    tests
+    tests,
+    authentication,
+    users
   }
 })

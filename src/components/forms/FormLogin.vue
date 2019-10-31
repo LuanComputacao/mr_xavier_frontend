@@ -1,9 +1,6 @@
 <template>
   <div class="form-login">
-    <form
-      action="api/v1/login"
-      method="post"
-    >
+    <form @submit.prevent="handleSubmit">
       <div class="form-group">
         <input
           type="text"
