@@ -88,7 +88,7 @@ export default {
   getGrades () {
     return new Promise((resolve, reject) => {
       henryApi
-        .get('grade/',
+        .get('grades/',
           {
             headers: makeHeader()
           }

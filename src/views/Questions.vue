@@ -48,6 +48,7 @@ export default {
   mounted () {
     this.actionAllSubjects()
     this.actionAllQuestions()
+    this.actionAllGrades()
     // this.$store.dispatch('grades/actionAllGrades')
   },
 
@@ -92,11 +93,10 @@ export default {
   },
 
   methods: {
-    ...mapActions('questions', {
-      actionAllQuestions: 'actionAllQuestions'
-    }),
-    ...mapActions('subjects', {
-      actionAllSubjects: 'actionAllSubjects'
+    ...mapActions({
+      actionAllQuestions: 'questions/actionAllQuestions',
+      actionAllSubjects: 'subjects/actionAllSubjects',
+      actionAllGrades: 'grades/actionAllGrades'
     }),
 
     updateCurrentSubject (code, knowledges) {
