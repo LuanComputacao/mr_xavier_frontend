@@ -34,12 +34,14 @@ export default {
   },
 
   created () {
-    this.actionQuestionById(this.retrievedQuestionId).then(() => {
-      this.actionGradeByCode(this.sQuestion.grade).then(() => {
-        this.sQuestion.grade = this.grade
-        this.question = this.sQuestion
+    this.actionQuestionById(this.retrievedQuestionId)
+      .then(() => {
+        this.actionGradeByCode(this.sQuestion.grade)
+          .then(() => {
+            this.sQuestion.grade = this.grade
+            this.question = this.sQuestion
+          })
       })
-    })
   },
 
   computed: {

@@ -2,22 +2,26 @@
   <div class="login-page">
     <logo-with-text text="Login Page" />
     <div class="form-login">
-      <form @submit.prevent="handleSubmit">
+      <form @submit.prevent="formHandler">
         <div class="form-group">
           <input
             type="text"
             name="user"
             id="user-login"
+            class="form-control"
             placeholder="Login"
+            autocomplete="username"
             v-model="username"
           >
         </div>
         <div class="form-group">
           <input
             type="password"
-            name="pwd"
+            name="password"
             id="user-pwd"
+            class="form-control"
             placeholder="Password"
+            autocomplete="username"
             v-model="password"
           >
         </div>
@@ -25,7 +29,7 @@
           <button
             class="btn btn-primary"
             type="submit"
-            :disabled="loggingIn"
+            :disabled="loading"
             v-text="'Login'"
           />
         </div>
@@ -35,6 +39,7 @@
 </template>
 
 <script>
+import { mapActions, mapMutations, mapState } from 'vuex'
 import LogoWithText from '@/components/LogoWithText.vue'
 
 export default {
@@ -50,30 +55,43 @@ export default {
     }
   },
   computed: {
-    loggingIn () {
-      return this.$store.state.authentication.status.loggingIn
-    }
+    ...mapState('authJwt', {
+      loading: state => state.doingLogin
+    })
   },
   created () {
     // reset login status
     this.$store.dispatch('authentication/logout')
   },
   methods: {
-    handleSubmit (e) {
-      console.log(e)
-      this.submitted = true
+    ...mapActions('authJwt', {
+      requestLogin: 'requestLogin',
+      requestUser: 'requestUser'
+    }),
+
+    ...mapMutations({
+      setLoading: 'authJwt/setLoading'
+    }),
+
+    formHandler (e) {
       const { username, password } = this
-      const { dispatch } = this.$store
-      console.log(username, password)
-      if (username && password) {
-        dispatch('authentication/login', { username, password })
-      }
+
+      this.setLoading()
+      this.requestLogin({ username, password })
+        .then(data => {
+          this.setLoading(false)
+          this.requestUser()
+            .then(() => {
+              this.$router.push({ path: 'home' })
+            })
+        })
     }
   }
 }
 </script>
+
 <style lang="scss" scoped>
-.login-page{
+.login-page {
   @extend .container;
   display: flex;
   flex-direction: column;
@@ -81,7 +99,7 @@ export default {
   align-items: center;
 }
 
-.form-login{
+.form-login {
   text-align: center;
 }
 </style>

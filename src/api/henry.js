@@ -1,10 +1,26 @@
 import axios from 'axios'
 
+const henryApi = axios.create({
+  baseURL: 'http://localhost:9000/api/',
+  timeout: 5000,
+  headers: { 'X-Custom-Header': 'foobar' }
+})
+
+function makeHeader () {
+  return {
+    Authorization: 'Bearer ' + localStorage.getItem('id_token')
+  }
+}
+
 export default {
   getQuestions () {
     return new Promise((resolve, reject) => {
-      axios
-        .get('questions/')
+      henryApi
+        .get('questions/',
+          {
+            headers: makeHeader()
+          }
+        )
         .then(response => {
           resolve(response.data)
         })
@@ -13,10 +29,13 @@ export default {
 
   putQuestion (questionData) {
     return new Promise((resolve, reject) => {
-      axios
+      henryApi
         .put(
-          'questions/',
-          questionData
+          'questions',
+          questionData,
+          {
+            headers: makeHeader()
+          }
         )
         .then(response => {
           resolve(response)
@@ -26,8 +45,12 @@ export default {
 
   getQuestionById (questionId) {
     return new Promise((resolve, reject) => {
-      axios
-        .get('questions/' + questionId)
+      henryApi
+        .get('questions/' + questionId,
+          {
+            headers: makeHeader()
+          }
+        )
         .then(response => {
           resolve(response.data)
         })
@@ -36,8 +59,12 @@ export default {
 
   getSubjects () {
     return new Promise((resolve, reject) => {
-      axios
-        .get('subject/')
+      henryApi
+        .get('subjects/',
+          {
+            headers: makeHeader()
+          }
+        )
         .then(response => {
           resolve(response.data)
         })
@@ -46,8 +73,12 @@ export default {
 
   getTests () {
     return new Promise((resolve, reject) => {
-      axios
-        .get('test/')
+      henryApi
+        .get('test/',
+          {
+            headers: makeHeader()
+          }
+        )
         .then((response) => {
           resolve(response.data)
         })
@@ -56,8 +87,12 @@ export default {
 
   getGrades () {
     return new Promise((resolve, reject) => {
-      axios
-        .get('grade/')
+      henryApi
+        .get('grade/',
+          {
+            headers: makeHeader()
+          }
+        )
         .then((response) => {
           resolve(response.data)
         })
@@ -66,7 +101,7 @@ export default {
 
   getGradeByCode (code) {
     return new Promise((resolve, reject) => {
-      axios
+      henryApi
         .get('grade/' + code)
         .then((response) => {
           resolve(response.data)
@@ -76,11 +111,25 @@ export default {
 
   login (username, password) {
     return new Promise((resolve, reject) => {
-      axios
-        .post('authenticate/', {
+      henryApi
+        .post('authenticate', {
           password: password,
           rememberMe: true,
           username: username
+        })
+        .then((response) => {
+          resolve(response.data)
+        })
+    })
+  },
+
+  account () {
+    return new Promise((resolve, reject) => {
+      henryApi
+        .get('account', {
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('id_token')
+          }
         })
         .then((response) => {
           resolve(response.data)

@@ -2,36 +2,43 @@ import henry from '@/api/henry'
 
 // State
 const state = {
-  all: [],
-  grade: null
+  user: {},
+  doingLogin: false
 }
 
 // Getters
 const getters = {
-  gradeByCode: (state) => (code) => {
-    return state.all.find(grade => grade.code === Number.parseInt(code))
+  getUser: (state) => (code) => {
+    return state.user
   }
 }
 
 // Actions
 const actions = {
-  async actionAllGrades ({ commit }) {
-    commit('setGrades', await henry.getGrades())
+  async requestLogin ({ commit }, credentials) {
+    const { username, password } = credentials
+    commit('setToken', await henry.login(username, password))
   },
 
-  async actionGradeByCode ({ commit }, code) {
-    commit('setGrade', await henry.getGradeByCode(code))
+  async requestUser ({ commit }) {
+    commit('setUser', await henry.account())
   }
 }
 
 // Mutations
 const mutations = {
-  setGrades (state, grades) {
-    state.all = grades
+  setToken (state, data) {
+    state.id_token = data.id_token
+    localStorage.setItem('id_token', data.id_token)
   },
 
-  setGrade (state, grade) {
-    state.grade = grade
+  setUser (state, data) {
+    state.user = data
+    localStorage.setItem('user', JSON.stringify(data))
+  },
+
+  setLoading (state, loading = true) {
+    state.doingLogin = loading
   }
 }
 

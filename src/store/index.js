@@ -6,6 +6,7 @@ import tests from './modules/tests'
 import grades from './modules/grades'
 import authentication from './modules/authentication'
 import users from './modules/users.module'
+import authJwt from './modules/auth_jwt'
 
 Vue.use(Vuex)
 
@@ -16,6 +17,7 @@ export default new Vuex.Store({
     subjects,
     tests,
     authentication,
+    authJwt,
     users
   }
 })
