@@ -4,26 +4,26 @@ import henry from '@/api/henry'
 const state = {
   all: [],
   question: {
-    'id': 1,
-    'criadoEm': '',
-    'atualizadoEm': '',
-    'wording': '',
-    'espacos': 0,
-    'invalidada': false,
+    'authorId': 0,
+    'authorName': 'string',
+    'gradeId': 0,
+    'gradeName': 'string',
+    'id': 0,
+    'knowledges': [
+      {
+        'code': 'string',
+        'id': 0,
+        'name': 'string'
+      }
+    ],
     'level': 0,
-    'publica': false,
-    'autor': {},
-    'subject': {
-      'id': 1,
-      'code': '',
-      'name': '',
-      'knowledges': []
-    },
-    'grade': {},
-    'knowledges': [],
-    'options': [],
-    'type': 'OBJETIVA'
+    'spaces': 0,
+    'subjectId': 0,
+    'subjectName': 'string',
+    'type': 'DISCURSIVA',
+    'wording': 'string'
   },
+  questionOptions: {},
   type: {
     objective: 'OBJETIVA',
     discursive: 'DISCURSIVA'
@@ -49,6 +49,10 @@ const actions = {
 
   async actionPutQuestion ({ commit }, questionData) {
     commit('printQuestion', await henry.putQuestion(questionData))
+  },
+
+  async actionCreateQuestion ({ commit }, questionData) {
+    commit('setQuestion', await henry.createQuestion(questionData))
   }
 }
 

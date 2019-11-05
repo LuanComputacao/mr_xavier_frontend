@@ -62,7 +62,8 @@ export default {
     ...mapActions({
       actionQuestionById: 'questions/actionQuestionById',
       actionAllGrades: 'grades/actionAllGrades',
-      actionAllSubjects: 'subjects/actionAllSubjects'
+      actionAllSubjects: 'subjects/actionAllSubjects',
+      actionKnowledgesBySubjectId: 'knowledges/actionKnowledgesBySubjectId'
     }),
 
     retrieveQuestionIfEditing () {

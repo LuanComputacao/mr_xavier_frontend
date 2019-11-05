@@ -13,9 +13,11 @@
   "all--subject": "Matéria",
   "all--tests": "Testes",
   "all--type": "Tipo",
+  "all--wording": "Enunciado",
   "creating_question--title": "Criação de Questão",
   "creating_test--title": "Criação de Teste",
   "form__select_subject": "Selecione uma matéria",
+  "form__select_grade": "Selecione uma fase de ensino",
   "form__select_any_knowledge": "Qualquer um",
   "lorem-ipsum": "Lorem ipsum sit amet"
 }

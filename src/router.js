@@ -6,6 +6,7 @@ import Pages from './views/Pages.vue'
 import Login from './views/Login.vue'
 import Questions from './views/Questions.vue'
 import Question from './views/Question.vue'
+import QuestionCreate from './views/QuestionCreate.vue'
 import QuestionForm from './views/QuestionForm.vue'
 import TestsSearch from './views/TestsSearch.vue'
 import Test from './views/Test.vue'
@@ -32,7 +33,7 @@ export const router = new Router({
     {
       path: '/question/',
       name: 'create-question',
-      component: QuestionForm
+      component: QuestionCreate
     },
     {
       path: '/question/:id',

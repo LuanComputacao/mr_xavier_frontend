@@ -8,11 +8,13 @@
       <div class="row">
         <div class="col-12">
           <span class="font-weight-bold">Matéria:</span>
-          {{ subject.name }}
+          <span v-if="subject">{{ subject.name }}</span>
+          <span v-else>?</span>
         </div>
         <div class="col-12">
           <span class="font-weight-bold">Fase de Ensino:</span>
-          <span v-if="grade.name">{{ grade.name }} ({{ grade.code }})</span>
+          <span v-if="grade.name">{{ grade.name }}</span>
+          <span v-else>?</span>
         </div>
         <div class="col-12">
           <span class="font-weight-bold">Nível:</span>
@@ -24,7 +26,10 @@
         <div class="col-12 font-weight-bold">
           Conhecimentos:
         </div>
-        <div class="col-12">
+        <div
+          v-if="knowledges.length > 0"
+          class="col-12"
+        >
           <span
             v-for="(knowledge, i) in knowledges"
             :key="i"

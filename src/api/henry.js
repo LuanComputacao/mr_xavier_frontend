@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const henryApi = axios.create({
-  baseURL: 'http://localhost:9000/api/',
+  baseURL: 'http://localhost:8080/api/',
   timeout: 5000,
   headers: { 'X-Custom-Header': 'foobar' }
 })
@@ -27,6 +27,22 @@ export default {
     })
   },
 
+  createQuestion (questionData) {
+    return new Promise((resolve, reject) => {
+      henryApi
+        .post(
+          'questions',
+          questionData,
+          {
+            headers: makeHeader()
+          }
+        )
+        .then(response => {
+          resolve(response)
+        })
+    })
+  },
+
   putQuestion (questionData) {
     return new Promise((resolve, reject) => {
       henryApi
@@ -47,6 +63,52 @@ export default {
     return new Promise((resolve, reject) => {
       henryApi
         .get('questions/' + questionId,
+          {
+            headers: makeHeader()
+          }
+        )
+        .then(response => {
+          resolve(response.data)
+        })
+    })
+  },
+
+  /**
+   * Retrieve the Question Options
+   * @param {Number} questionId
+   */
+  getQuestionOptionsByQuestionId (questionId) {
+    return new Promise((resolve, reject) => {
+      henryApi
+        .get('questions/' + questionId + '/question-options',
+          {
+            headers: makeHeader()
+          }
+        )
+        .then(response => {
+          resolve(response.data)
+        })
+    })
+  },
+
+  /**
+   * Create a list of Question Options
+   *
+   * Argument example:
+   * [
+   *  {
+   *    "questionId": 1,
+   *    "text": "Something special",
+   *    "value": true
+   *  }
+   *]
+   * @param {Number} questionId
+   * @param {Array} questionOptions
+   */
+  createQuestionOptionsByQuestionId (questionId, questionOptions) {
+    return new Promise((resolve, reject) => {
+      henryApi
+        .get('questions/' + questionId + '/question-options',
           {
             headers: makeHeader()
           }
@@ -86,6 +148,20 @@ export default {
   },
 
   getGrades () {
+    return new Promise((resolve, reject) => {
+      henryApi
+        .get('grades/',
+          {
+            headers: makeHeader()
+          }
+        )
+        .then((response) => {
+          resolve(response.data)
+        })
+    })
+  },
+
+  getKnowledges () {
     return new Promise((resolve, reject) => {
       henryApi
         .get('grades/',

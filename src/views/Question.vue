@@ -2,7 +2,7 @@
   <div class="question">
     <div v-if="question">
       <question-preview
-        :subject="question.subject"
+        :subject="availableSubjects.find(x => x.id === question.subjectId) || {}"
         :knowledges="question.knowledges"
         :level="question.level"
         :wording="question.wording"

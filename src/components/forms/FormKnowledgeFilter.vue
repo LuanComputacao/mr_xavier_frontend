@@ -26,10 +26,10 @@
     </div>
 
     <div class="knowledge-filter__knowledges">
-      <!-- <input-select-knowledge -->
-      <!-- :available-knowledges="this.availableKnowledges" -->
-      <!-- @select="updateKnowledges" -->
-      <!-- /> -->
+      <input-select-knowledge
+        :available-knowledges="this.availableKnowledges"
+        @select="updateKnowledges"
+      />
     </div>
 
     <div class="knowledge-filter__confirm">
@@ -44,13 +44,13 @@
 </template>
 
 <script>
-// import InputSelectKnowledge from '@/components/forms/inputs/InputSelectKnowledge'
+import InputSelectKnowledge from '@/components/forms/inputs/InputSelectKnowledge'
 
 export default {
   name: 'FormKnowledgeFilter',
 
   components: {
-  //  InputSelectKnowledge
+    InputSelectKnowledge
   },
 
   props: {

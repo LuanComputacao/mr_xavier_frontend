@@ -95,7 +95,7 @@ export default {
 <style lang="scss" scoped>
 $overlay-c: rgba(87, 87, 87, 0.6);
 .modal-default {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;

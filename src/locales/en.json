@@ -12,10 +12,12 @@
   "all--subject": "Subject",
   "all--tests": "Tests",
   "all--type": "Type",
+  "all--wording": "Wording",
   "creating_question--title": "Creating question",
   "creating_test--title": "Creating test",
   "form__select_subject": "Select a subject",
   "form__select_any_knowledge": "Any one",
+  "form__select_grade": "Select some grade",
   "lorem-ipsum": "Lorem ipsum sit amet",
   "void": ""
 }

@@ -43,7 +43,10 @@
               />
             </a>
           </td>
-          <td>{{ question.grade.name }}</td>
+          <td>
+            <span v-if="question.gradeName">{{ question.gradeName }}</span>
+            <span v-else> ? </span>
+          </td>
           <td>{{ question.level }}</td>
           <td class="questions-table__edit">
             <router-link :to="{name:'edit-question', params: {id: question.id}}">
@@ -82,9 +85,9 @@
       <template slot="body">
         <div v-if="currentQuestion">
           <question-preview
-            :subject="currentQuestion.subject.name"
+            :subject="subjects.find(x => x.id === currentQuestion.subjectId) || {}"
             :knowledges="currentQuestion.knowledges"
-            :grade="currentQuestion.grade"
+            :grade="grades.find(x => x.id === currentQuestion.gradeId) || {}"
             :level="currentQuestion.level"
             :wording="currentQuestion.wording"
             :type="currentQuestion.type"
@@ -133,7 +136,9 @@ export default {
 
   computed: {
     ...mapState({
-      questionType: state => state.questions.type
+      questionType: state => state.questions.type,
+      grades: state => state.grades.all,
+      subjects: state => state.subjects.all
     })
   },
 

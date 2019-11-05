@@ -1,0 +1,3 @@
+.alert-info{
+  @extend .alert-info, .text-info, .text-center, .rounded, .my-2;
+}

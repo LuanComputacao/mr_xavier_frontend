@@ -39,7 +39,7 @@
 
       <form-group-knowledge-selector
         :subjects="subjects"
-        :initial-subject="question.subject"
+        :initial-subject="questionSubject"
         :initial-knowledge-group="question.knowledges"
         @select-subject-knowledges="selectSubjectAndKnowledges"
       />
@@ -179,9 +179,9 @@
       </template>
       <template slot="body">
         <question-preview
-          :subject="question.subject"
+          :subject="questionSubject"
           :knowledges="question.knowledges"
-          :grade="question.grade"
+          :grade="questionGrade"
           :level="question.level"
           :wording="question.wording"
           :type="question.type"
@@ -263,7 +263,15 @@ export default {
   computed: {
     ...mapState({
       questionType: state => state.questions.type
-    })
+    }),
+
+    questionSubject () {
+      return this.subjects.find(x => x.id === this.question.subjectId) || {}
+    },
+
+    questionGrade () {
+      return this.grades.find(x => x.id === this.question.grade) || {}
+    }
   },
 
   created () {
