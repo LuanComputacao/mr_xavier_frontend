@@ -1,155 +1,54 @@
 <template>
-  <div>
-    <form
-      action
-      method="POST"
-    >
-      <div class="row">
-        <div
-          class="col-auto"
-          v-t="'all--type'"
-        >
-          :
-        </div>
-        <div class="col-auto">
-          <label for="type-closed">
-            <input
-              id="type-closed"
-              type="radio"
-              name="type"
-              :value="questionType.objective"
-              v-model.number="question.type"
-            >
-            {{ $t('all--closed') }}
-          </label>
-        </div>
-        <div class="col-auto">
-          <label for="type-open">
-            <input
-              id="type-open"
-              type="radio"
-              name="type"
-              :value="questionType.discursive"
-              v-model.number="question.type"
-            >
-            {{ $t('all--open') }}
-          </label>
-        </div>
-      </div>
-
-      <form-group-knowledge-selector
-        :subjects="subjects"
-        :initial-subject="questionSubject"
-        :initial-knowledge-group="question.knowledges"
-        @select-subject-knowledges="selectSubjectAndKnowledges"
+  <div class="question-create">
+    <h1
+      class="text-center"
+      v-t="'creating_question--title'"
+    />
+    <div class="form-question">
+      <type-radio
+        :type="type"
+        @change="updateType"
       />
 
-      <div class="form-group">
-        <label for="grade"><strong>Fase de ensino</strong></label>
-        <select
-          class="form-control"
-          name="grade"
-          id="grade"
-          v-model="question.grade"
-        >
-          <option value>
-            Selecione uma fase de ensino
-          </option>
-          <option
-            v-for="(gradeI, i) in grades"
-            :key="i"
-            :value="gradeI"
-          >
-            {{ gradeI.name }}
-          </option>
-        </select>
-      </div>
+      <subject-option
+        :subject-id="subjectId"
+        @change="updateSubject"
+      />
 
-      <div>
-        <label for="level"><strong>Nível:</strong> {{ question.level }}</label>
-        <input
-          id="level"
-          class="custom-range"
-          type="range"
-          min="0"
-          step="0.5"
-          :max="levelRange"
-          v-model.number="question.level"
-        >
-      </div>
+      <knowledge-option
+        v-if="subject"
+        :knowledges="subject.knowledges || []"
+        @change="updateKnowledges"
+      />
 
-      <div class="form-group">
-        <label for="wording"><strong>Enunciado:</strong></label>
-        <textarea
-          class="form-control"
-          name="wording"
-          id="wording"
-          rows="5"
-          v-model="question.wording"
-        />
-      </div>
+      <grade-option
+        @change="updateGrade"
+      />
 
-      <div v-if="question.type === questionType.objective">
-        <span><strong>Opções:</strong></span>
-        <div v-if="question.options.length < 1">
-          <button-default @click="addOption">
-            Adicione uma opção
-          </button-default>
-        </div>
-        <div v-else>
-          <div
-            v-for="(i, j) in question.options"
-            :key="j"
-          >
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <input
-                    type="checkbox"
-                    :name="'option-checkbox[' + j + ']'"
-                    @click="updateCorrectAnswers(j)"
-                    :data-number="i"
-                  >
-                </div>
-              </div>
-              <input
-                class="form-control"
-                type="text"
-                :name="'option-text[' + j + ']'"
-                @change="updateAnswersOptions(j)"
-                :data-number="i"
-              >
-              <div
-                class="input-group-append"
-                @click="removeOption(j)"
-              >
-                <div class="input-group-text">
-                  <font-awesome-icon
-                    icon="minus"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div @click="addOption">
-            <button-default>
-              <font-awesome-icon
-                icon="plus"
-              />
-            </button-default>
-          </div>
-        </div>
-      </div>
-      <div v-else-if="question.type === questionType.discursive">
-        <label for="lines">Lines:</label>
-        <input
-          id="lines"
-          name="lines"
-          type="number"
-          min="0"
-          max="50"
-          v-model.number="question.lines"
-        >
+      <level-input-range
+        :level="level"
+        @change="updateLevel"
+      />
+
+      <wording-text-area
+        :wording="wording"
+        @updateWording="updateWording"
+      />
+
+      <question-options-inputs
+        v-if="type == questionTypes.objective"
+        @update="updateQuestionOptions"
+      />
+      <question-lines-number
+        v-else-if="type === questionTypes.discursive"
+        :lines="spaces"
+        @change="updateLines"
+      />
+      <div
+        v-else
+        class="alert-info"
+      >
+        Selecione o tipo da questão
       </div>
 
       <div class="form-question__buttons">
@@ -163,13 +62,15 @@
           <button-default @click="saveDraft">
             Salvar rascunho
           </button-default>
-          <button-default theme="warning">
+          <button-default
+            theme="warning"
+            @click="publish"
+          >
             Publicar
           </button-default>
         </div>
       </div>
-    </form>
-
+    </div>
     <modal-default
       :show="showPreview"
       @dispose="toggleModal"
@@ -179,14 +80,14 @@
       </template>
       <template slot="body">
         <question-preview
-          :subject="questionSubject"
-          :knowledges="question.knowledges"
-          :grade="questionGrade"
-          :level="question.level"
-          :wording="question.wording"
-          :type="question.type"
-          :lines="question.lines"
-          :options="question.options"
+          :subject="subject"
+          :knowledges="knowledges"
+          :grade="grade"
+          :level="level"
+          :wording="wording"
+          :type="type"
+          :lines="lines"
+          :options="options"
         />
       </template>
       <template slot="footer">
@@ -199,166 +100,161 @@
     </modal-default>
   </div>
 </template>
+
 <script>
-import ButtonDefault from '@/components/buttons/ButtonDefault'
-import ModalDefault from '@/components/modals/ModalDefault'
-import QuestionPreview from '@/components/QuestionPreview'
-import FormGroupKnowledgeSelector from './groups/FormGroupKnowledgeSelector'
-import { mapState } from 'vuex'
+
+import TypeRadio from '@/components/forms/question/TypeRadio.vue'
+import SubjectOption from '@/components/forms/question/SubjectOption.vue'
+import KnowledgeOption from '@/components/forms/question/KnowledgeOption.vue'
+import GradeOption from '@/components/forms/question/GradeOption.vue'
+import ButtonDefault from '@/components/buttons/ButtonDefault.vue'
+import QuestionPreview from '@/components/QuestionPreview.vue'
+import ModalDefault from '@/components/modals/ModalDefault.vue'
+import LevelInputRange from '@/components/forms/question/LevelInputRange.vue'
+import WordingTextArea from '@/components/forms/question/WordingTextArea.vue'
+import QuestionOptionsInputs from '@/components/forms/question/QuestionOptionsInputs.vue'
+import QuestionLinesNumber from '@/components/forms/question/QuestionLinesNumber.vue'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'FormQuestion',
 
   components: {
-    FormGroupKnowledgeSelector,
-    ButtonDefault,
+    TypeRadio,
+    SubjectOption,
+    KnowledgeOption,
+    GradeOption,
+    LevelInputRange,
+    WordingTextArea,
+    QuestionOptionsInputs,
+    QuestionLinesNumber,
     ModalDefault,
+    ButtonDefault,
     QuestionPreview
   },
 
   props: {
-    edit: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    question: {
-      type: Object,
-      required: false,
-      default: () => {
-      }
-    },
-    subjects: {
-      type: Array,
-      required: true,
-      default: () => []
-    },
-    grades: {
-      type: Array,
-      required: true,
-      default: () => []
-    },
-    levelRange: {
+    questionId: {
       type: Number,
-      required: true,
-      default: 10
+      required: false,
+      default: 0
     }
   },
 
   data () {
     return {
-      showPreview: false,
-      availableKnowledges: [],
+      type: '',
       subject: {},
+      subjectId: 0,
       knowledges: [],
-      level: null,
-      wording: '',
       grade: {},
-      type: 1,
+      level: 0,
+      wording: '',
       options: [],
-      lines: 0
+      spaces: 0,
+      showPreview: false,
+      published: false
+    }
+  },
+
+  mounted () {
+    if (this.questionId > 0) {
+      console.log(this.sQuestion)
+      this.type = this.sQuestion.type
+      this.subjectId = this.sQuestion.subjectId
+      this.knowledges = this.sQuestion.knowledges
+      this.gradeId = this.sQuestion.gradeId
+      this.level = this.sQuestion.level
+      this.wording = this.sQuestion.wording
+      this.options = this.sQuestion.options
+      this.spaces = this.sQuestion.spaces
+      this.showPreview = this.sQuestion.showPreview
+      this.published = this.sQuestion.published
     }
   },
 
   computed: {
     ...mapState({
-      questionType: state => state.questions.type
+      questionTypes: state => state.questions.type,
+      sQuestion: state => state.questions.question
     }),
 
-    questionSubject () {
-      return this.subjects.find(x => x.id === this.question.subjectId) || {}
-    },
-
-    questionGrade () {
-      return this.grades.find(x => x.id === this.question.grade) || {}
+    question () {
+      return {
+        'authorId': 1,
+        'gradeId': this.grade.id,
+        'knowledges': this.knowledges,
+        'level': this.level,
+        'spaces': this.lines,
+        'subjectId': this.subject.id,
+        'wording': this.wording,
+        'type': this.type,
+        'published': this.published
+      }
     }
   },
 
-  created () {
-    this.level = 0
-    this.initializeOptionsFields()
-  },
-
-  mounted () {
-    this.adaptEditOrCreate()
-  },
-
   methods: {
-    initializeOptionsFields () {
-      for (let i = 0; i < 5; i++) {
-        this.options[i] = {
-          isTrue: false,
-          text: ''
-        }
-      }
+    ...mapActions({
+      saveQuestion: 'questions/actionCreateQuestion'
+    }),
+    updateType (value) {
+      this.type = value
     },
 
-    adaptEditOrCreate () {
-      if (this.edit) {
-        this.level = this.question.level
-        this.wording = this.question.wording
-        this.grade = this.question.grade
-        this.type = this.question.type
-        this.options = this.question.options
-        this.lines = this.question.lines
-        this.fillSubject()
-        this.fillKnowledges()
-      }
+    updateGrade (value) {
+      this.grade = value
     },
 
-    addOption () {
-      this.question.options.push({ text: '', value: false })
+    updateSubject (value) {
+      this.subject = value
     },
 
-    removeOption (index) {
-      this.question.options.splice(index, 1)
+    updateKnowledges (value) {
+      this.knowledges = value
     },
 
-    saveDraft () {
-      this.$emit('saveDraft', this.question)
+    updateLevel (value) {
+      this.level = parseInt(value)
+    },
+
+    updateWording (value) {
+      this.wording = value
+    },
+
+    updateQuestionOptions (value) {
+      this.options = value
+    },
+
+    updateLines (value) {
+      this.spaces = parseInt(value)
     },
 
     toggleModal () {
       this.showPreview = !this.showPreview
     },
 
-    updateKnowledges (knowledges) {
-      this.knowledges = knowledges
+    saveDraft () {
+      this.published = false
+      this.saveQuestion(this.question)
+        .then(data => {
+          alert('Questão salva com sucesso')
+        })
     },
 
-    updateCorrectAnswers (number) {
-      let answers = document.querySelector('[name*=\'option-checkbox[' + number + ']\']')
-      // this.options[number]['isTrue'] = (answers.checked === true)
-      this.$set(this.options, number, { isTrue: answers.checked, text: this.options[number]['text'] })
-      this.updateOption(number, answers.checked, this.options[number]['text'])
-    },
-
-    updateAnswersOptions (number) {
-      let answers = document.querySelector('[name*=\'option-text[' + number + ']\']')
-      this.updateOption(number, this.options[number]['isTrue'], answers.value)
-    },
-
-    updateOption (position, checked, text) {
-      this.$set(this.question.options, position, { value: checked, text: text })
-    },
-
-    selectSubjectAndKnowledges (subject, knowledges) {
-      this.question.subject = subject
-      this.question.knowledges = knowledges
+    publish () {
+      this.published = true
+      this.saveQuestion(this.question)
+        .then((data) => {
+          alert('Questão salva com sucesso')
+        })
     }
-
   }
 }
 </script>
-<style lang="scss" scoped>
-  .form-question {
-    &__buttons {
-      @extend .row, .pb-3, .pt-3, .justify-content-end;
-    }
 
-    &__buttons-group {
-      @extend .col-auto;
-    }
-  }
-
+<style lang="scss">
+.question-create{
+  @extend .mb-1, .container;
+}
 </style>

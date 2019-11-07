@@ -6,11 +6,11 @@
     >Lines:</label>
     <input
       class="col-auto form-control"
-      id="lines"
       name="lines"
       type="number"
       min="0"
-      max="50"
+      :max="max"
+      v-model.number="linesNumber"
       @change="$emit('change', $event.target.value)"
     >
   </div>
@@ -18,7 +18,35 @@
 
 <script>
 export default {
-  name: 'QuestionLinesNumber'
+  name: 'QuestionLinesNumber',
+
+  props: {
+    max: {
+      type: Number,
+      default: 10
+    },
+    lines: {
+      type: Number,
+      default: 5
+    }
+  },
+
+  data () {
+    return {
+      linesNumber: 0
+    }
+  },
+
+  mounted () {
+    this.linesNumber = this.lines
+  },
+
+  watch: {
+    level (nV, oV) {
+      console.log(nV, oV)
+      this.linesNumber = nV
+    }
+  }
 }
 </script>
 

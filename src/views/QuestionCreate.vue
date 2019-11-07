@@ -58,7 +58,10 @@
           <button-default @click="saveDraft">
             Salvar rascunho
           </button-default>
-          <button-default theme="warning">
+          <button-default
+            theme="warning"
+            @click="publish"
+          >
             Publicar
           </button-default>
         </div>
@@ -136,7 +139,8 @@ export default {
       wording: '',
       options: [],
       lines: 0,
-      showPreview: false
+      showPreview: false,
+      published: false
     }
   },
 
@@ -154,7 +158,8 @@ export default {
         'spaces': this.lines,
         'subjectId': this.subject.id,
         'wording': this.wording,
-        'type': this.type
+        'type': this.type,
+        'published': this.published
       }
     }
   },
@@ -200,9 +205,18 @@ export default {
     },
 
     saveDraft () {
+      this.published = false
       this.saveQuestion(this.question)
         .then(data => {
-          console.log(data)
+          alert('Questão salva com sucesso')
+        })
+    },
+
+    publish () {
+      this.published = true
+      this.saveQuestion(this.question)
+        .then((data) => {
+          alert('Questão salva com sucesso')
         })
     }
   }

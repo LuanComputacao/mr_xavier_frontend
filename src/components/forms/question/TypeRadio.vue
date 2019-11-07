@@ -12,6 +12,7 @@
           id="type-closed"
           type="radio"
           name="type"
+          v-model="choosen"
           :value="questionTypes.objective"
           @change="updateType"
         >
@@ -24,6 +25,7 @@
           id="type-open"
           type="radio"
           name="type"
+          v-model="choosen"
           :value="questionTypes.discursive"
           @change="updateType"
         >
@@ -43,6 +45,18 @@ export default {
     type: {
       type: String,
       default: () => this.questionTypes.objective
+    }
+  },
+
+  data () {
+    return {
+      choosen: null
+    }
+  },
+
+  watch: {
+    type (nV) {
+      this.choosen = nV
     }
   },
 

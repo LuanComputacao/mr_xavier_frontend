@@ -34,6 +34,13 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'SubjectOption',
 
+  props: {
+    subjectId: {
+      type: Number,
+      default: 0
+    }
+  },
+
   data () {
     return {
       curSubjectId: {}
@@ -47,7 +54,11 @@ export default {
   },
 
   created () {
-    this.retrieveSubjects()
+    var that = this
+    this.retrieveSubjects().then(() => {
+      that.curSubjectId = that.subjectId
+      that.changeSubject()
+    })
   },
 
   methods: {

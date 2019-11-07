@@ -1,24 +1,21 @@
 <template>
   <div class="question-editor">
-    <h1
-      class="text-center"
-      v-t="'creating_question--title'"
-    />
-    <div v-if="question">
+    <div class="col">
+      <h1>Editing question {{ $route.params.id }}</h1>
+    </div>
+
+    <div v-if="loading">
+      Carregando...
+    </div>
+    <div v-else>
       <form-question
-        :edit="edit"
-        :question="question"
-        :subjects="availableSubjects"
-        :grades="availableGrades"
-        :level-range="10"
-        :save-draft="saveDraft"
-        @saveDraft="saveDraft"
+        :question-id="questionId"
       />
     </div>
   </div>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 import FormQuestion from '@/components/forms/FormQuestion'
 
 export default {
@@ -31,39 +28,22 @@ export default {
   data () {
     return {
       questionId: null,
-      edit: false,
+      loading: true,
       question: null
     }
   },
 
-  computed: {
-    ...mapState('questions', {
-      sQuestion: state => state.question
-    }),
-
-    ...mapState({
-      availableSubjects: state => state.subjects.all,
-      availableGrades: state => state.grades.all
-    })
-  },
-
-  created () {
+  mounted () {
     this.questionId = this.$route.params.id
-
     this.actionQuestionById(this.questionId)
       .then(() => {
-        this.question = this.sQuestion
+        this.loading = false
       })
-    this.actionAllGrades()
-    this.actionAllSubjects()
   },
 
   methods: {
     ...mapActions({
-      actionQuestionById: 'questions/actionQuestionById',
-      actionAllGrades: 'grades/actionAllGrades',
-      actionAllSubjects: 'subjects/actionAllSubjects',
-      actionKnowledgesBySubjectId: 'knowledges/actionKnowledgesBySubjectId'
+      actionQuestionById: 'questions/actionQuestionById'
     }),
 
     retrieveQuestionIfEditing () {

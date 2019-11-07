@@ -1,13 +1,13 @@
 <template>
   <div>
-    <label for="level"><strong>Nível:</strong> {{ level }}</label>
+    <label for="level"><strong>Nível:</strong> {{ range }}</label>
     <input
       class="custom-range"
       type="range"
       min="0"
       step="0.5"
       :max="max"
-      v-model.number="level"
+      v-model.number="range"
       @change="$emit('change', $event.target.value)"
     >
   </div>
@@ -21,12 +21,22 @@ export default {
     max: {
       type: Number,
       default: 10
+    },
+    level: {
+      type: Number,
+      default: 5
     }
   },
 
   data () {
     return {
-      level: 0
+      range: 0
+    }
+  },
+
+  watch: {
+    level () {
+      this.range = this.level
     }
   }
 }
