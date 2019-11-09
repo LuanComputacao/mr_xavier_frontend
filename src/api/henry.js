@@ -29,6 +29,7 @@ export default {
 
   createQuestion (questionData) {
     return new Promise((resolve, reject) => {
+      console.log(questionData)
       henryApi
         .post(
           'questions',

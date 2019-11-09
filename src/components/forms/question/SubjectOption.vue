@@ -5,12 +5,20 @@
       for="js-subjects"
       v-t="'form__select_subject'"
     />
-    <div class="col">
+    <div
+      class="alert-info"
+      v-if="loading"
+      v-t="'all--loading'"
+    />
+    <div
+      v-else
+      class="col"
+    >
       <select
         class="form-control"
         id="js-subjects"
         name="subjects"
-        v-model="curSubjectId"
+        v-model="selectedId"
         @change="changeSubject"
       >
         <option
@@ -18,7 +26,7 @@
           v-t="'form__select_subject'"
         />
         <option
-          v-for="(subject, i) in subjects"
+          v-for="(subject, i) in subjects.filter(x => x.knowledges.length)"
           :key="i"
           :value="subject.id"
         >
@@ -43,21 +51,21 @@ export default {
 
   data () {
     return {
-      curSubjectId: {}
+      loading: true,
+      selectedId: 0
     }
   },
 
   computed: {
     ...mapState({
+      question: state => state.questions.question,
       subjects: state => state.subjects.all
     })
   },
 
   created () {
-    var that = this
     this.retrieveSubjects().then(() => {
-      that.curSubjectId = that.subjectId
-      that.changeSubject()
+      this.loading = false
     })
   },
 
@@ -67,7 +75,10 @@ export default {
     }),
 
     changeSubject () {
-      this.$emit('change', this.subjects.find(x => x.id === this.curSubjectId))
+      let subject = this.subjects.find(x => x.id === this.selectedId)
+      this.$emit('change', subject)
+      this.question.subject = subject
+      this.question.subjectId = subject.id
     }
   }
 

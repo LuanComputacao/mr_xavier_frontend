@@ -50,7 +50,7 @@ export const router = new Router({
       component: TestsSearch
     },
     {
-      path: '/test/:id',
+      path: '/test/:id/',
       name: 'edit-test',
       component: Test
     },

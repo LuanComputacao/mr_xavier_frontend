@@ -6,33 +6,20 @@
       class="form-control"
       name="wording"
       rows="5"
-      v-model="text"
-      @keyup="$emit('updateWording', $event.target.value)"
+      v-model="question.wording"
     />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'WordingTextArea',
 
-  props: {
-    wording: {
-      type: String,
-      default: ''
-    }
-  },
-
-  data () {
-    return {
-      text: ''
-    }
-  },
-
-  watch: {
-    wording (nv, oV) {
-      this.text = this.wording
-    }
+  computed: {
+    ...mapState({
+      question: state => state.questions.question
+    })
   }
 }
 </script>

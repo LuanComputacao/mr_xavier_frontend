@@ -57,6 +57,7 @@
 </template>
 <script>
 import ButtonDefault from '@/components/buttons/ButtonDefault'
+import { mapState } from 'vuex'
 export default {
   name: 'QuestionOptionsInputs',
 
@@ -66,8 +67,14 @@ export default {
 
   data () {
     return {
-      options: []
+      optionsD: []
     }
+  },
+
+  computed: {
+    ...mapState({
+      options: state => state.questionOptions.all
+    })
   },
 
   methods: {

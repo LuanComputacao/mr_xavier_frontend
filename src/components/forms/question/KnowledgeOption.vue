@@ -13,7 +13,7 @@
         multiple
         class="form-control"
         id="knowledge-options"
-        v-model="selectedKnowledgesIds"
+        v-model="question.knowledges"
         @change="changeKnowledges"
       >
         <option
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'KnowledgeOption',
 
@@ -57,6 +58,10 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      question: state => state.questions.question
+    }),
+
     selectedKnowledges () {
       return this.availableKnowledges.filter(x => this.selectedKnowledgesIds.indexOf(x.id) >= 0)
     }

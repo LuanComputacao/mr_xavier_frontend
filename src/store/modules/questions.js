@@ -5,23 +5,17 @@ const state = {
   all: [],
   question: {
     'authorId': 0,
-    'authorName': 'string',
+    'authorName': '',
     'gradeId': 0,
-    'gradeName': 'string',
+    'gradeName': '',
     'id': 0,
-    'knowledges': [
-      {
-        'code': 'string',
-        'id': 0,
-        'name': 'string'
-      }
-    ],
+    'knowledges': [],
     'level': 0,
     'spaces': 0,
     'subjectId': 0,
-    'subjectName': 'string',
+    'subjectName': '',
     'type': 'DISCURSIVA',
-    'wording': 'string'
+    'wording': ''
   },
   questionOptions: {},
   type: {
@@ -34,6 +28,20 @@ const state = {
 const getters = {
   questionById: (state) => (id) => {
     return state.all.find(x => Number.parseInt(x.id) === Number.parseInt(id))
+  },
+
+  questionData: state => {
+    return {
+      authorId: 1,
+      gradeId: state.question.gradeId,
+      knowledges: state.question.knowledges,
+      level: state.question.level,
+      published: state.question.published,
+      spaces: state.question.spaces,
+      subjectId: state.question.subjectId,
+      type: state.question.type,
+      wording: state.question.wording
+    }
   }
 }
 
@@ -63,7 +71,7 @@ const mutations = {
   },
 
   setQuestion (state, response) {
-    state.question = response.data
+    state.question = response
   },
 
   printQuestion (state, question) {

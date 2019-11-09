@@ -10,13 +10,14 @@
       type="number"
       min="0"
       :max="max"
-      v-model.number="linesNumber"
+      v-model.number="question.spaces"
       @change="$emit('change', $event.target.value)"
     >
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'QuestionLinesNumber',
 
@@ -31,20 +32,10 @@ export default {
     }
   },
 
-  data () {
-    return {
-      linesNumber: 0
-    }
-  },
-
-  mounted () {
-    this.linesNumber = this.lines
-  },
-
-  watch: {
-    level (nV, oV) {
-      this.linesNumber = nV
-    }
+  computed: {
+    ...mapState({
+      question: state => state.questions.question
+    })
   }
 }
 </script>

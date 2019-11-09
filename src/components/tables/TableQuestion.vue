@@ -102,7 +102,10 @@
         >
           Fechar
         </button-default>
-        <button-default theme="info">
+        <button-default
+          theme="info"
+          @click="editQuestion"
+        >
           Editar
         </button-default>
         <button-default theme="danger">
@@ -153,12 +156,19 @@ export default {
     deleteQuestion (questionId) {
       confirm('Do you want to delete the question ' + questionId + '?')
     },
+
     toggleModal () {
       this.showDetails = !this.showDetails
     },
+
     showQuestionDetails (question) {
       this.currentQuestion = question
       this.toggleModal()
+    },
+
+    editQuestion () {
+      let questionId = this.currentQuestion.id
+      this.$router.push({ name: 'edit-question', params: { id: questionId } })
     }
   }
 }

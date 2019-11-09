@@ -1,19 +1,20 @@
 <template>
   <div>
-    <label for="level"><strong>Nível:</strong> {{ range }}</label>
+    <label for="level"><strong>Nível:</strong> {{ question.level }}</label>
     <input
       class="custom-range"
       type="range"
       min="0"
       step="0.5"
       :max="max"
-      v-model.number="range"
+      v-model.number="question.level"
       @change="$emit('change', $event.target.value)"
     >
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'LevelInputRange',
 
@@ -21,10 +22,6 @@ export default {
     max: {
       type: Number,
       default: 10
-    },
-    level: {
-      type: Number,
-      default: 5
     }
   },
 
@@ -34,10 +31,10 @@ export default {
     }
   },
 
-  watch: {
-    level () {
-      this.range = this.level
-    }
+  computed: {
+    ...mapState({
+      question: state => state.questions.question
+    })
   }
 }
 </script>

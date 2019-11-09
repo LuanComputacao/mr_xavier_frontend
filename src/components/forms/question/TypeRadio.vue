@@ -12,7 +12,7 @@
           id="type-closed"
           type="radio"
           name="type"
-          v-model="choosen"
+          v-model="question.type"
           :value="questionTypes.objective"
           @change="updateType"
         >
@@ -25,7 +25,7 @@
           id="type-open"
           type="radio"
           name="type"
-          v-model="choosen"
+          v-model="question.type"
           :value="questionTypes.discursive"
           @change="updateType"
         >
@@ -41,34 +41,17 @@ import { mapState } from 'vuex'
 export default {
   name: 'TypeRadio',
 
-  props: {
-    type: {
-      type: String,
-      default: () => this.questionTypes.objective
-    }
-  },
-
-  data () {
-    return {
-      choosen: null
-    }
-  },
-
-  watch: {
-    type (nV) {
-      this.choosen = nV
-    }
-  },
-
   computed: {
     ...mapState({
-      questionTypes: state => state.questions.type
+      questionTypes: state => state.questions.type,
+      question: state => state.questions.question
     })
   },
 
   methods: {
     updateType (e) {
       this.$emit('change', e.target.value)
+      this.question.type = e.target.value
     }
   }
 }

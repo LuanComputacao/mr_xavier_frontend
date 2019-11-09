@@ -8,9 +8,7 @@
       Carregando...
     </div>
     <div v-else>
-      <form-question
-        :question-id="parseInt(questionId)"
-      />
+      <form-question />
     </div>
   </div>
 </template>

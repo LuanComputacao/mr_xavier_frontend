@@ -14,6 +14,7 @@
   "all--tests": "Testes",
   "all--type": "Tipo",
   "all--wording": "Enunciado",
+  "all--loading": "Carregando...",
   "creating_question--title": "Criação de Questão",
   "creating_test--title": "Criação de Teste",
   "form__select_subject": "Selecione uma matéria",

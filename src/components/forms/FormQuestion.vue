@@ -2,8 +2,7 @@
   <div class="question-create">
     <div class="form-question">
       <type-radio
-        :type="type"
-        @change="updateType"
+        :type="question.type"
       />
 
       <subject-option
@@ -30,15 +29,14 @@
 
       <wording-text-area
         :wording="wording"
-        @updateWording="updateWording"
       />
 
       <question-options-inputs
-        v-if="type == questionTypes.objective"
+        v-if="question.type == questionTypes.objective"
         @update="updateQuestionOptions"
       />
       <question-lines-number
-        v-else-if="type === questionTypes.discursive"
+        v-else-if="question.type === questionTypes.discursive"
         :lines="spaces"
         @change="updateLines"
       />
@@ -83,7 +81,7 @@
           :grade="grade"
           :level="level"
           :wording="wording"
-          :type="type"
+          :type="question.type"
           :lines="spaces"
           :options="options"
         />
@@ -112,7 +110,7 @@ import LevelInputRange from '@/components/forms/question/LevelInputRange.vue'
 import WordingTextArea from '@/components/forms/question/WordingTextArea.vue'
 import QuestionOptionsInputs from '@/components/forms/question/QuestionOptionsInputs.vue'
 import QuestionLinesNumber from '@/components/forms/question/QuestionLinesNumber.vue'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'FormQuestion',
@@ -158,39 +156,30 @@ export default {
 
   mounted () {
     if (this.questionId > 0) {
-      console.log(this.sQuestion)
-      this.type = this.sQuestion.type
-      this.subjectId = this.sQuestion.subjectId
-      this.knowledges = this.sQuestion.knowledges
-      this.gradeId = this.sQuestion.gradeId
-      this.level = this.sQuestion.level
-      this.wording = this.sQuestion.wording
-      this.options = this.sQuestion.options
-      this.spaces = this.sQuestion.spaces
-      this.showPreview = this.sQuestion.showPreview
-      this.published = this.sQuestion.published
+      console.log(this.question)
+      this.type = this.question.type
+      this.subjectId = this.question.subjectId
+      this.knowledges = this.question.knowledges
+      this.gradeId = this.question.gradeId
+      this.level = this.question.level
+      this.wording = this.question.wording
+      this.options = this.question.options
+      this.spaces = this.question.spaces
+      this.showPreview = this.question.showPreview
+      this.published = this.question.published
     }
   },
 
   computed: {
     ...mapState({
       questionTypes: state => state.questions.type,
-      sQuestion: state => state.questions.question
+      question: state => state.questions.question,
+      sQuestionOptions: state => state.questionOptions.all
     }),
 
-    question () {
-      return {
-        'authorId': 1,
-        'gradeId': this.grade.id,
-        'knowledges': this.knowledges,
-        'level': this.level,
-        'spaces': this.lines,
-        'subjectId': this.subject.id,
-        'wording': this.wording,
-        'type': this.type,
-        'published': this.published
-      }
-    }
+    ...mapGetters({
+      questionData: 'questions/questionData'
+    })
   },
 
   methods: {
@@ -198,10 +187,6 @@ export default {
       saveQuestion: 'questions/actionCreateQuestion',
       saveOptions: 'questionOptions/actionCreateQuestionOptions'
     }),
-
-    updateType (value) {
-      this.type = value
-    },
 
     updateGrade (value) {
       this.gradeId = value.id
@@ -237,20 +222,18 @@ export default {
     },
 
     saveDraft () {
-      let that = this
-
       this.published = false
-
-      this.saveQuestion(this.question)
-        .then(data => {
-          that.saveOptions()
-        })
+      this.saveQuestion()
     },
 
     publish () {
-      let that = this
       this.published = true
-      this.saveQuestion(this.question)
+      this.saveQuestion()
+    },
+
+    saveQuestion () {
+      let that = this
+      this.saveQuestion(this.questionData)
         .then(() => {
           that.saveOptions()
         })
@@ -260,7 +243,7 @@ export default {
       let that = this
 
       this.saveOptions({
-        questionId: that.sQuestion.id,
+        questionId: that.question.id,
         options: that.options
       })
     }

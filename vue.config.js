@@ -4,7 +4,8 @@ module.exports = {
   },
 
   devServer: {
-    proxy: 'http://localhost:9000'
+    proxy: 'http://localhost:9000',
+    port: '8081'
   },
 
   lintOnSave: undefined,

@@ -5,7 +5,15 @@
       for="js-grades"
       v-t="'form__select_grade'"
     />
-    <div class="col">
+    <div
+      class="alert-info"
+      v-if="loading"
+      v-t="'all--loading'"
+    />
+    <div
+      v-else
+      class="col"
+    >
       <select
         class="form-control"
         id="js-grades"
@@ -43,7 +51,8 @@ export default {
 
   data () {
     return {
-      curGradeId: 0
+      curGradeId: 0,
+      loading: true
     }
   },
 
@@ -55,12 +64,16 @@ export default {
 
   computed: {
     ...mapState({
-      grades: state => state.grades.all
+      grades: state => state.grades.all,
+      question: state => state.questions.question
     })
   },
 
   created () {
     this.retrieveGrades()
+      .then(() => {
+        this.loading = false
+      })
   },
 
   methods: {
@@ -69,7 +82,12 @@ export default {
     }),
 
     changeGrade () {
-      this.$emit('change', this.grades.find(x => x.id === this.curGradeId))
+      let grade = this.grades.find(x => x.id === this.curGradeId)
+      console.log(grade)
+      this.question.grade = grade
+      this.question.gradeId = grade.id
+      this.question.gradeName = grade.name
+      this.$emit('change', grade)
     }
   }
 

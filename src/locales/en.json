@@ -13,6 +13,7 @@
   "all--tests": "Tests",
   "all--type": "Type",
   "all--wording": "Wording",
+  "all--loading": "Loading...",
   "creating_question--title": "Creating question",
   "creating_test--title": "Creating test",
   "form__select_subject": "Select a subject",
