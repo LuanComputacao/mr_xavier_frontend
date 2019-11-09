@@ -18,7 +18,7 @@
         class="form-control"
         id="js-subjects"
         name="subjects"
-        v-model="selectedId"
+        v-model="question.subjectId"
         @change="changeSubject"
       >
         <option
@@ -58,14 +58,22 @@ export default {
 
   computed: {
     ...mapState({
-      question: state => state.questions.question,
       subjects: state => state.subjects.all
-    })
+    }),
+    question: {
+      get () {
+        return this.$store.state.questions.question
+      },
+      set () {
+        this.$store.commit('questions/SetQuestion')
+      }
+    }
   },
 
   created () {
     this.retrieveSubjects().then(() => {
       this.loading = false
+      this.changeSubject()
     })
   },
 
@@ -75,10 +83,10 @@ export default {
     }),
 
     changeSubject () {
-      let subject = this.subjects.find(x => x.id === this.selectedId)
+      let subject = this.subjects.find(x => x.id === this.question.subjectId) || {}
       this.$emit('change', subject)
       this.question.subject = subject
-      this.question.subjectId = subject.id
+      this.question.subjectId = subject.id || 0
     }
   }
 

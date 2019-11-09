@@ -41,11 +41,25 @@ import { mapState } from 'vuex'
 export default {
   name: 'TypeRadio',
 
+  watch: {
+    question () {
+
+    }
+  },
+
   computed: {
     ...mapState({
-      questionTypes: state => state.questions.type,
-      question: state => state.questions.question
-    })
+      questionTypes: state => state.questions.type
+
+    }),
+    question: {
+      get () {
+        return this.$store.state.questions.question
+      },
+      set () {
+        this.$store.commit('questions/SetQuestion')
+      }
+    }
   },
 
   methods: {

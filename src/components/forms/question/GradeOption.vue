@@ -18,7 +18,7 @@
         class="form-control"
         id="js-grades"
         name="grades"
-        v-model="curGradeId"
+        v-model="question.gradeId"
         @change="changeGrade"
       >
         <option
@@ -42,13 +42,6 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'GradeOption',
 
-  props: {
-    gradeId: {
-      type: Number,
-      default: 0
-    }
-  },
-
   data () {
     return {
       curGradeId: 0,
@@ -56,23 +49,25 @@ export default {
     }
   },
 
-  watch: {
-    gradeId () {
-      this.curGradeId = this.gradeId
+  computed: {
+    ...mapState({
+      grades: state => state.grades.all
+    }),
+    question: {
+      get () {
+        return this.$store.state.questions.question
+      },
+      set () {
+        this.$store.commit('questions/SetQuestion')
+      }
     }
   },
 
-  computed: {
-    ...mapState({
-      grades: state => state.grades.all,
-      question: state => state.questions.question
-    })
-  },
-
   created () {
+    let that = this
     this.retrieveGrades()
       .then(() => {
-        this.loading = false
+        that.loading = false
       })
   },
 
@@ -82,8 +77,8 @@ export default {
     }),
 
     changeGrade () {
-      let grade = this.grades.find(x => x.id === this.curGradeId)
-      console.log(grade)
+      let grade = this.grades.find(x => x.id === this.question.gradeId)
+
       this.question.grade = grade
       this.question.gradeId = grade.id
       this.question.gradeName = grade.name

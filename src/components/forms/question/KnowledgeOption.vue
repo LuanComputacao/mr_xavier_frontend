@@ -17,7 +17,7 @@
         @change="changeKnowledges"
       >
         <option
-          v-for="(knowledge, i) in availableKnowledges"
+          v-for="(knowledge, i) in question.subject.knowledges"
           :value="knowledge.id"
           :key="i"
         >
@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
   name: 'KnowledgeOption',
 
@@ -58,9 +57,14 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      question: state => state.questions.question
-    }),
+    question: {
+      get () {
+        return this.$store.state.questions.question
+      },
+      set () {
+        this.$store.commit('questions/SetQuestion')
+      }
+    },
 
     selectedKnowledges () {
       return this.availableKnowledges.filter(x => this.selectedKnowledgesIds.indexOf(x.id) >= 0)

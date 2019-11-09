@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
   name: 'LevelInputRange',
 
@@ -32,9 +31,14 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      question: state => state.questions.question
-    })
+    question: {
+      get () {
+        return this.$store.state.questions.question
+      },
+      set () {
+        this.$store.commit('questions/SetQuestion')
+      }
+    }
   }
 }
 </script>
