@@ -1,9 +1,9 @@
 <template>
   <div class="knowledge-option">
     <div class="form-group">
-      <label for="knowledge-options">Selecione uma matéria</label>
+      <label for="knowledge-options">Selecione um conhecimento:</label>
       <div
-        v-if="knowledges.length < 1"
+        v-if="availableKnowledges.length < 1"
         class="alert-info"
       >
         Nenhum conhecimento disponível para esta matéria
@@ -17,7 +17,7 @@
         @change="changeKnowledges"
       >
         <option
-          v-for="(knowledge, i) in knowledges"
+          v-for="(knowledge, i) in availableKnowledges"
           :value="knowledge.id"
           :key="i"
         >
@@ -36,6 +36,17 @@ export default {
     knowledges: {
       type: Array,
       default: () => []
+    },
+
+    availableKnowledges: {
+      type: Array,
+      default: () => []
+    }
+  },
+
+  watch: {
+    knowledges () {
+      this.selectedKnowledgesIds = this.knowledges.map(a => a.id)
     }
   },
 
@@ -47,7 +58,7 @@ export default {
 
   computed: {
     selectedKnowledges () {
-      return this.knowledges.filter(x => this.selectedKnowledgesIds.indexOf(x.id) > -1)
+      return this.availableKnowledges.filter(x => this.selectedKnowledgesIds.indexOf(x.id) >= 0)
     }
   },
 

@@ -1,77 +1,54 @@
 <template>
-  <div class="question">
-    <div v-if="question">
-      <question-preview
-        :subject="availableSubjects.find(x => x.id === question.subjectId) || {}"
-        :knowledges="question.knowledges"
-        :level="question.level"
-        :wording="question.wording"
-        :type="question.type"
-        :lines="question.lines"
-        :options="question.options"
-        :grade="question.grade"
+  <div class="question-editor">
+    <div class="col">
+      <h1>Editing question {{ $route.params.id }}</h1>
+    </div>
+
+    <div v-if="loading">
+      Carregando...
+    </div>
+    <div v-else>
+      <form-question
+        :question-id="parseInt(questionId)"
       />
     </div>
   </div>
 </template>
-
 <script>
-import { mapActions, mapState } from 'vuex'
-import QuestionPreview from '@/components/QuestionPreview'
+import { mapActions } from 'vuex'
+import FormQuestion from '@/components/forms/FormQuestion'
 
 export default {
   name: 'Question',
 
+  components: {
+    FormQuestion
+  },
+
   data () {
     return {
-      ready: false,
-      question: null
+      questionId: null,
+      loading: true
     }
   },
 
-  components: {
-    QuestionPreview
-  },
-
-  created () {
-    this.actionQuestionById(this.retrievedQuestionId)
+  mounted () {
+    this.questionId = this.$route.params.id
+    this.actionQuestionById(this.questionId)
       .then(() => {
-        this.actionGradeByCode(this.sQuestion.grade)
-          .then(() => {
-            this.sQuestion.grade = this.grade
-            this.question = this.sQuestion
-          })
+        this.loading = false
       })
   },
 
-  computed: {
-    ...mapState('questions', {
-      sQuestion: state => state.question
-    }),
-
-    ...mapState('grades', {
-      grade: state => state.grade
-    }),
-
-    retrievedQuestionId () {
-      return this.$route.params.id
-    }
-  },
-
   methods: {
-    ...mapActions('questions', {
-      actionQuestionById: 'actionQuestionById'
-    }),
-
-    ...mapActions('grades', {
-      actionGradeByCode: 'actionGradeByCode'
+    ...mapActions({
+      actionQuestionById: 'questions/actionQuestionById'
     })
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.question{
-  @extend .pt-5, .container;
+<style lang="scss">
+.question-editor{
+  @extend .mb-1, .container;
 }
 </style>

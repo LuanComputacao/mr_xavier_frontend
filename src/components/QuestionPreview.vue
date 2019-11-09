@@ -69,7 +69,7 @@ export default {
     },
     subject: {
       type: Object,
-      required: true,
+      required: false,
       default: () => {}
     },
     knowledges: {

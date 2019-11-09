@@ -18,11 +18,11 @@
           v-t="'form__select_grade'"
         />
         <option
-          v-for="(grade, i) in grades"
+          v-for="(g, i) in grades"
           :key="i"
-          :value="grade.id"
+          :value="g.id"
         >
-          {{ grade.name }}
+          {{ g.name }}
         </option>
       </select>
     </div>
@@ -34,9 +34,22 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'GradeOption',
 
+  props: {
+    gradeId: {
+      type: Number,
+      default: 0
+    }
+  },
+
   data () {
     return {
-      curGradeId: {}
+      curGradeId: 0
+    }
+  },
+
+  watch: {
+    gradeId () {
+      this.curGradeId = this.gradeId
     }
   },
 

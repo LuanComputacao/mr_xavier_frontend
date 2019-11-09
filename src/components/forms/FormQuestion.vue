@@ -1,9 +1,5 @@
 <template>
   <div class="question-create">
-    <h1
-      class="text-center"
-      v-t="'creating_question--title'"
-    />
     <div class="form-question">
       <type-radio
         :type="type"
@@ -17,11 +13,13 @@
 
       <knowledge-option
         v-if="subject"
-        :knowledges="subject.knowledges || []"
+        :available-knowledges="subject.knowledges"
+        :knowledges="knowledges"
         @change="updateKnowledges"
       />
 
       <grade-option
+        :grade-id="gradeId"
         @change="updateGrade"
       />
 
@@ -86,7 +84,7 @@
           :level="level"
           :wording="wording"
           :type="type"
-          :lines="lines"
+          :lines="spaces"
           :options="options"
         />
       </template>
@@ -148,6 +146,7 @@ export default {
       subjectId: 0,
       knowledges: [],
       grade: {},
+      gradeId: 0,
       level: 0,
       wording: '',
       options: [],
@@ -196,13 +195,16 @@ export default {
 
   methods: {
     ...mapActions({
-      saveQuestion: 'questions/actionCreateQuestion'
+      saveQuestion: 'questions/actionCreateQuestion',
+      saveOptions: 'questionOptions/actionCreateQuestionOptions'
     }),
+
     updateType (value) {
       this.type = value
     },
 
     updateGrade (value) {
+      this.gradeId = value.id
       this.grade = value
     },
 
@@ -235,19 +237,32 @@ export default {
     },
 
     saveDraft () {
+      let that = this
+
       this.published = false
+
       this.saveQuestion(this.question)
         .then(data => {
-          alert('Questão salva com sucesso')
+          that.saveOptions()
         })
     },
 
     publish () {
+      let that = this
       this.published = true
       this.saveQuestion(this.question)
-        .then((data) => {
-          alert('Questão salva com sucesso')
+        .then(() => {
+          that.saveOptions()
         })
+    },
+
+    saveOptions () {
+      let that = this
+
+      this.saveOptions({
+        questionId: that.sQuestion.id,
+        options: that.options
+      })
     }
   }
 }

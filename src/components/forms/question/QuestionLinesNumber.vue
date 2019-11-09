@@ -43,7 +43,6 @@ export default {
 
   watch: {
     level (nV, oV) {
-      console.log(nV, oV)
       this.linesNumber = nV
     }
   }

@@ -62,8 +62,8 @@ const mutations = {
     state.all = questions
   },
 
-  setQuestion (state, question) {
-    state.question = question
+  setQuestion (state, response) {
+    state.question = response.data
   },
 
   printQuestion (state, question) {
