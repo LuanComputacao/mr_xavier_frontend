@@ -1,9 +1,20 @@
 <template>
   <div class="knowledge-option">
-    <div class="form-group">
+    <div />
+    <div
+      v-if="!hasValidSubject"
+      class="alert-info"
+    >
+      Selectione uma Matéria para ver os conhecimentos dela.
+    </div>
+
+    <div
+      v-else
+      class="form-group"
+    >
       <label for="knowledge-options">Selecione um conhecimento:</label>
       <div
-        v-if="availableKnowledges.length < 1"
+        v-if="knowledges.length < 1"
         class="alert-info"
       >
         Nenhum conhecimento disponível para esta matéria
@@ -13,7 +24,7 @@
         multiple
         class="form-control"
         id="knowledge-options"
-        v-model="question.knowledges"
+        v-model="question.knowledgesIds"
         @change="changeKnowledges"
       >
         <option
@@ -32,27 +43,10 @@
 export default {
   name: 'KnowledgeOption',
 
-  props: {
-    knowledges: {
-      type: Array,
-      default: () => []
-    },
-
-    availableKnowledges: {
-      type: Array,
-      default: () => []
-    }
-  },
-
-  watch: {
-    knowledges () {
-      this.selectedKnowledgesIds = this.knowledges.map(a => a.id)
-    }
-  },
-
-  data () {
-    return {
-      selectedKnowledgesIds: []
+  created () {
+    let knowledges = this.question.knowledges
+    if (knowledges.length > 0) {
+      this.$set(this.question, 'knowledgesIds', knowledges.map(x => x.id))
     }
   },
 
@@ -62,17 +56,33 @@ export default {
         return this.$store.state.questions.question
       },
       set () {
-        this.$store.commit('questions/SetQuestion')
+        this.$store.commit('questions/setQuestion')
       }
     },
 
-    selectedKnowledges () {
-      return this.availableKnowledges.filter(x => this.selectedKnowledgesIds.indexOf(x.id) >= 0)
+    knowledges () {
+      return this.question.subject.knowledges || []
+    },
+
+    hasValidSubject () {
+      return typeof this.question.subject !== 'undefined' ? this.question.subject.hasOwnProperty('knowledges') : false
     }
+
   },
 
   methods: {
     changeKnowledges (e) {
+      let that = this
+
+      that.$set(
+        that.question,
+        'knowledges',
+        that.question.subject.knowledges
+          .filter(
+            x => that.question.knowledgesIds.indexOf(x.id) >= 0
+          )
+      )
+
       this.$emit('change', this.selectedKnowledges)
     }
   }

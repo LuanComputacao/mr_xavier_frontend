@@ -42,13 +42,6 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'SubjectOption',
 
-  props: {
-    subjectId: {
-      type: Number,
-      default: 0
-    }
-  },
-
   data () {
     return {
       loading: true,
@@ -60,6 +53,7 @@ export default {
     ...mapState({
       subjects: state => state.subjects.all
     }),
+
     question: {
       get () {
         return this.$store.state.questions.question
@@ -71,9 +65,10 @@ export default {
   },
 
   created () {
+    let that = this
     this.retrieveSubjects().then(() => {
-      this.loading = false
-      this.changeSubject()
+      that.loading = false
+      that.changeSubject()
     })
   },
 
@@ -84,9 +79,10 @@ export default {
 
     changeSubject () {
       let subject = this.subjects.find(x => x.id === this.question.subjectId) || {}
+
       this.$emit('change', subject)
-      this.question.subject = subject
-      this.question.subjectId = subject.id || 0
+      this.$set(this.question, 'subjectId', subject.id || 0)
+      this.$set(this.question, 'subject', subject)
     }
   }
 

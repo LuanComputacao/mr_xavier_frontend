@@ -10,12 +10,14 @@ const state = {
     'gradeName': '',
     'id': 0,
     'knowledges': [],
+    'knowledgesIds': [],
     'level': 0,
     'spaces': 0,
     'subjectId': 0,
     'subjectName': '',
     'type': 'DISCURSIVA',
-    'wording': ''
+    'wording': '',
+    'published': false
   },
   questionOptions: {},
   type: {
@@ -32,6 +34,7 @@ const getters = {
 
   questionData: state => {
     return {
+      id: state.question.id,
       authorId: 1,
       gradeId: state.question.gradeId,
       knowledges: state.question.knowledges,
@@ -61,6 +64,14 @@ const actions = {
 
   async actionCreateQuestion ({ commit }, questionData) {
     commit('setQuestion', await henry.createQuestion(questionData))
+  },
+
+  async actionUpdateQuestion ({ commit }, questionData) {
+    commit('setQuestion', await henry.putQuestion(questionData))
+  },
+
+  actionSetQuestion ({ commit }, question) {
+    commit('setQuestion', question)
   }
 }
 
@@ -70,8 +81,8 @@ const mutations = {
     state.all = questions
   },
 
-  setQuestion (state, response) {
-    state.question = response
+  setQuestion (state, question) {
+    state.question = question
   },
 
   printQuestion (state, question) {

@@ -1,30 +1,32 @@
 <template>
   <div class="question-create">
-    <div class="form-question">
+    <div v-if="loading">
+      Salvando...
+    </div>
+    <div
+      v-else
+      class="form-question"
+    >
       <type-radio
         :type="question.type"
       />
 
       <subject-option
         :subject-id="subjectId"
-        @change="updateSubject"
       />
 
       <knowledge-option
         v-if="subject"
         :available-knowledges="subject.knowledges"
         :knowledges="knowledges"
-        @change="updateKnowledges"
       />
 
       <grade-option
         :grade-id="gradeId"
-        @change="updateGrade"
       />
 
       <level-input-range
         :level="level"
-        @change="updateLevel"
       />
 
       <wording-text-area
@@ -33,12 +35,10 @@
 
       <question-options-inputs
         v-if="question.type == questionTypes.objective"
-        @update="updateQuestionOptions"
       />
       <question-lines-number
         v-else-if="question.type === questionTypes.discursive"
         :lines="spaces"
-        @change="updateLines"
       />
       <div
         v-else
@@ -139,7 +139,7 @@ export default {
 
   data () {
     return {
-      type: '',
+      loading: false,
       subject: {},
       subjectId: 0,
       knowledges: [],
@@ -157,7 +157,6 @@ export default {
   mounted () {
     if (this.questionId > 0) {
       console.log(this.question)
-      this.type = this.question.type
       this.subjectId = this.question.subjectId
       this.knowledges = this.question.knowledges
       this.gradeId = this.question.gradeId
@@ -174,7 +173,7 @@ export default {
     ...mapState({
       questionTypes: state => state.questions.type,
       question: state => state.questions.question,
-      sQuestionOptions: state => state.questionOptions.all
+      questionOptions: state => state.questionOptions.all
     }),
 
     ...mapGetters({
@@ -185,37 +184,9 @@ export default {
   methods: {
     ...mapActions({
       saveQuestion: 'questions/actionCreateQuestion',
+      updateQuestion: 'questions/actionUpdateQuestion',
       saveOptions: 'questionOptions/actionCreateQuestionOptions'
     }),
-
-    updateGrade (value) {
-      this.gradeId = value.id
-      this.grade = value
-    },
-
-    updateSubject (value) {
-      this.subject = value
-    },
-
-    updateKnowledges (value) {
-      this.knowledges = value
-    },
-
-    updateLevel (value) {
-      this.level = parseInt(value)
-    },
-
-    updateWording (value) {
-      this.wording = value
-    },
-
-    updateQuestionOptions (value) {
-      this.options = value
-    },
-
-    updateLines (value) {
-      this.spaces = parseInt(value)
-    },
 
     toggleModal () {
       this.showPreview = !this.showPreview
@@ -223,29 +194,56 @@ export default {
 
     saveDraft () {
       this.published = false
-      this.saveQuestion()
+      this.submitQuestion()
     },
 
     publish () {
       this.published = true
-      this.saveQuestion()
+      this.submitQuestion()
     },
 
-    saveQuestion () {
+    submitQuestion () {
       let that = this
-      this.saveQuestion(this.questionData)
-        .then(() => {
-          that.saveOptions()
-        })
+      if (this.question.id > 0) {
+        this.updateQuestion(this.questionData)
+          .then(() => {
+            that.submitOptions()
+          })
+      } else {
+        this.saveQuestion(this.questionData)
+          .then(() => {
+            that.submitOptions()
+          })
+      }
     },
 
-    saveOptions () {
+    submitOptions () {
       let that = this
+      if (this.questionOptions) {
+        if (this.question.id > 0) {
+          // ...
+        } else {
+          this.saveOptions({
+            questionId: that.question.id,
+            options: that.options
+          })
+            .then(() => {
+              that.reload()
+            })
+        }
+      }
+    },
 
-      this.saveOptions({
-        questionId: that.question.id,
-        options: that.options
-      })
+    reload () {
+      this.loading = true
+      setTimeout(
+        () => {
+          this.loading = false
+          console.log('reloading')
+        },
+        1000
+
+      )
     }
   }
 }

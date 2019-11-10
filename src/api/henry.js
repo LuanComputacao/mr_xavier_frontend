@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const henryApi = axios.create({
   baseURL: 'http://localhost:8080/api/',
-  timeout: 5000,
+  timeout: 15000,
   headers: { 'X-Custom-Header': 'foobar' }
 })
 
@@ -16,7 +16,7 @@ export default {
   getQuestions () {
     return new Promise((resolve, reject) => {
       henryApi
-        .get('questions/',
+        .get('questions/?eagerload=true',
           {
             headers: makeHeader()
           }
@@ -55,7 +55,7 @@ export default {
           }
         )
         .then(response => {
-          resolve(response)
+          resolve(response.data)
         })
     })
   },
