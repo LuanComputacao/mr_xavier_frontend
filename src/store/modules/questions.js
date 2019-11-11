@@ -45,6 +45,20 @@ const getters = {
       type: state.question.type,
       wording: state.question.wording
     }
+  },
+
+  newQuestionData: state => {
+    return {
+      authorId: 1,
+      gradeId: state.question.gradeId,
+      knowledges: state.question.knowledges,
+      level: state.question.level,
+      published: state.question.published,
+      spaces: state.question.spaces,
+      subjectId: state.question.subjectId,
+      type: state.question.type,
+      wording: state.question.wording
+    }
   }
 }
 

@@ -177,7 +177,8 @@ export default {
     }),
 
     ...mapGetters({
-      questionData: 'questions/questionData'
+      questionData: 'questions/questionData',
+      newQuestionData: 'questions/newQuestionData'
     })
   },
 
@@ -210,7 +211,7 @@ export default {
             that.submitOptions()
           })
       } else {
-        this.saveQuestion(this.questionData)
+        this.saveQuestion(this.newQuestionData)
           .then(() => {
             that.submitOptions()
           })
@@ -220,17 +221,13 @@ export default {
     submitOptions () {
       let that = this
       if (this.questionOptions) {
-        if (this.question.id > 0) {
-          // ...
-        } else {
-          this.saveOptions({
-            questionId: that.question.id,
-            options: that.options
+        this.saveOptions({
+          questionId: that.question.id,
+          options: that.questionOptions
+        })
+          .then(() => {
+            that.reload()
           })
-            .then(() => {
-              that.reload()
-            })
-        }
       }
     },
 
@@ -239,7 +236,6 @@ export default {
       setTimeout(
         () => {
           this.loading = false
-          console.log('reloading')
         },
         1000
 

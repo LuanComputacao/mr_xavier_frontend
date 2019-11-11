@@ -109,7 +109,8 @@ export default {
   createQuestionOptionsByQuestionId (questionId, questionOptions) {
     return new Promise((resolve, reject) => {
       henryApi
-        .get('questions/' + questionId + '/question-options',
+        .post('questions/' + questionId + '/question-options',
+          questionOptions,
           {
             headers: makeHeader()
           }
