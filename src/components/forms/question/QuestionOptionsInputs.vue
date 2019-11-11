@@ -60,6 +60,7 @@
 <script>
 import ButtonDefault from '@/components/buttons/ButtonDefault'
 import { mapState, mapActions } from 'vuex'
+
 export default {
   name: 'QuestionOptionsInputs',
 
@@ -82,7 +83,6 @@ export default {
 
   mounted () {
     let questionId = this.question.id
-
     if (typeof questionId !== 'undefined' && questionId > 0) {
       this.retrieveQuestionOptions(questionId)
         .then(() => {

@@ -19,10 +19,18 @@ const actions = {
   },
 
   async actionCreateQuestionOptions ({ commit }, data) {
-    commit('setQuestionOptions', await henry.createQuestionOptionsByQuestionId(
-      data.questionId,
-      data.options
-    ))
+    if (data.options.toCreate.length > 0) {
+      commit('setQuestionOptions', await henry.createQuestionOptionsByQuestionId(
+        data.questionId,
+        data.options.toCreate
+      ))
+    }
+    if (data.options.toPut.length > 0) {
+      commit('setQuestionOptions', await henry.updateQuestionOptionsByQuestionId(
+        data.questionId,
+        data.options.toPut
+      ))
+    }
   }
 }
 

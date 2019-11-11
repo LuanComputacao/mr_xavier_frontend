@@ -121,6 +121,21 @@ export default {
     })
   },
 
+  updateQuestionOptionsByQuestionId (questionId, questionOptions) {
+    return new Promise((resolve, reject) => {
+      henryApi
+        .put('questions/' + questionId + '/question-options',
+          questionOptions,
+          {
+            headers: makeHeader()
+          }
+        )
+        .then(response => {
+          resolve(response.data)
+        })
+    })
+  },
+
   getSubjects () {
     return new Promise((resolve, reject) => {
       henryApi

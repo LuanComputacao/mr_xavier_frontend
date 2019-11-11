@@ -1,5 +1,5 @@
 <template>
-  <div class="question-create">
+  <div class="question-toCreate">
     <div v-if="loading">
       Salvando...
     </div>
@@ -110,6 +110,9 @@ import LevelInputRange from '@/components/forms/question/LevelInputRange.vue'
 import WordingTextArea from '@/components/forms/question/WordingTextArea.vue'
 import QuestionOptionsInputs from '@/components/forms/question/QuestionOptionsInputs.vue'
 import QuestionLinesNumber from '@/components/forms/question/QuestionLinesNumber.vue'
+
+import { questionOptionsService } from '@/_services'
+
 import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -150,7 +153,9 @@ export default {
       options: [],
       spaces: 0,
       showPreview: false,
-      published: false
+      published: false,
+      optionsToCreate: [],
+      optionsToUpdate: []
     }
   },
 
@@ -194,8 +199,8 @@ export default {
     },
 
     saveDraft () {
-      this.published = false
-      this.submitQuestion()
+      // this.published = false
+      // this.submitQuestion()
     },
 
     publish () {
@@ -223,7 +228,7 @@ export default {
       if (this.questionOptions) {
         this.saveOptions({
           questionId: that.question.id,
-          options: that.questionOptions
+          options: (questionOptionsService.splitPutAdnCreate(this.questionOptions))
         })
           .then(() => {
             that.reload()
@@ -246,7 +251,7 @@ export default {
 </script>
 
 <style lang="scss">
-.question-create{
+.question-toCreate{
   @extend .mb-1, .container;
 }
 </style>
