@@ -14,8 +14,8 @@ const getters = {
 
 // Actions
 const actions = {
-  async actionAllQuestionOptions ({ commit }) {
-    commit('setQuestionOptions', await henry.getQuestionOptionsByQuestionId())
+  async actionAllQuestionOptions ({ commit }, questionId) {
+    commit('setQuestionOptions', await henry.getQuestionOptionsByQuestionId(questionId))
   },
 
   async actionCreateQuestionOptions ({ commit }, data) {

@@ -19,6 +19,7 @@
                 :name="'option-checkbox[' + j + ']'"
                 @click="updateCorrectAnswers(j)"
                 :data-number="i"
+                :checked="i.value"
               >
             </div>
           </div>
@@ -28,6 +29,7 @@
             :name="'option-text[' + j + ']'"
             @keyup="updateAnswersOptions(j)"
             :data-number="i"
+            :value="i.text"
           >
           <div
             class="input-group-append"
@@ -57,7 +59,7 @@
 </template>
 <script>
 import ButtonDefault from '@/components/buttons/ButtonDefault'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'QuestionOptionsInputs',
 
@@ -73,29 +75,51 @@ export default {
 
   computed: {
     ...mapState({
-      options: state => state.questionOptions.all
+      options: state => state.questionOptions.all,
+      question: state => state.questions.question
     })
   },
 
+  mounted () {
+    let questionId = this.question.id
+
+    if (typeof questionId !== 'undefined' && questionId > 0) {
+      this.retrieveQuestionOptions(questionId)
+        .then(() => {
+          this.loading = false
+        })
+    }
+  },
+
   methods: {
+    ...mapActions({
+      retrieveQuestionOptions: 'questionOptions/actionAllQuestionOptions'
+    }),
+
     addOption () {
       this.options.push({ text: '', value: false })
     },
 
     updateCorrectAnswers (number) {
-      let answers = document.querySelector('[name*=\'option-checkbox[' + number + ']\']')
-      this.$set(this.options, number, { value: answers.checked, text: this.options[number]['text'] })
-      this.updateOptions()
+      let answer = document.querySelector('[name*=\'option-checkbox[' + number + ']\']')
+
+      let option = this.options[number]
+      option.value = answer.checked
+
+      this.setOption(number, option)
     },
 
     updateAnswersOptions (number) {
       let answer = document.querySelector('[name*=\'option-text[' + number + ']\']')
-      this.$set(this.options, number, { value: this.options[number].value, text: answer.value })
-      this.updateOptions()
+
+      let option = this.options[number]
+      option.text = answer.value
+
+      this.setOption(number, option)
     },
 
-    updateOptions () {
-      this.$emit('update', this.options)
+    setOption (number, option) {
+      this.$set(this.options, number, option)
     },
 
     removeOption (index) {
