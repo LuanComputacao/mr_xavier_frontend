@@ -69,7 +69,15 @@ const getters = {
   },
 
   filteredQuestions: state => {
-    let bySubject = state.all.filter(x => x.subjectId === Number.parseInt(state.filters.subjectId))
+    let subjectId = state.filters.subjectId
+    let bySubject = subjectId > 0
+      ? state.all.filter(x => x.subjectId === Number.parseInt(subjectId))
+      : state.all
+
+    if (typeof state.filters.knowledgeIds[0] === 'undefined') {
+      return bySubject
+    }
+
     return bySubject.filter(x => {
       return x.knowledges
         .map(x => x.id)

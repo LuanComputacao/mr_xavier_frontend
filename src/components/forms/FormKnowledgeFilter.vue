@@ -87,7 +87,9 @@ export default {
     }),
 
     updateSubject (e) {
-      this.setFilterSubject(e.target.value)
+      let subjectId = Number.parseInt(e.target.value)
+
+      this.setFilterSubject((isNaN(subjectId) ? 0 : subjectId))
     },
 
     raiseFilter () {
