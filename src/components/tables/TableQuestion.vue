@@ -18,7 +18,7 @@
       </thead>
       <tbody v-if="questions.length > 0">
         <tr
-          v-for="(question, i) in questions"
+          v-for="(question, i) in filteredQuestions"
           :key="i"
         >
           <td>
@@ -119,7 +119,7 @@
 import ModalDefault from '@/components/modals/ModalDefault'
 import ButtonDefault from '@/components/buttons/ButtonDefault'
 import QuestionPreview from '@/components/QuestionPreview'
-import { mapState } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'TableQuestion',
@@ -130,18 +130,17 @@ export default {
     ButtonDefault
   },
 
-  props: {
-    questions: {
-      type: Array,
-      required: true
-    }
-  },
-
   computed: {
     ...mapState({
       questionType: state => state.questions.type,
       grades: state => state.grades.all,
-      subjects: state => state.subjects.all
+      subjects: state => state.subjects.all,
+      questions: state => state.questions.all,
+      questionFilters: state => state.questions.filters
+    }),
+
+    ...mapGetters({
+      filteredQuestions: 'questions/filteredQuestions'
     })
   },
 
@@ -153,6 +152,9 @@ export default {
   },
 
   methods: {
+    ...mapMutations({
+      setQuestion: 'questions/setQuestion'
+    }),
     deleteQuestion (questionId) {
       confirm('Do you want to delete the question ' + questionId + '?')
     },
@@ -162,7 +164,7 @@ export default {
     },
 
     showQuestionDetails (question) {
-      this.currentQuestion = question
+      this.setQuestion(question)
       this.toggleModal()
     },
 

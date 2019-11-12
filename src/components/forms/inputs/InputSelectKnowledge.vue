@@ -60,7 +60,7 @@ export default {
 
   methods: {
     doSelection (e) {
-      this.$emit('select', this.knowledges)
+      this.$emit('select', this.knowledges.map(x => x.id))
     }
   }
 }

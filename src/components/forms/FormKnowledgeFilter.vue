@@ -10,6 +10,7 @@
           id="js-subjects"
           name="subjects"
           v-model="curSubject"
+          @change="updateSubject"
         >
           <option value>
             Selecione uma matéria
@@ -17,7 +18,7 @@
           <option
             v-for="(subject, i) in subjects"
             :key="i"
-            :value="subject.code"
+            :value="subject.id"
           >
             {{ subject.name }}
           </option>
@@ -28,7 +29,7 @@
     <div class="knowledge-filter__knowledges">
       <input-select-knowledge
         :available-knowledges="this.availableKnowledges"
-        @select="updateKnowledges"
+        @select="setFilterKnowledges"
       />
     </div>
 
@@ -45,6 +46,7 @@
 
 <script>
 import InputSelectKnowledge from '@/components/forms/inputs/InputSelectKnowledge'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'FormKnowledgeFilter',
@@ -68,17 +70,26 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      filters: state => state.questions.filters
+    }),
+
     availableKnowledges () {
-      let subject = this.subjects.filter(x => x.code === this.curSubject)
-      if (subject.length > 0) {
-        let knowledges = subject[0].knowledges
-        return knowledges
-      }
-      return []
+      let subject = this.subjects.filter(x => x.id === this.curSubject)
+      return (subject.length > 0) ? subject[0].knowledges : []
     }
   },
 
   methods: {
+    ...mapMutations({
+      setFilterSubject: 'questions/setFilterSubject',
+      setFilterKnowledges: 'questions/setFilterKnowledges'
+    }),
+
+    updateSubject (e) {
+      this.setFilterSubject(e.target.value)
+    },
+
     raiseFilter () {
       this.$emit('filterKnowledge', this.curSubject, this.knowledges)
     },

@@ -19,10 +19,17 @@ const state = {
     'wording': '',
     'published': false
   },
+
   questionOptions: {},
+
   type: {
     objective: 'OBJETIVA',
     discursive: 'DISCURSIVA'
+  },
+
+  filters: {
+    subjectId: 0,
+    knowledgeIds: []
   }
 }
 
@@ -59,6 +66,17 @@ const getters = {
       type: state.question.type,
       wording: state.question.wording
     }
+  },
+
+  filteredQuestions: state => {
+    let bySubject = state.all.filter(x => x.subjectId === Number.parseInt(state.filters.subjectId))
+    return bySubject.filter(x => {
+      return x.knowledges
+        .map(x => x.id)
+        .filter(kid =>
+          state.filters.knowledgeIds.indexOf(kid) >= 0
+        ).length === state.filters.knowledgeIds.length
+    })
   }
 }
 
@@ -101,6 +119,14 @@ const mutations = {
 
   printQuestion (state, question) {
     console.log(question)
+  },
+
+  setFilterSubject (state, subjectId) {
+    state.filters.subjectId = subjectId
+  },
+
+  setFilterKnowledges (state, knowledgeIds) {
+    state.filters.knowledgeIds = knowledgeIds
   }
 }
 

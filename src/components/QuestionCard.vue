@@ -1,11 +1,11 @@
 <template>
   <div class="question">
     <div class="question__wording">
-      {{ wording }}
+      {{ question.wording }}
     </div>
 
     <div class="question__answer">
-      <div v-if="type === questionType.objective">
+      <div v-if="question.type === questionType.objective">
         <span
           v-if="options.length < 1"
           class="question__type-info"
@@ -35,9 +35,9 @@
           </li>
         </ul>
       </div>
-      <div v-else-if="type === questionType.discursive">
+      <div v-else-if="question.type === questionType.discursive">
         <hr
-          v-for="(i, j) in Number.parseInt(lines)"
+          v-for="(i, j) in getAmountOfLines()"
           :key="j"
           class="question__line"
         >
@@ -55,34 +55,26 @@ export default {
   name: 'QuestionCard',
 
   props: {
-    type: {
-      type: String,
-      required: true,
-      default: 'OBJETIVA'
-    },
-
-    wording: {
-      type: String,
-      required: true,
-      default: '...'
-    },
-
     lines: {
       type: Number,
       required: true,
       default: 0
-    },
-
-    options: {
-      type: Array,
-      required: true
     }
   },
 
   computed: {
     ...mapState({
-      questionType: state => state.questions.type
+      questionType: state => state.questions.type,
+      question: state => state.questions.question,
+      options: state => state.questionOptions.all
     })
+  },
+
+  methods: {
+    getAmountOfLines () {
+      let lines = Number.parseInt(this.question.spaces)
+      return lines > 10 ? 10 : lines
+    }
   }
 }
 </script>

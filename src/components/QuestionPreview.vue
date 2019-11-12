@@ -7,31 +7,31 @@
     <div class="question-preview__details">
       <div class="row">
         <div class="col-12">
-          <span class="font-weight-bold">Matéria:</span>
-          <span v-if="subject">{{ subject.name }}</span>
+          <span class="font-weight-bold">Matéria: </span>
+          <span v-if="question.subject">{{ question.subject.name }}</span>
           <span v-else>?</span>
         </div>
         <div class="col-12">
-          <span class="font-weight-bold">Fase de Ensino:</span>
-          <span v-if="grade.name">{{ grade.name }}</span>
+          <span class="font-weight-bold">Fase de Ensino: </span>
+          <span v-if="question.grade">{{ question.gradeame }}</span>
           <span v-else>?</span>
         </div>
         <div class="col-12">
           <span class="font-weight-bold">Nível:</span>
-          {{ level }}
+          {{ question.level }}
         </div>
       </div>
 
-      <div class="row">
+      <div
+        v-if="question.knowledges.length > 0"
+        class="row"
+      >
         <div class="col-12 font-weight-bold">
           Conhecimentos:
         </div>
-        <div
-          v-if="knowledges.length > 0"
-          class="col-12"
-        >
+        <div class="col-12">
           <span
-            v-for="(knowledge, i) in knowledges"
+            v-for="(knowledge, i) in question.knowledges"
             :key="i"
             class="badge badge-pill badge-info mr-1"
           >{{ knowledge.name }}</span>
@@ -41,10 +41,10 @@
       <div class="row">
         <div class="col">
           <question-card
-            :type="type"
-            :wording="wording"
-            :options="_options"
-            :lines="lines"
+            :type="question.type"
+            :wording="question.wording"
+            :options="options"
+            :lines="question.lines"
           />
         </div>
       </div>
@@ -53,6 +53,7 @@
 </template>
 <script>
 import QuestionCard from '@/components/QuestionCard'
+import { mapState } from 'vuex'
 
 export default {
   name: 'QuestionPreview',
@@ -61,51 +62,11 @@ export default {
     QuestionCard
   },
 
-  props: {
-    type: {
-      type: String,
-      required: true,
-      default: 'OBJETIVA'
-    },
-    subject: {
-      type: Object,
-      required: false,
-      default: () => {}
-    },
-    knowledges: {
-      type: Array,
-      required: true,
-      default: () => []
-    },
-    grade: {
-      type: Object,
-      required: true,
-      default: () => {}
-    },
-    level: {
-      type: Number,
-      required: true,
-      default: 0
-    },
-    wording: {
-      type: String,
-      required: true,
-      default: ''
-    },
-    lines: {
-      type: Number,
-      required: false,
-      default: 0
-    },
-    options: {
-      type: Array,
-      required: false,
-      default: () => []
-    }
-  },
-
   computed: {
-    _options () { return this.options }
+    ...mapState({
+      question: state => state.questions.question,
+      options: state => state.questionOptions.all
+    })
   }
 }
 </script>
